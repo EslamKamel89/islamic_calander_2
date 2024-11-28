@@ -7,16 +7,16 @@ class WisdomCarousel extends StatelessWidget {
   // List of Islamic wisdoms
   final List<String> wisdoms = [
     "Speak good or remain silent.",
-    "The best among you are those who have the best manners and character.",
+    // "The best among you are those who have the best manners and character.",
     "A smile is charity.",
-    "Do not waste water, even if you perform ablution on a running river.",
+    // "Do not waste water, even if you perform ablution on a running river.",
     "Seek knowledge from the cradle to the grave.",
     "Strive for excellence in whatever you do.",
     "Kindness is a mark of faith, and whoever is not kind has no faith.",
-    "The strong is not the one who overcomes others, but the one who controls himself in anger.",
+    // "The strong is not the one who overcomes others, but the one who controls himself in anger.",
     "He who does not thank people does not thank Allah.",
     "Patience is the key to relief.",
-    "The best among you is the one who doesn't harm others with his tongue and hands.",
+    // "The best among you is the one who doesn't harm others with his tongue and hands.",
     "Modesty brings nothing except good.",
     "Seek knowledge from the cradle to the grave.",
   ];
@@ -39,7 +39,7 @@ class WisdomCarousel extends StatelessWidget {
         // const SizedBox(height: 20),
         CarouselSlider(
           options: CarouselOptions(
-            height: 125.0.h,
+            height: 75.0.h,
             autoPlay: true,
             enlargeCenterPage: true,
             autoPlayInterval: const Duration(seconds: 5),
@@ -69,7 +69,7 @@ class WisdomCarousel extends StatelessWidget {
                       wisdom,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: context.primaryColor,
                       ),

@@ -10,7 +10,7 @@ class DateConversionState {
   // String? selectedNewHijriDate;
   ResponseState? getSelectedDateInfoState = ResponseState.initial;
   SelectedDateConversionEntity? selectedDateConversionEntity;
-  DataProcessingOption selectedOption = DataProcessingOption.after;
+  DataProcessingOption? selectedOption = DataProcessingOption.after;
   String? buildWhen = '';
   DateConversionState({
     this.selectedYear,
@@ -20,6 +20,7 @@ class DateConversionState {
     this.selectedDateConversionEntity,
     this.getSelectedDateInfoState,
     this.buildWhen,
+    this.selectedOption,
   });
 
   DateConversionState copyWith({
@@ -30,17 +31,17 @@ class DateConversionState {
     SelectedDateConversionEntity? selectedDateConversionEntity,
     ResponseState? getSelectedDateInfoState,
     String? buildWhen,
+    DataProcessingOption? selectedOption,
   }) {
     return DateConversionState(
       selectedYear: selectedYear ?? this.selectedYear,
       selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
       // selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
       // selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
-      selectedDateConversionEntity:
-          selectedDateConversionEntity ?? this.selectedDateConversionEntity,
-      getSelectedDateInfoState:
-          getSelectedDateInfoState ?? this.getSelectedDateInfoState,
+      selectedDateConversionEntity: selectedDateConversionEntity ?? this.selectedDateConversionEntity,
+      getSelectedDateInfoState: getSelectedDateInfoState ?? this.getSelectedDateInfoState,
       buildWhen: buildWhen ?? this.buildWhen,
+      selectedOption: selectedOption ?? this.selectedOption,
     );
   }
 

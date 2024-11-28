@@ -66,6 +66,7 @@ class DataSelectorState extends State<DataSelector> {
                     setState(() {
                       controller.state.selectedOption = value!;
                     });
+                    // pr(controller.state.selectedOption, 'DataProcessingOption - after');
                   },
                 ),
               ),
@@ -105,6 +106,7 @@ class DataSelectorState extends State<DataSelector> {
                     setState(() {
                       controller.state.selectedOption = value!;
                     });
+                    // pr(controller.state.selectedOption, 'DataProcessingOption - before');
                   },
                 ),
               ),

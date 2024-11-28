@@ -48,6 +48,7 @@ class DateConversionCubit extends Cubit<DateConversionState> {
       },
       (SelectedDateConversionEntity model) {
         pr(model, t);
+        model.newHijriDateProccessed();
         emit(
           state.copyWith(
             selectedGeorgianDate: selectedDate,

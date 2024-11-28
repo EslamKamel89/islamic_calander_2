@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/conversion_date_info_loading_widget.dart';
+import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -132,9 +134,13 @@ class _TableWidgetState extends State<TableWidget> {
                               title: 'Old Hijri date',
                               date: state.selectedDateConversionEntity?.selectedOldHijriDate ?? ''),
                           _buildDateRow(
-                              image: 'calendar_9.png',
-                              title: 'New Hijri date',
-                              date: state.selectedDateConversionEntity?.selectedNewHijriDate ?? ''),
+                            image: 'calendar_9.png',
+                            title: 'New Hijri date',
+                            // date: state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
+                            date: pr(state.selectedOption, 'selectedOption') == DataProcessingOption.after
+                                ? state.selectedDateConversionEntity?.newHijriDateProccessed() ?? ''
+                                : state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
+                          ),
                         ],
                       ),
                     ),
