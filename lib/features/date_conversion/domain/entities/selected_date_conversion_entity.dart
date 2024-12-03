@@ -5,25 +5,25 @@ class SelectedDateConversionEntity {
   DateTime? selectedGeorgianDate;
   String? selectedOldHijriDate;
   String? selectedNewHijriDate;
-  SelectedDateConversionEntity({
-    this.selectedGeorgianDate,
-    this.selectedOldHijriDate,
-    this.selectedNewHijriDate,
-  });
+  String? newHijriUpdated;
+  SelectedDateConversionEntity(
+      {this.selectedGeorgianDate, this.selectedOldHijriDate, this.selectedNewHijriDate, this.newHijriUpdated});
 
   @override
   String toString() =>
-      'SelectedDateConversionEntity(selectedGeorgianDate: $selectedGeorgianDate, selectedOldHijriDate: $selectedOldHijriDate, selectedNewHijriDate: $selectedNewHijriDate)';
+      'SelectedDateConversionEntity(selectedGeorgianDate: $selectedGeorgianDate, selectedOldHijriDate: $selectedOldHijriDate, selectedNewHijriDate: $selectedNewHijriDate , newHijriUpdated: $newHijriUpdated)';
 
   SelectedDateConversionEntity copyWith({
     DateTime? selectedGeorgianDate,
     String? selectedOldHijriDate,
     String? selectedNewHijriDate,
+    String? newHijriUpdated,
   }) {
     return SelectedDateConversionEntity(
       selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
       selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
       selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
+      newHijriUpdated: newHijriUpdated ?? this.newHijriUpdated,
     );
   }
 

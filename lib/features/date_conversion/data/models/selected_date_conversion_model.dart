@@ -6,12 +6,14 @@ class SelectedDateConversionModel extends SelectedDateConversionEntity {
     super.selectedGeorgianDate,
     super.selectedOldHijriDate,
     super.selectedNewHijriDate,
+    super.newHijriUpdated,
   });
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       // 'selectedGeorgianDate': selectedGeorgianDate?.millisecondsSinceEpoch,
       'old_hijri': selectedOldHijriDate,
       'new_hijri': selectedNewHijriDate,
+      'new_hijri_up': newHijriUpdated,
     };
   }
 
@@ -22,6 +24,7 @@ class SelectedDateConversionModel extends SelectedDateConversionEntity {
       //     : null,
       selectedOldHijriDate: json['old_hijri'] != null ? json['old_hijri'] as String : null,
       selectedNewHijriDate: json['new_hijri'] != null ? json['new_hijri'] as String : null,
+      newHijriUpdated: json['new_hijri_up'] != null ? json['new_hijri_up'] as String : null,
     );
   }
   @override
@@ -29,11 +32,13 @@ class SelectedDateConversionModel extends SelectedDateConversionEntity {
     DateTime? selectedGeorgianDate,
     String? selectedOldHijriDate,
     String? selectedNewHijriDate,
+    String? newHijriUpdated,
   }) {
     return SelectedDateConversionModel(
       selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
       selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
       selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
+      newHijriUpdated: newHijriUpdated ?? this.newHijriUpdated,
     );
   }
 }

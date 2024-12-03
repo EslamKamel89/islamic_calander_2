@@ -3,7 +3,7 @@ part of 'date_conversion_cubit.dart';
 
 class DateConversionState {
   int? selectedYear;
-  DateTime firstDay = DateTime.utc(622, 1, 1);
+  DateTime firstDay = DateTime.utc(1, 1, 1);
   DateTime lastDay = DateTime.utc(4000, 12, 31);
   DateTime? selectedGeorgianDate = DateTime.now();
   // String? selectedOldHijriDate;

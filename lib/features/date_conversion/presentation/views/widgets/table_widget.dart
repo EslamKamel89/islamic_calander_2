@@ -109,7 +109,7 @@ class _TableWidgetState extends State<TableWidget> {
             } else if (state.getSelectedDateInfoState == ResponseState.success) {
               return Container(
                 padding: const EdgeInsets.all(16.0),
-                height: 250.h,
+                height: 280.h,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
                   color: context.secondaryHeaderColor.withOpacity(0.4),
@@ -133,6 +133,10 @@ class _TableWidgetState extends State<TableWidget> {
                               image: 'calendar_7.png',
                               title: 'Old Hijri date',
                               date: state.selectedDateConversionEntity?.selectedOldHijriDate ?? ''),
+                          _buildDateRow(
+                              image: 'calendar_3.png',
+                              title: 'Upgraded Hijri',
+                              date: state.selectedDateConversionEntity?.newHijriUpdated ?? ''),
                           _buildDateRow(
                             image: 'calendar_9.png',
                             title: 'New Hijri date',
@@ -163,8 +167,8 @@ class _TableWidgetState extends State<TableWidget> {
         children: [
           Image.asset(
             'assets/images/$image',
-            width: 30.w,
-            height: 30.w,
+            width: 20.w,
+            height: 20.w,
           ),
           const Sizer(),
           txt('$title: ', e: St.semi14, c: context.primaryColor),
