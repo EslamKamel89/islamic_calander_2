@@ -4,4 +4,5 @@ class EndPoint {
   static const String dateInfoYearEndPoint = "$baseUrl/moon/getyear.php";
   static const String dateInfoMonthEndPoint = "$baseUrl/moon/getmonth.php";
   static const String getMoonPhaseEndPoint = "$baseUrl/moon/getphase.php";
+  static const String getEclipseEndPoint = "$baseUrl/moon/geteclipse.php";
 }

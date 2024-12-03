@@ -63,3 +63,17 @@ const _getDateInfoByMonthResponse = [
 //   },
 //   {'......'},
 // ];
+
+//! getRequest
+const _getEclipseDataEndPoint = "{{baseUrl}}/eclipse?year=2024?eclipse=full";
+const _getEclipseDataResponse = [
+  {
+    "id": "70403",
+    "datetime": "2024-01-11 11:57:00",
+    "phase": "New Moon",
+    "friendlydate": "11-Jan-24",
+    "hjridate": "الخميس ,29 ,جمادى الآخرة ,1445هـ ",
+    "ecllipse": ""
+  },
+  {'......'},
+];

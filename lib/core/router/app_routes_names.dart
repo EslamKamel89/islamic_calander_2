@@ -4,4 +4,5 @@ class AppRoutesNames {
   static const String dateYearView = 'dateYearView';
   static const String dateMonthView = 'dateMonthView';
   static const String moonPhaseView = 'moonPhaseView';
+  static const String eclipseView = 'eclipseView';
 }

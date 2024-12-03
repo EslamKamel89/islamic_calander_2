@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:islamic_calander_2/core/Errors/failure.dart';
+import 'package:islamic_calander_2/core/enums/eclipse_enum.dart';
 import 'package:islamic_calander_2/core/enums/month_enums.dart';
 import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
@@ -23,7 +24,7 @@ class DateInfoRepoImpl implements DateInfoRepo {
     } catch (e) {
       if (e is DioException) {
         pr('DioException occured : ${e.response?.data}', t);
-        return Left(ServerFailure.formDioError(e));
+        // return Left(ServerFailure.formDioError(e));
       }
       pr('Exception occured : $e', t);
       return Left(ServerFailure(e.toString()));
@@ -40,22 +41,13 @@ class DateInfoRepoImpl implements DateInfoRepo {
     } catch (e) {
       if (e is DioException) {
         pr('DioException occured : ${e.response?.data}', t);
-        return Left(ServerFailure.formDioError(e));
+        // return Left(ServerFailure.formDioError(e));
       }
       pr('Exception occured : $e', t);
       return Left(ServerFailure(e.toString()));
     }
   }
 
-  // catch (e) {
-  //   if (e is DioException) {
-  //     pr('DioException occured : ${e.response?.data}', t);
-  //     return Left(ServerFailure.formDioError(e));
-  //   }
-  //   pr('Exception occured : $e', t);
-  //   return Left(ServerFailure(e.toString()));
-  // }
-  // }
   @override
   Future<Either<Failure, List<MoonInfoModel>>> getMoonInfoMonth(int year, MoonPhaseEnum moonPhase) async {
     final t = prt('getMoonInfoMonth - DateInfoRepoImpl');
@@ -66,7 +58,24 @@ class DateInfoRepoImpl implements DateInfoRepo {
     } catch (e) {
       if (e is DioException) {
         pr('DioException occured : ${e.response?.data}', t);
-        return Left(ServerFailure.formDioError(e));
+        // return Left(ServerFailure.formDioError(e));
+      }
+      pr('Exception occured : $e', t);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MoonInfoModel>>> getEclipseInfoMonth(int year, EclipseEnum eclipse) async {
+    final t = prt('getEclipseInfoMonth - DateInfoRepoImpl');
+    try {
+      List<MoonInfoModel> models = await dateInfoRemoteDataSource.getEclipseInfoMonth(year, eclipse);
+      pr(models, t);
+      return Right(models);
+    } catch (e) {
+      if (e is DioException) {
+        pr('DioException occured : ${e.response?.data}', t);
+        // return Left(ServerFailure.formDioError(e));
       }
       pr('Exception occured : $e', t);
       return Left(ServerFailure(e.toString()));

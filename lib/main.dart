@@ -11,6 +11,7 @@ import 'package:islamic_calander_2/core/themes/theme_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/date_month/date_month_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/date_year/date_year_cubit.dart';
+import 'package:islamic_calander_2/features/date_info/presentation/cubits/eclipse/eclipse_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_phase/moon_phase_cubit.dart';
 
 void main() async {
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => MoonPhaseCubit(dateInfoRepo: serviceLocator()),
+          ),
+          BlocProvider(
+            create: (context) => EclipseCubit(dateInfoRepo: serviceLocator()),
           ),
         ],
         child: Builder(builder: (context) {

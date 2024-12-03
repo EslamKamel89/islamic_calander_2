@@ -70,6 +70,14 @@ class DefaultDrawer extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.moonPhaseView, (_) => false);
               },
             ),
+            _createDrawerItem(
+              context,
+              icon: MdiIcons.sunAngle,
+              text: 'Eclipse',
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.eclipseView, (_) => false);
+              },
+            ),
             // const Divider(color: Colors.white70),
             // // const ToggleThemeSwitch(),
             // // const Divider(color: Colors.white70),

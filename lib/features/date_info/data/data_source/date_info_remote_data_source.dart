@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
+import 'package:islamic_calander_2/core/enums/eclipse_enum.dart';
 import 'package:islamic_calander_2/core/enums/month_enums.dart';
 import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
@@ -44,6 +45,19 @@ class DateInfoRemoteDataSource {
     final data = await api.get(EndPoint.getMoonPhaseEndPoint, queryParameter: {
       'year': year,
       'phase': moonPhase.toShortString(),
+    });
+    List dataList = jsonDecode(data);
+    pr(dataList, '$t - raw respnose');
+    List<MoonInfoModel> models = dataList.map<MoonInfoModel>((json) => MoonInfoModel.fromJson(json)).toList();
+    pr(models, '$t - parsed respnose');
+    return models;
+  }
+
+  Future<List<MoonInfoModel>> getEclipseInfoMonth(int year, EclipseEnum eclipse) async {
+    final t = prt('getEclipseInfoMonth - DateInfoRemoteDataSource');
+    final data = await api.get(EndPoint.getEclipseEndPoint, queryParameter: {
+      'year': year,
+      'eclipse': eclipse.toShortString(),
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');

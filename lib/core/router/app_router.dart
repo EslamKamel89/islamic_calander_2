@@ -5,6 +5,7 @@ import 'package:islamic_calander_2/core/widgets/splash_screen.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/date_conversion_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/date_month_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/date_year_view.dart';
+import 'package:islamic_calander_2/features/date_info/presentation/eclipse_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/moon_info_view.dart';
 
 class AppRouter {
@@ -37,6 +38,11 @@ class AppRouter {
       case AppRoutesNames.moonPhaseView:
         return MaterialPageRoute(
           builder: (context) => const MoonInfoView(),
+          settings: routeSettings,
+        );
+      case AppRoutesNames.eclipseView:
+        return MaterialPageRoute(
+          builder: (context) => const EclipseView(),
           settings: routeSettings,
         );
       default:
