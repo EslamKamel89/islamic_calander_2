@@ -36,7 +36,7 @@ class DataSelectorState extends State<DataSelector> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'After',
+                        'Lunar',
                         style: TextStyle(
                           color: controller.state.selectedOption == DataProcessingOption.after
                               ? context.primaryColor
@@ -45,17 +45,17 @@ class DataSelectorState extends State<DataSelector> {
                               controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
                         ),
                       ),
-                      Text(
-                        'Processing',
-                        style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.after
-                              ? context.primaryColor
-                              : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
-                          fontSize: 12,
-                        ),
-                      ),
+                      // Text(
+                      //   'Processing',
+                      //   style: TextStyle(
+                      //     color: controller.state.selectedOption == DataProcessingOption.after
+                      //         ? context.primaryColor
+                      //         : null,
+                      //     fontWeight:
+                      //         controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
                     ],
                   ),
                   value: DataProcessingOption.after,
@@ -76,7 +76,7 @@ class DataSelectorState extends State<DataSelector> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Before',
+                        'Regular',
                         style: TextStyle(
                           color: controller.state.selectedOption == DataProcessingOption.before
                               ? context.primaryColor
@@ -85,17 +85,17 @@ class DataSelectorState extends State<DataSelector> {
                               controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
                         ),
                       ),
-                      Text(
-                        'Processing',
-                        style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.before
-                              ? context.primaryColor
-                              : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
-                          fontSize: 12,
-                        ),
-                      ),
+                      // Text(
+                      //   'Processing',
+                      //   style: TextStyle(
+                      //     color: controller.state.selectedOption == DataProcessingOption.before
+                      //         ? context.primaryColor
+                      //         : null,
+                      //     fontWeight:
+                      //         controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
+                      //     fontSize: 12,
+                      //   ),
+                      // ),
                     ],
                   ),
                   value: DataProcessingOption.before,

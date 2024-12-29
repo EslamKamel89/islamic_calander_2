@@ -57,7 +57,7 @@ class DateInfoRemoteDataSource {
     final t = prt('getEclipseInfoMonth - DateInfoRemoteDataSource');
     final data = await api.get(EndPoint.getEclipseEndPoint, queryParameter: {
       'year': year,
-      'eclipse': eclipse.toShortString(),
+      'ecllipse': eclipse.toShortString(),
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');

@@ -10,7 +10,6 @@ import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/year_search_widget.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/eclipse/eclipse_cubit.dart';
-import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_phase/moon_phase_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/eclipse_dropdown.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/moon_phase_item_card.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
@@ -69,7 +68,7 @@ class _EclipseViewState extends State<EclipseView> {
               }
             },
           ),
-          BlocBuilder<MoonPhaseCubit, MoonPhaseState>(
+          BlocBuilder<EclipseCubit, EclipseState>(
             builder: (context, state) {
               return state.validationMessage.isEmpty
                   ? const SizedBox()
@@ -91,9 +90,9 @@ class _EclipseViewState extends State<EclipseView> {
               pr('condition not met');
             }
           }),
-          BlocBuilder<MoonPhaseCubit, MoonPhaseState>(
+          BlocBuilder<EclipseCubit, EclipseState>(
             builder: (context, state) {
-              if (state.getMoonPhaseState == ResponseState.failure) {
+              if (state.getEclipseState == ResponseState.failure) {
                 return Expanded(
                   child: Center(
                     child: txt(
@@ -105,7 +104,7 @@ class _EclipseViewState extends State<EclipseView> {
                   ),
                 );
               }
-              if (state.getMoonPhaseState == ResponseState.loading) {
+              if (state.getEclipseState == ResponseState.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),

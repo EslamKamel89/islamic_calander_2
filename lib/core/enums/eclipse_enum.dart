@@ -12,19 +12,26 @@ extension EclipseEnumExtension on EclipseEnum {
   String toShortString() {
     switch (this) {
       case EclipseEnum.anullarSolar:
-        return 'anullarSolar';
+        return 'Annular Solar';
+      // return 'anullar';
       case EclipseEnum.hybridSolar:
-        return 'hybridSolar';
+        return 'Hybrid (Annular/Total) Solar';
+      // return 'hybrid';
       case EclipseEnum.partialLunar:
-        return 'partialLunar';
+        return 'Partial (Umbral) Lunar';
+      // return 'partial';
       case EclipseEnum.partialSolar:
-        return 'partialSolar';
+        return 'Partial Solar';
+      // return 'partialSolar';
       case EclipseEnum.penumbralLunar:
-        return 'penumbralLunar';
+        return 'Penumbral Lunar';
+      // return 'penumbral';
       case EclipseEnum.totalUmbralLunar:
-        return 'totalUmbralLunar';
+        return 'Total (Umbral) Lunar';
+      // return 'totalUmbralLunar';
       case EclipseEnum.totalSolar:
-        return 'totalSolar';
+        return 'Total Solar';
+      // return 'total';
     }
   }
 
@@ -35,7 +42,7 @@ extension EclipseEnumExtension on EclipseEnum {
       case EclipseEnum.hybridSolar:
         return 'Hybrid (Annular/Total) Solar';
       case EclipseEnum.partialLunar:
-        return 'Partial (Unbral) Lunar';
+        return 'Partial (Umbral) Lunar';
       case EclipseEnum.partialSolar:
         return 'Partial Solar';
       case EclipseEnum.penumbralLunar:
@@ -43,7 +50,7 @@ extension EclipseEnumExtension on EclipseEnum {
       case EclipseEnum.totalUmbralLunar:
         return 'Total (Umbral) Lunar';
       case EclipseEnum.totalSolar:
-        return 'Total Sular';
+        return 'Total Solar';
     }
   }
 }

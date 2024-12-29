@@ -45,4 +45,25 @@ class SelectedDateConversionEntity {
       return selectedNewHijriDate;
     }
   }
+
+  String? newHijriUpdatedDateProccessed() {
+    final t = prt('newHijriUpdatedDateProccessed  - SelectedDateConversionEntity');
+    try {
+      if (selectedOldHijriDate == null || selectedNewHijriDate == null) {
+        return selectedNewHijriDate;
+      }
+      String oldDay = selectedOldHijriDate!.split(' ')[1].trim();
+      String newDay = newHijriUpdated!.split(',')[1].trim();
+      int oldDayMinusOne = int.parse(oldDay);
+      oldDayMinusOne = oldDayMinusOne == 1 ? 1 : oldDayMinusOne - 1;
+      String resultNewHijriUpdated = newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
+      // pr(oldDay, '$t - oldDay');
+      // pr(newDay, '$t - newDay');
+      pr(resultNewHijriUpdated, '$t - resultNewHijriUpdated');
+      return resultNewHijriUpdated;
+    } catch (e) {
+      pr('Exeption in parsing: $e', t);
+      return selectedNewHijriDate;
+    }
+  }
 }
