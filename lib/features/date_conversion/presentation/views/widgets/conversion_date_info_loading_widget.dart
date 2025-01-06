@@ -29,7 +29,7 @@ class ConversionDateInfoLoadingWidget extends StatelessWidget {
                 _buildShimmerEffectContainer(),
                 _buildShimmerEffectContainer(),
                 _buildShimmerEffectContainer(),
-                _buildShimmerEffectContainer(),
+                // _buildShimmerEffectContainer(),
               ],
             ),
           ),

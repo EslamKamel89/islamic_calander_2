@@ -139,14 +139,14 @@ class _TableWidgetState extends State<TableWidget> {
                                 ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
                                 : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                           ),
-                          _buildDateRow(
-                            image: 'calendar_9.png',
-                            title: 'New Hijri date',
-                            // date: state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
-                            date: state.selectedOption == DataProcessingOption.after
-                                ? state.selectedDateConversionEntity?.newHijriDateProccessed() ?? ''
-                                : state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
-                          ),
+                          // _buildDateRow(
+                          //   image: 'calendar_9.png',
+                          //   title: 'New Hijri date',
+                          //   // date: state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
+                          //   date: state.selectedOption == DataProcessingOption.after
+                          //       ? state.selectedDateConversionEntity?.newHijriDateProccessed() ?? ''
+                          //       : state.selectedDateConversionEntity?.selectedNewHijriDate ?? '',
+                          // ),
                         ],
                       ),
                     ),
