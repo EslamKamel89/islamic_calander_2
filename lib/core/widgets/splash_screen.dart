@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/themes/themedata.dart';
@@ -10,24 +11,13 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
+class _SplashScreenState extends State<SplashScreen> {
+  // late AnimationController _animationController;
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
-    // _animation = CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
-    _animation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-    _animationController.forward();
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.dateConversionView, (_) => false);
-        });
-      }
+    Future.delayed(const Duration(milliseconds: 3900), () {
+      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.dateConversionView, (_) => false);
     });
   }
 
@@ -39,41 +29,93 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Crescent moon with a star
             Icon(
               Icons.brightness_3, // Crescent moon icon
               size: 100,
               color: lightClr.goldColor, // Gold color
-            ),
+            ).animate().moveX(duration: const Duration(seconds: 2), begin: -600, end: 0),
             const SizedBox(height: 20),
-            // Animated App Title
-            FadeTransition(
-              opacity: _animation,
-              child: const Text(
-                'Islamic Calendar',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+
+            const AnimatedTextWidget(
+              text: 'New Hijri Calendar',
+              letterAnimationDuration: Duration(milliseconds: 150),
+              recombineDuration: Duration(milliseconds: 150),
+              textStyle: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
+
             const SizedBox(height: 10),
-            // Subtitle
-            FadeTransition(
-              opacity: _animation,
-              child: const Text(
-                'Organize your days with faith and ease',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                ),
+            const AnimatedTextWidget(
+              text: 'Organize your days with faith and ease',
+              letterAnimationDuration: Duration(milliseconds: 100),
+              recombineDuration: Duration(milliseconds: 100),
+              textStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
               ),
             ),
+
+            // ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AnimatedTextWidget extends StatelessWidget {
+  final String text;
+  final Duration letterAnimationDuration;
+  final Duration recombineDuration;
+  final TextStyle? textStyle;
+
+  const AnimatedTextWidget({
+    super.key,
+    required this.text,
+    this.letterAnimationDuration = const Duration(milliseconds: 300),
+    this.recombineDuration = const Duration(milliseconds: 500),
+    this.textStyle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: letterAnimationDuration * text.length + recombineDuration,
+      builder: (context, progress, child) {
+        final visibleCharacters = (progress * text.length).floor();
+        final isRecombining = progress >= 1;
+
+        if (isRecombining) {
+          return Text(
+            text,
+            style: textStyle,
+          );
+        }
+
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(text.length, (index) {
+            if (index < visibleCharacters) {
+              final animationProgress = (progress - index / text.length).clamp(0.0, 1.0);
+              return Text(
+                text[index],
+                style: textStyle?.copyWith(
+                      color: textStyle?.color?.withOpacity(animationProgress),
+                    ) ??
+                    TextStyle(color: Colors.black.withOpacity(animationProgress)),
+              ).animate().fadeIn(duration: letterAnimationDuration).scale(
+                    duration: letterAnimationDuration,
+                    curve: Curves.easeInOutBack,
+                  );
+            }
+            return const SizedBox();
+          }),
+        );
+      },
     );
   }
 }

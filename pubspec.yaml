@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
   flutter_bloc: ^8.1.6
   flutter_launcher_icons: ^0.14.1
   flutter_screenutil: ^5.9.3
@@ -75,8 +76,6 @@ dev_dependencies:
 #   macos:
 #     generate: true
 #     image_path: "assets/images/calendar_7.png"
-
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
