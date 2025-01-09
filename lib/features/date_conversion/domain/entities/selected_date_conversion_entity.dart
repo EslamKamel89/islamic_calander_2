@@ -57,8 +57,6 @@ class SelectedDateConversionEntity {
       int oldDayMinusOne = int.parse(oldDay);
       oldDayMinusOne = oldDayMinusOne == 1 ? 1 : oldDayMinusOne - 1;
       String resultNewHijriUpdated = newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
-      // pr(oldDay, '$t - oldDay');
-      // pr(newDay, '$t - newDay');
       pr(resultNewHijriUpdated, '$t - resultNewHijriUpdated');
       return resultNewHijriUpdated;
     } catch (e) {

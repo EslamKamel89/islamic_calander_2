@@ -26,7 +26,7 @@ class _DateConversionViewState extends State<DateConversionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: txt('Islamic Calendar', e: St.bold20)),
+      appBar: AppBar(title: txt('New Hijri Calendar', e: St.bold20)),
       resizeToAvoidBottomInset: false,
       drawer: const DefaultDrawer(),
       body: Column(

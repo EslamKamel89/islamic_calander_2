@@ -24,7 +24,7 @@ class DefaultDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: txt("Islamic Calendar", e: St.bold16),
+              accountName: txt('New Hijri Calendar', e: St.bold16),
               accountEmail: const Text("The best use of time is to spend it\nin the remembrance of Allah."),
               currentAccountPicture: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
