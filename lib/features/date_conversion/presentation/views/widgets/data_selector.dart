@@ -10,7 +10,7 @@ class DataSelector extends StatefulWidget {
   DataSelectorState createState() => DataSelectorState();
 }
 
-enum DataProcessingOption { before, after }
+enum DataProcessingOption { regular, lunar }
 
 class DataSelectorState extends State<DataSelector> {
   // DataProcessingOption? _selectedOption = DataProcessingOption.after;
@@ -38,11 +38,11 @@ class DataSelectorState extends State<DataSelector> {
                       Text(
                         'Lunar',
                         style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.after
+                          color: controller.state.selectedOption == DataProcessingOption.lunar
                               ? context.primaryColor
                               : null,
                           fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
+                              controller.state.selectedOption == DataProcessingOption.lunar ? FontWeight.bold : null,
                         ),
                       ),
                       // Text(
@@ -58,7 +58,7 @@ class DataSelectorState extends State<DataSelector> {
                       // ),
                     ],
                   ),
-                  value: DataProcessingOption.after,
+                  value: DataProcessingOption.lunar,
                   selectedTileColor: context.secondaryHeaderColor,
                   activeColor: context.secondaryHeaderColor,
                   groupValue: controller.state.selectedOption,
@@ -78,11 +78,11 @@ class DataSelectorState extends State<DataSelector> {
                       Text(
                         'Regular',
                         style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.before
+                          color: controller.state.selectedOption == DataProcessingOption.regular
                               ? context.primaryColor
                               : null,
                           fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
+                              controller.state.selectedOption == DataProcessingOption.regular ? FontWeight.bold : null,
                         ),
                       ),
                       // Text(
@@ -98,7 +98,7 @@ class DataSelectorState extends State<DataSelector> {
                       // ),
                     ],
                   ),
-                  value: DataProcessingOption.before,
+                  value: DataProcessingOption.regular,
                   selectedTileColor: context.secondaryHeaderColor,
                   activeColor: context.secondaryHeaderColor,
                   groupValue: controller.state.selectedOption,

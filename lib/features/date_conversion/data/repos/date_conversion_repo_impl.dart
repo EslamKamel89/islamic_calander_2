@@ -5,16 +5,18 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/date_conversion/data/data_source/date_conversion_data_source.dart';
 import 'package:islamic_calander_2/features/date_conversion/data/models/selected_date_conversion_model.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
+import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 
 class DateConversionRepoImpl implements DateConversionRepo {
   final HomeRepoDataSource homeRepoDataSource;
 
   DateConversionRepoImpl({required this.homeRepoDataSource});
   @override
-  Future<Either<Failure, SelectedDateConversionModel>> getDateConversion(DateTime selectedDate) async {
+  Future<Either<Failure, SelectedDateConversionModel>> getDateConversion(
+      DateTime selectedDate, DataProcessingOption selectedOption) async {
     final t = prt('getDateConversion - DateConversionRepoImpl');
     try {
-      SelectedDateConversionModel model = await homeRepoDataSource.getDateConversion(selectedDate);
+      SelectedDateConversionModel model = await homeRepoDataSource.getDateConversion(selectedDate, selectedOption);
       pr(model, t);
       return Right(model);
     } catch (e) {

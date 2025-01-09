@@ -10,7 +10,7 @@ class DateConversionState {
   // String? selectedNewHijriDate;
   ResponseState? getSelectedDateInfoState = ResponseState.initial;
   SelectedDateConversionEntity? selectedDateConversionEntity;
-  DataProcessingOption? selectedOption = DataProcessingOption.after;
+  DataProcessingOption? selectedOption = DataProcessingOption.lunar;
   String? buildWhen = '';
   DateConversionState({
     this.selectedYear,

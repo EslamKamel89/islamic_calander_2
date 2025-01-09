@@ -135,7 +135,7 @@ class _TableWidgetState extends State<TableWidget> {
                           _buildDateRow(
                             image: 'calendar_3.png',
                             title: 'Upgraded Hijri',
-                            date: state.selectedOption == DataProcessingOption.after
+                            date: state.selectedOption == DataProcessingOption.lunar
                                 ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
                                 : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                           ),
