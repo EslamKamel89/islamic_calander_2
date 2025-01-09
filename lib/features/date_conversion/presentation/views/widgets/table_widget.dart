@@ -7,7 +7,6 @@ import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/conversion_date_info_loading_widget.dart';
-import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -135,9 +134,10 @@ class _TableWidgetState extends State<TableWidget> {
                           _buildDateRow(
                             image: 'calendar_3.png',
                             title: 'Upgraded Hijri',
-                            date: state.selectedOption == DataProcessingOption.lunar
-                                ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
-                                : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
+                            // date: state.selectedOption == DataProcessingOption.lunar
+                            //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
+                            //     : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
+                            date: state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                           ),
                           // _buildDateRow(
                           //   image: 'calendar_9.png',
