@@ -9,10 +9,11 @@ class AssetsData {
   static const String three = "${_relativePath}three.png";
   static const String four = "${_relativePath}four.png";
   static const String five = "${_relativePath}five.png";
-  // static const String f0 = "${_relativePath}f0.png";
-  // static const String f1 = "${_relativePath}f1.png";
-  // static const String f2 = "${_relativePath}f2.png";
-  // static const String f3 = "${_relativePath}f3.png";
-  // static const String f4 = "${_relativePath}f4.png";
-  // static const String f5 = "${_relativePath}f5.png";
+  static const String homepageBackground = "${_relativePath}template5.jpg";
+  static const String islamicPattern = "${_relativePath}islamic-pattern.jpg";
+  static const String fajrPrayer = "${_relativePath}prayer5.png";
+  static const String dahrPrayer = "${_relativePath}prayer4.png";
+  static const String asrPrayer = "${_relativePath}prayer3.png";
+  static const String maghrebPrayer = "${_relativePath}prayer2.png";
+  static const String ashaPrayer = "${_relativePath}prayer1.png";
 }

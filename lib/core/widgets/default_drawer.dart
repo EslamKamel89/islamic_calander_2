@@ -7,15 +7,16 @@ import 'package:islamic_calander_2/utils/styles/styles.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DefaultDrawer extends StatelessWidget {
-  const DefaultDrawer({super.key});
-
+  const DefaultDrawer({super.key, this.opacity = 1});
+  final double opacity;
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [context.primaryColor, context.secondaryHeaderColor],
+            colors: [context.primaryColor.withOpacity(opacity), context.secondaryHeaderColor.withOpacity(opacity)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -40,8 +41,16 @@ class DefaultDrawer extends StatelessWidget {
             ),
             _createDrawerItem(
               context,
-              icon: MdiIcons.databaseSearch,
+              icon: MdiIcons.home,
               text: 'Home',
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.mainHomepage, (_) => false);
+              },
+            ),
+            _createDrawerItem(
+              context,
+              icon: MdiIcons.mosqueOutline,
+              text: 'Data Conversion',
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateConversionView, (_) => false);
               },

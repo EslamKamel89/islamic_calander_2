@@ -7,6 +7,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/date_month_vi
 import 'package:islamic_calander_2/features/date_info/presentation/date_year_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/eclipse_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/moon_info_view.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/main_homepage.dart';
 
 class AppRouter {
   AppMiddleWare appMiddleWare;
@@ -16,37 +17,58 @@ class AppRouter {
     String? routeName = appMiddleWare.middlleware(routeSettings.name);
     switch (routeName) {
       case AppRoutesNames.splashScreen:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const SplashScreen(),
           settings: routeSettings,
         );
       case AppRoutesNames.dateConversionView:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const DateConversionView(),
           settings: routeSettings,
         );
       case AppRoutesNames.dateYearView:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const DateYearView(),
           settings: routeSettings,
         );
       case AppRoutesNames.dateMonthView:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const DateMonthView(),
           settings: routeSettings,
         );
       case AppRoutesNames.moonPhaseView:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const MoonInfoView(),
           settings: routeSettings,
         );
       case AppRoutesNames.eclipseView:
-        return MaterialPageRoute(
+        return CustomPageRoute(
           builder: (context) => const EclipseView(),
+          settings: routeSettings,
+        );
+      case AppRoutesNames.mainHomepage:
+        return CustomPageRoute(
+          builder: (context) => const MainHomePage(),
           settings: routeSettings,
         );
       default:
         return null;
     }
+  }
+}
+
+class CustomPageRoute<T> extends MaterialPageRoute<T> {
+  CustomPageRoute({required super.builder, required RouteSettings super.settings});
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
   }
 }

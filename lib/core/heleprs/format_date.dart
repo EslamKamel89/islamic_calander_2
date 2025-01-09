@@ -11,6 +11,15 @@ String formateDateToArabic(DateTime dateTime) {
   return formattedDate;
 }
 
+String formateDateEgnlish(DateTime dateTime) {
+  initializeDateFormatting();
+  Intl.defaultLocale = 'en';
+  // Intl.initializeDateFormatting
+
+  String formattedDate = DateFormat('d MMMM y').format(dateTime);
+  return formattedDate;
+}
+
 String formatDateForApi(DateTime dateTime) {
   String formattedDate = DateFormat('dd-MM-yyyy', 'en').format(dateTime);
   pr(formattedDate);

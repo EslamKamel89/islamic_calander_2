@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 3900), () {
-      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.dateConversionView, (_) => false);
+      // Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.dateConversionView, (_) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
     });
   }
 

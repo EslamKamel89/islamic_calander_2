@@ -5,4 +5,5 @@ class AppRoutesNames {
   static const String dateMonthView = 'dateMonthView';
   static const String moonPhaseView = 'moonPhaseView';
   static const String eclipseView = 'eclipseView';
+  static const String mainHomepage = 'mainHomepage';
 }
