@@ -18,7 +18,7 @@ class _YearSearchWidgetState extends State<YearSearchWidget> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: TextField(
-        focusNode: focusNode,
+        // focusNode: focusNode,
         controller: _yearController,
         onChanged: (value) {
           _yearController.text = value;

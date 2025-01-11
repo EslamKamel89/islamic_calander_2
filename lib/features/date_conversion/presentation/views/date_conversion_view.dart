@@ -25,23 +25,28 @@ class _DateConversionViewState extends State<DateConversionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: txt('New Hijri Calendar', e: St.bold20)),
-      resizeToAvoidBottomInset: false,
-      drawer: const DefaultDrawer(),
-      body: Column(
-        children: [
-          const Sizer(),
-          YearSearchWidget(
-            handleInputChange: (String year) => controller.goToYear(year),
-          ),
-          const TableWidget(),
-          const Spacer(),
-          const DataSelector(),
-          const Spacer(),
-          WisdomCarousel(),
-          const Spacer(),
-        ],
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(title: txt('New Hijri Calendar', e: St.bold20)),
+        resizeToAvoidBottomInset: false,
+        drawer: const DefaultDrawer(),
+        body: Column(
+          children: [
+            const Sizer(),
+            YearSearchWidget(
+              handleInputChange: (String year) => controller.goToYear(year),
+            ),
+            const TableWidget(),
+            const Spacer(),
+            const DataSelector(),
+            const Spacer(),
+            WisdomCarousel(),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }

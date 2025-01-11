@@ -48,6 +48,8 @@ class _TableWidgetState extends State<TableWidget> {
                   });
                   _showIslamicInfo(context, selectedDay);
                   controller.getSelectedDateInfo(selectedDay);
+                  // FocusScope.of(context).unfocus();
+                  FocusManager.instance.primaryFocus?.unfocus();
                 },
                 onFormatChanged: (format) {
                   // setState(() {
