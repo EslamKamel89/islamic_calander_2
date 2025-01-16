@@ -39,29 +39,31 @@ class _MainHomePageState extends State<MainHomePage> {
             foregroundColor: Colors.black,
           ),
           drawer: const DefaultDrawer(opacity: 0.7),
-          body: Column(
-            children: [
-              SizedBox(
-                // color: Colors.red,
-                width: double.infinity,
-                height: 600.h,
-                // padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      HomepageHeader(
-                          animationDuration: animationDuration, secondaryAnimationDuration: shortAnimationDuration),
-                      DateWidget(
-                        animationDuration: animationDuration,
-                      ).animate().fade(duration: animationDuration, begin: 0, end: 1),
-                      SizedBox(height: 10.h),
-                      const PrayerTimes(),
-                      const ExploreMore(),
-                    ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  // color: Colors.red,
+                  width: double.infinity,
+                  height: 600.h,
+                  // padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        HomepageHeader(
+                            animationDuration: animationDuration, secondaryAnimationDuration: shortAnimationDuration),
+                        DateWidget(
+                          animationDuration: animationDuration,
+                        ).animate().fade(duration: animationDuration, begin: 0, end: 1),
+                        SizedBox(height: 10.h),
+                        const PrayerTimes(),
+                        const ExploreMore(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

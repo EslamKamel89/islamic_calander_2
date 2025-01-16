@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
@@ -33,19 +34,27 @@ class _DateConversionViewState extends State<DateConversionView> {
         appBar: AppBar(title: txt('New Hijri Calendar', e: St.bold20)),
         resizeToAvoidBottomInset: false,
         drawer: const DefaultDrawer(),
-        body: Column(
-          children: [
-            const Sizer(),
-            YearSearchWidget(
-              handleInputChange: (String year) => controller.goToYear(year),
+        body: Scrollbar(
+          thickness: 10,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Sizer(),
+                YearSearchWidget(
+                  handleInputChange: (String year) => controller.goToYear(year),
+                ),
+                const TableWidget(),
+                // const Spacer(),
+                SizedBox(height: 20.h),
+                const DataSelector(),
+                // const Spacer(),
+                SizedBox(height: 20.h),
+                WisdomCarousel(),
+                SizedBox(height: 20.h),
+                // const Spacer(),
+              ],
             ),
-            const TableWidget(),
-            const Spacer(),
-            const DataSelector(),
-            const Spacer(),
-            WisdomCarousel(),
-            const Spacer(),
-          ],
+          ),
         ),
       ),
     );

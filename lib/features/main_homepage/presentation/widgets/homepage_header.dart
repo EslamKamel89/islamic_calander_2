@@ -17,19 +17,37 @@ class HomepageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        txt('Hijri Calendar', e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
-            .animate()
-            .moveX(duration: animationDuration, begin: -500, end: 0)
-            .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
-        SizedBox(width: 15.w),
-        txt('التقويم الهجري', e: St.bold18, googleFontCallback: GoogleFonts.amiri, c: context.primaryColor)
-            .animate()
-            .moveX(duration: animationDuration, begin: 500, end: 0)
-            .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
-      ],
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth < 360) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            txt('Hijri Calendar', e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
+                .animate()
+                .moveX(duration: animationDuration, begin: -500, end: 0)
+                .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
+            SizedBox(height: 10.w),
+            txt('التقويم الهجري', e: St.bold18, googleFontCallback: GoogleFonts.amiri, c: context.primaryColor)
+                .animate()
+                .moveX(duration: animationDuration, begin: 500, end: 0)
+                .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
+          ],
+        );
+      }
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          txt('Hijri Calendar', e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
+              .animate()
+              .moveX(duration: animationDuration, begin: -500, end: 0)
+              .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
+          SizedBox(width: 15.w),
+          txt('التقويم الهجري', e: St.bold18, googleFontCallback: GoogleFonts.amiri, c: context.primaryColor)
+              .animate()
+              .moveX(duration: animationDuration, begin: 500, end: 0)
+              .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),
+        ],
+      );
+    });
   }
 }

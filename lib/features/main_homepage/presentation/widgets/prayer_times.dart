@@ -35,17 +35,37 @@ class PrayerTimes extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 15.h),
             decoration: BoxDecoration(color: Colors.white.withOpacity(0.9)),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: images.length,
-              itemBuilder: (context, index) {
-                return Image.asset(
-                  images[index],
-                  // width: 100.w,
-                  fit: BoxFit.cover,
+            child: LayoutBuilder(builder: (context, constraints) {
+              if (constraints.maxWidth > 768) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(images.length, (index) {
+                    return Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: Image.asset(
+                          images[index],
+                          // width: 100.w,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
+                  }),
                 );
-              },
-            ),
+              }
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Image.asset(
+                    images[index],
+                    // width: 100.w,
+                    fit: BoxFit.cover,
+                  );
+                },
+              );
+            }),
           ),
         ],
       );

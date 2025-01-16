@@ -47,24 +47,46 @@ class DateWidget extends StatelessWidget {
               ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
               const SizedBox(height: 5),
               // Gregorian Date
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  txt(
-                    formateDateEgnlish(today),
-                    e: St.reg14,
-                    googleFontCallback: GoogleFonts.cinzel,
-                    c: context.primaryColor,
-                  ).animate().moveX(duration: animationDuration, begin: 500, end: 0),
-                  const SizedBox(height: 5),
-                  txt(
-                    '${hijriDate.hDay} ${hijriDate.longMonthName} ${hijriDate.hYear}',
-                    googleFontCallback: GoogleFonts.cinzel,
-                    e: St.reg14,
-                    c: context.primaryColor,
-                  ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
-                ],
-              ),
+              LayoutBuilder(builder: (context, constraints) {
+                if (constraints.maxWidth < 360) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      txt(
+                        formateDateEgnlish(today),
+                        e: St.reg14,
+                        googleFontCallback: GoogleFonts.cinzel,
+                        c: context.primaryColor,
+                      ).animate().moveX(duration: animationDuration, begin: 500, end: 0),
+                      const SizedBox(height: 5),
+                      txt(
+                        '${hijriDate.hDay} ${hijriDate.longMonthName} ${hijriDate.hYear}',
+                        googleFontCallback: GoogleFonts.cinzel,
+                        e: St.reg14,
+                        c: context.primaryColor,
+                      ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
+                    ],
+                  );
+                }
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    txt(
+                      formateDateEgnlish(today),
+                      e: St.reg14,
+                      googleFontCallback: GoogleFonts.cinzel,
+                      c: context.primaryColor,
+                    ).animate().moveX(duration: animationDuration, begin: 500, end: 0),
+                    const SizedBox(width: 5),
+                    txt(
+                      '${hijriDate.hDay} ${hijriDate.longMonthName} ${hijriDate.hYear}',
+                      googleFontCallback: GoogleFonts.cinzel,
+                      e: St.reg14,
+                      c: context.primaryColor,
+                    ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
+                  ],
+                );
+              }),
             ],
           ),
         ),

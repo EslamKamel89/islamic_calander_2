@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,10 +23,11 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('ar')],
-        path: 'assets/langs', // Path to translation files
-        fallbackLocale: const Locale('en'),
-        child: const MyApp()),
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/langs', // Path to translation files
+      fallbackLocale: const Locale('en'),
+      child: DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+    ),
   );
 }
 
@@ -62,6 +65,7 @@ class MyApp extends StatelessWidget {
         child: Builder(builder: (context) {
           final themeCubit = context.watch<ThemeCubit>();
           return MaterialApp(
+            builder: DevicePreview.appBuilder,
             navigatorKey: navigatorKey,
             theme: themeCubit.state,
             debugShowCheckedModeBanner: false,
