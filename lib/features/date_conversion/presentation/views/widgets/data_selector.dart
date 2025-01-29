@@ -45,17 +45,6 @@ class DataSelectorState extends State<DataSelector> {
                               controller.state.selectedOption == DataProcessingOption.lunar ? FontWeight.bold : null,
                         ),
                       ),
-                      // Text(
-                      //   'Processing',
-                      //   style: TextStyle(
-                      //     color: controller.state.selectedOption == DataProcessingOption.after
-                      //         ? context.primaryColor
-                      //         : null,
-                      //     fontWeight:
-                      //         controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
                     ],
                   ),
                   value: DataProcessingOption.lunar,
@@ -85,17 +74,6 @@ class DataSelectorState extends State<DataSelector> {
                               controller.state.selectedOption == DataProcessingOption.regular ? FontWeight.bold : null,
                         ),
                       ),
-                      // Text(
-                      //   'Processing',
-                      //   style: TextStyle(
-                      //     color: controller.state.selectedOption == DataProcessingOption.before
-                      //         ? context.primaryColor
-                      //         : null,
-                      //     fontWeight:
-                      //         controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
-                      //     fontSize: 12,
-                      //   ),
-                      // ),
                     ],
                   ),
                   value: DataProcessingOption.regular,

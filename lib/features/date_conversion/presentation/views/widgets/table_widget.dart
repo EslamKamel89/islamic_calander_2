@@ -126,21 +126,22 @@ class _TableWidgetState extends State<TableWidget> {
                         children: [
                           _buildDateRow(
                               image: 'calendar_5.png',
-                              title: 'Georgian date',
+                              title: 'Georgian',
                               date: DateFormat('d MMMM, yyyy')
                                   .format((state.selectedDateConversionEntity?.selectedGeorgianDate)!)),
                           _buildDateRow(
-                              image: 'calendar_7.png',
-                              title: 'Old Hijri date',
-                              date: state.selectedDateConversionEntity?.selectedOldHijriDate ?? ''),
-                          _buildDateRow(
                             image: 'calendar_3.png',
-                            title: 'Upgraded Hijri',
+                            title: 'Real Hijri',
                             // date: state.selectedOption == DataProcessingOption.lunar
                             //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
                             //     : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                             date: state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                           ),
+                          _buildDateRow(
+                              image: 'calendar_7.png',
+                              title: 'Current Hijri',
+                              date: state.selectedDateConversionEntity?.selectedOldHijriDate ?? ''),
+
                           // _buildDateRow(
                           //   image: 'calendar_9.png',
                           //   title: 'New Hijri date',

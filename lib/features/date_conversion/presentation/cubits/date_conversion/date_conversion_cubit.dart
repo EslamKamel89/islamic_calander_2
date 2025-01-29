@@ -13,7 +13,7 @@ class DateConversionCubit extends Cubit<DateConversionState> {
   final DateConversionRepo dateConversionRepo;
   DateConversionCubit({
     required this.dateConversionRepo,
-  }) : super(DateConversionState());
+  }) : super(DateConversionState(selectedOption: DataProcessingOption.regular));
   void goToYear(String yearStr) {
     int year;
     try {
