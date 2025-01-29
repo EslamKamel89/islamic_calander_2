@@ -130,7 +130,7 @@ class _TableWidgetState extends State<TableWidget> {
                               date: DateFormat('d MMMM, yyyy')
                                   .format((state.selectedDateConversionEntity?.selectedGeorgianDate)!)),
                           _buildDateRow(
-                            image: 'calendar_3.png',
+                            image: 'calendar_7.png',
                             title: 'Real Hijri',
                             // date: state.selectedOption == DataProcessingOption.lunar
                             //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
@@ -138,7 +138,7 @@ class _TableWidgetState extends State<TableWidget> {
                             date: state.selectedDateConversionEntity?.newHijriUpdated ?? '',
                           ),
                           _buildDateRow(
-                              image: 'calendar_7.png',
+                              image: 'calendar_3.png',
                               title: 'Current Hijri',
                               date: state.selectedDateConversionEntity?.selectedOldHijriDate ?? ''),
 
