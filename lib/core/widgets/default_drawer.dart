@@ -55,22 +55,22 @@ class DefaultDrawer extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateConversionView, (_) => false);
               },
             ),
-            _createDrawerItem(
-              context,
-              icon: MdiIcons.databaseSearch,
-              text: 'Year',
-              onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateYearView, (_) => false);
-              },
-            ),
-            _createDrawerItem(
-              context,
-              icon: Icons.calendar_month,
-              text: 'Month',
-              onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateMonthView, (_) => false);
-              },
-            ),
+            // _createDrawerItem(
+            //   context,
+            //   icon: MdiIcons.databaseSearch,
+            //   text: 'Year',
+            //   onTap: () {
+            //     Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateYearView, (_) => false);
+            //   },
+            // ),
+            // _createDrawerItem(
+            //   context,
+            //   icon: Icons.calendar_month,
+            //   text: 'Month',
+            //   onTap: () {
+            //     Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateMonthView, (_) => false);
+            //   },
+            // ),
             _createDrawerItem(
               context,
               icon: MdiIcons.themeLightDark,
