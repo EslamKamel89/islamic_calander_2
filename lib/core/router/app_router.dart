@@ -8,6 +8,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/date_year_vie
 import 'package:islamic_calander_2/features/date_info/presentation/eclipse_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/moon_info_view.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/main_homepage.dart';
+import 'package:islamic_calander_2/features/qibla/presenation/qibla_finder_view.dart';
 
 class AppRouter {
   AppMiddleWare appMiddleWare;
@@ -49,6 +50,11 @@ class AppRouter {
       case AppRoutesNames.mainHomepage:
         return CustomPageRoute(
           builder: (context) => const MainHomePage(),
+          settings: routeSettings,
+        );
+      case AppRoutesNames.qiblaFinderView:
+        return CustomPageRoute(
+          builder: (context) => const QiblaFinderView(),
           settings: routeSettings,
         );
       default:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/date_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/explore_more.dart';
@@ -20,6 +21,7 @@ class _MainHomePageState extends State<MainHomePage> {
   final animationDuration = const Duration(seconds: 1);
   final longAnimationDuration = const Duration(seconds: 3);
   final shortAnimationDuration = const Duration(milliseconds: 500);
+  bool bottomSheetOpen = false;
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3)).then(
@@ -104,8 +106,14 @@ class _MainHomePageState extends State<MainHomePage> {
                   // childAspectRatio: 1, // Width/height ratio (1 = square)
                   mainAxisExtent: 170.h,
                 ),
-                children: const [
-                  GridItem(title: 'Find Qibla', image: AssetsData.compass),
+                children: [
+                  GridItem(
+                    title: 'Find Qibla',
+                    image: AssetsData.compass,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
+                    },
+                  ),
                 ],
               ),
             );
@@ -121,30 +129,34 @@ class GridItem extends StatelessWidget {
     super.key,
     required this.title,
     this.image,
+    this.onTap,
   });
   final String title;
   final String? image;
-
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.red,
-      // height: 300,
-      child: Column(
-        // mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (image != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(image!, height: 100.h, fit: BoxFit.cover),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        // color: Colors.red,
+        // height: 300,
+        child: Column(
+          // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (image != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(image!, height: 100.h, fit: BoxFit.cover),
+              ),
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
-          Text(
-            title,
-            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
