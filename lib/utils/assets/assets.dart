@@ -16,4 +16,5 @@ class AssetsData {
   static const String asrPrayer = "${_relativePath}prayer3.png";
   static const String maghrebPrayer = "${_relativePath}prayer2.png";
   static const String ashaPrayer = "${_relativePath}prayer1.png";
+  static const String compass = "${_relativePath}com_5.png";
 }

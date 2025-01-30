@@ -18,8 +18,18 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage> {
   final animationDuration = const Duration(seconds: 1);
-  final longAnimationDuration = const Duration(seconds: 5);
+  final longAnimationDuration = const Duration(seconds: 3);
   final shortAnimationDuration = const Duration(milliseconds: 500);
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) {
+        showCustomBottomSheet();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -57,7 +67,9 @@ class _MainHomePageState extends State<MainHomePage> {
                         ).animate().fade(duration: animationDuration, begin: 0, end: 1),
                         SizedBox(height: 10.h),
                         const PrayerTimes(),
-                        const ExploreMore(),
+                        ExploreMore(onTap: () {
+                          showCustomBottomSheet();
+                        }),
                       ],
                     ),
                   ),
@@ -67,6 +79,73 @@ class _MainHomePageState extends State<MainHomePage> {
           ),
         ),
       ],
+    );
+  }
+
+  void showCustomBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return BottomSheet(
+          backgroundColor: Colors.transparent,
+          onClosing: () {},
+          builder: (context) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              // height: 300,
+              width: double.infinity,
+              color: Colors.black.withOpacity(0.5),
+              child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  // childAspectRatio: 1, // Width/height ratio (1 = square)
+                  mainAxisExtent: 170.h,
+                ),
+                children: const [
+                  GridItem(title: 'Find Qibla', image: AssetsData.compass),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class GridItem extends StatelessWidget {
+  const GridItem({
+    super.key,
+    required this.title,
+    this.image,
+  });
+  final String title;
+  final String? image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // color: Colors.red,
+      // height: 300,
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (image != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(image!, height: 100.h, fit: BoxFit.cover),
+            ),
+          Text(
+            title,
+            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -8,12 +8,13 @@ import 'package:islamic_calander_2/utils/styles/styles.dart';
 class ExploreMore extends StatelessWidget {
   const ExploreMore({
     super.key,
+    required this.onTap,
   });
-
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: context.primaryColor,
