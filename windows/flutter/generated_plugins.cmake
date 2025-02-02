@@ -3,7 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   flutter_timezone
+=======
+>>>>>>> 04c70073e38bfc585f5bf7e2da83011efed29b28
   geolocator_windows
 )
 
