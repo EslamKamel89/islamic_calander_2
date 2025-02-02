@@ -6,4 +6,5 @@ class AppRoutesNames {
   static const String moonPhaseView = 'moonPhaseView';
   static const String eclipseView = 'eclipseView';
   static const String mainHomepage = 'mainHomepage';
+  static const String qiblaFinderView = 'qiblaFinderView';
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
-class PrayerTimes extends StatelessWidget {
-  const PrayerTimes({
+class PrayerTimesWidget extends StatelessWidget {
+  const PrayerTimesWidget({
     super.key,
   });
 
