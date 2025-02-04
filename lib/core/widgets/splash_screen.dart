@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 20),
 
             const AnimatedTextWidget(
-              text: 'New Hijri Calendar',
+              text: 'New Islamic Calendar',
               letterAnimationDuration: Duration(milliseconds: 150),
               recombineDuration: Duration(milliseconds: 150),
               textStyle: TextStyle(

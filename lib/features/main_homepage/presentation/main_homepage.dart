@@ -8,11 +8,11 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_info/update_next_prayer_info_cubit.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/date_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/explore_more.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/grid_item.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/homepage_header.dart';
-import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/prayer_times_2.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -65,7 +65,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 SizedBox(
                   // color: Colors.red,
                   width: double.infinity,
-                  height: 600.h,
+                  height: 800.h,
                   // padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: SingleChildScrollView(
                     child: Column(
@@ -76,7 +76,8 @@ class _MainHomePageState extends State<MainHomePage> {
                           animationDuration: animationDuration,
                         ).animate().fade(duration: animationDuration, begin: 0, end: 1),
                         SizedBox(height: 10.h),
-                        const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
+                        const AllPraysTimeWidget(),
+                        // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                         SizedBox(height: 10.h),
                         // const PrayerTimes(),
                         ExploreMore(onTap: () {

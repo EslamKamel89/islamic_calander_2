@@ -31,7 +31,7 @@ class _DateConversionViewState extends State<DateConversionView> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(title: txt('New Hijri Calendar', e: St.bold20)),
+        appBar: AppBar(title: txt('New Islamic Calendar', e: St.bold20)),
         resizeToAvoidBottomInset: false,
         drawer: const DefaultDrawer(),
         body: Scrollbar(

@@ -22,7 +22,7 @@ class HomepageHeader extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            txt('Hijri Calendar', e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
+            txt('New Islamic Calendar', e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
                 .animate()
                 .moveX(duration: animationDuration, begin: -500, end: 0)
                 .scale(duration: secondaryAnimationDuration, begin: const Offset(0, 0), end: const Offset(1, 1)),

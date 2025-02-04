@@ -23,9 +23,11 @@ class GridItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (image != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(image!, height: 100.h, fit: BoxFit.fill),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(image!, height: 100.h, fit: BoxFit.fill),
+                ),
               ),
             Text(
               title,
