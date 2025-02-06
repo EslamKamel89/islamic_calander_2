@@ -11,6 +11,15 @@ String formateDateToArabic(DateTime dateTime) {
   return formattedDate;
 }
 
+String formateDateDetailed(DateTime dateTime) {
+  initializeDateFormatting();
+  Intl.defaultLocale = 'en';
+  // Intl.initializeDateFormatting
+
+  String formattedDate = DateFormat("EEEE d MMM yyyy").format(dateTime);
+  return formattedDate;
+}
+
 String formateDateEgnlish(DateTime dateTime) {
   initializeDateFormatting();
   Intl.defaultLocale = 'en';

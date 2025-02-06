@@ -92,7 +92,7 @@ class _DateMonthViewState extends State<DateMonthView> {
           }),
           BlocBuilder<DateMonthCubit, DateMonthState>(
             builder: (context, state) {
-              if (state.getDateYearState == ResponseState.failure) {
+              if (state.getDateYearState == ResponseEnum.failure) {
                 return Expanded(
                   child: Center(
                     child: txt(
@@ -104,7 +104,7 @@ class _DateMonthViewState extends State<DateMonthView> {
                   ),
                 );
               }
-              if (state.getDateYearState == ResponseState.loading) {
+              if (state.getDateYearState == ResponseEnum.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),

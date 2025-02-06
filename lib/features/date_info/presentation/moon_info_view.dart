@@ -92,7 +92,7 @@ class _MoonInfoViewState extends State<MoonInfoView> {
           }),
           BlocBuilder<MoonPhaseCubit, MoonPhaseState>(
             builder: (context, state) {
-              if (state.getMoonPhaseState == ResponseState.failure) {
+              if (state.getMoonPhaseState == ResponseEnum.failure) {
                 return Expanded(
                   child: Center(
                     child: txt(
@@ -104,7 +104,7 @@ class _MoonInfoViewState extends State<MoonInfoView> {
                   ),
                 );
               }
-              if (state.getMoonPhaseState == ResponseState.loading) {
+              if (state.getMoonPhaseState == ResponseEnum.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),

@@ -13,6 +13,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/cubits/date_m
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/date_year/date_year_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/eclipse/eclipse_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_phase/moon_phase_cubit.dart';
+import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_info/update_next_prayer_info_cubit.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -63,9 +64,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => EclipseCubit(dateInfoRepo: serviceLocator()),
           ),
-          BlocProvider(
-            create: (context) => UpdateNextPrayerInfoCubit(),
-          )
+          BlocProvider(create: (context) => UpdateNextPrayerInfoCubit()),
+          BlocProvider(create: (context) => PrayersTimesTodayCubit()..getPrayersTimesToday()),
         ],
         child: Builder(builder: (context) {
           final themeCubit = context.watch<ThemeCubit>();

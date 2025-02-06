@@ -102,11 +102,11 @@ class _TableWidgetState extends State<TableWidget> {
       builder: (context) {
         return BlocBuilder<DateConversionCubit, DateConversionState>(
           builder: (context, state) {
-            if (state.getSelectedDateInfoState == ResponseState.loading) {
+            if (state.getSelectedDateInfoState == ResponseEnum.loading) {
               return const ConversionDateInfoLoadingWidget();
-            } else if (state.getSelectedDateInfoState == ResponseState.failure) {
+            } else if (state.getSelectedDateInfoState == ResponseEnum.failure) {
               return const ConversionDateInfoFailureWidget();
-            } else if (state.getSelectedDateInfoState == ResponseState.success) {
+            } else if (state.getSelectedDateInfoState == ResponseEnum.success) {
               return Container(
                 padding: const EdgeInsets.all(16.0),
                 height: 280.h,

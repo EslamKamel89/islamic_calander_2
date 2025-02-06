@@ -1,4 +1,4 @@
-enum ResponseState {
+enum ResponseEnum {
   initial,
   loading,
   failure,

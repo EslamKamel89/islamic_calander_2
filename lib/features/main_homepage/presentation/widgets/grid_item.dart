@@ -15,24 +15,27 @@ class GridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         // color: Colors.red,
-        // height: 300,
+        // height: 100,
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (image != null)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(image!, height: 100.h, fit: BoxFit.fill),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
+                child: Image.asset(
+                  image!,
+                  fit: BoxFit.fill,
+                  height: 100.h,
                 ),
               ),
             Text(
-              title,
+              '$title\n',
               style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
+              maxLines: 2,
             ),
           ],
         ),

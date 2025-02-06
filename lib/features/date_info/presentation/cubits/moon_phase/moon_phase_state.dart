@@ -4,12 +4,12 @@ class MoonPhaseState {
   List<MoonInfoModel> moonPhasesInfo = [];
   MoonPhaseEnum selectedMoonPhase;
   int selectedYear;
-  ResponseState getMoonPhaseState = ResponseState.initial;
+  ResponseEnum getMoonPhaseState = ResponseEnum.initial;
   String validationMessage = '';
   MoonPhaseState({
     this.moonPhasesInfo = const [],
     this.selectedYear = 2024,
-    this.getMoonPhaseState = ResponseState.initial,
+    this.getMoonPhaseState = ResponseEnum.initial,
     this.validationMessage = '',
     this.selectedMoonPhase = MoonPhaseEnum.fullMoon,
   });
@@ -17,7 +17,7 @@ class MoonPhaseState {
   MoonPhaseState copyWith({
     List<MoonInfoModel>? moonPhasesInfo,
     int? selectedYear,
-    ResponseState? getMoonPhaseState,
+    ResponseEnum? getMoonPhaseState,
     String? validationMessage,
     MoonPhaseEnum? selectedMoonPhase,
   }) {

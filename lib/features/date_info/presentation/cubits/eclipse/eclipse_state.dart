@@ -5,12 +5,12 @@ class EclipseState {
   List<MoonInfoModel> moonPhasesInfo = [];
   EclipseEnum selectedEclipse;
   int selectedYear;
-  ResponseState getEclipseState = ResponseState.initial;
+  ResponseEnum getEclipseState = ResponseEnum.initial;
   String validationMessage = '';
   EclipseState({
     this.moonPhasesInfo = const [],
     this.selectedYear = 2024,
-    this.getEclipseState = ResponseState.initial,
+    this.getEclipseState = ResponseEnum.initial,
     this.validationMessage = '',
     this.selectedEclipse = EclipseEnum.totalSolar,
   });
@@ -19,7 +19,7 @@ class EclipseState {
     List<MoonInfoModel>? moonPhasesInfo,
     EclipseEnum? selectedEclipse,
     int? selectedYear,
-    ResponseState? getEclipseState,
+    ResponseEnum? getEclipseState,
     String? validationMessage,
   }) {
     return EclipseState(

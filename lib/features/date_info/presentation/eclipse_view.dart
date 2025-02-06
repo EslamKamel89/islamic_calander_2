@@ -92,7 +92,7 @@ class _EclipseViewState extends State<EclipseView> {
           }),
           BlocBuilder<EclipseCubit, EclipseState>(
             builder: (context, state) {
-              if (state.getEclipseState == ResponseState.failure) {
+              if (state.getEclipseState == ResponseEnum.failure) {
                 return Expanded(
                   child: Center(
                     child: txt(
@@ -104,7 +104,7 @@ class _EclipseViewState extends State<EclipseView> {
                   ),
                 );
               }
-              if (state.getEclipseState == ResponseState.loading) {
+              if (state.getEclipseState == ResponseEnum.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),

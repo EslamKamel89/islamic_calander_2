@@ -14,19 +14,19 @@ class MoonPhaseCubit extends Cubit<MoonPhaseState> {
 
   Future getMoonPhase(int year, MoonPhaseEnum moonPhase) async {
     final t = prt('getMoonPhase - MoonPhaseCubit');
-    emit(state.copyWith(getMoonPhaseState: ResponseState.loading, selectedYear: year));
+    emit(state.copyWith(getMoonPhaseState: ResponseEnum.loading, selectedYear: year));
     final result = await dateInfoRepo.getMoonInfoMonth(year, moonPhase);
     return result.fold(
       (Failure failure) {
         pr(failure, t);
-        emit(state.copyWith(getMoonPhaseState: ResponseState.failure, moonPhasesInfo: []));
+        emit(state.copyWith(getMoonPhaseState: ResponseEnum.failure, moonPhasesInfo: []));
       },
       (List<MoonInfoModel> models) {
         pr(models, t);
         emit(
           state.copyWith(
             moonPhasesInfo: models,
-            getMoonPhaseState: ResponseState.success,
+            getMoonPhaseState: ResponseEnum.success,
           ),
         );
       },

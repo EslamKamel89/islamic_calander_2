@@ -4,12 +4,12 @@ class DateMonthState {
   List<DateInfoEntity> datesInfo = [];
   MonthEnum selectedMonth;
   int selectedYear;
-  ResponseState getDateYearState = ResponseState.initial;
+  ResponseEnum getDateYearState = ResponseEnum.initial;
   String validationMessage = '';
   DateMonthState({
     this.datesInfo = const [],
     this.selectedYear = 2024,
-    this.getDateYearState = ResponseState.initial,
+    this.getDateYearState = ResponseEnum.initial,
     this.validationMessage = '',
     this.selectedMonth = MonthEnum.january,
   });
@@ -17,7 +17,7 @@ class DateMonthState {
   DateMonthState copyWith({
     List<DateInfoEntity>? datesInfo,
     int? selectedYear,
-    ResponseState? getDateYearState,
+    ResponseEnum? getDateYearState,
     String? validationMessage,
     MonthEnum? selectedMonth,
   }) {

@@ -1,5 +1,6 @@
 class AssetsData {
   static const String _relativePath = 'assets/images/';
+  static const String _relativeOldPath = 'assets/old/';
   static const String calender3 = "${_relativePath}calendar_3.png";
   static const String calender7 = "${_relativePath}calendar_7.png";
   static const String calender5 = "${_relativePath}calendar_5.png";
@@ -20,4 +21,10 @@ class AssetsData {
   static const String kabaa = "${_relativePath}k_6.png";
   static const String prayers = "${_relativePath}prayers.png";
   static const String islamicBorder = "${_relativePath}islamic-border4.png";
+  static const String newMoon = "${_relativePath}new_moon.png";
+  static const String moonBright = "${_relativeOldPath}ic_moon_light3x.png";
+  // static const String hallalResturant = "${_relativeOldPath}Component 17 – 1@3x.png";
+  static const String hallalResturant = "${_relativePath}halal.png";
+  // static const String mosque = "${_relativeOldPath}Component 19 – 1@3x.png";
+  static const String mosque = "${_relativePath}k_4.png";
 }

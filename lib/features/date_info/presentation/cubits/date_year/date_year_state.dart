@@ -4,19 +4,19 @@ part of 'date_year_cubit.dart';
 class DateYearState {
   List<DateInfoEntity> datesInfo = [];
   int selectedYear;
-  ResponseState getDateYearState = ResponseState.initial;
+  ResponseEnum getDateYearState = ResponseEnum.initial;
   String validationMessage = '';
   DateYearState({
     this.datesInfo = const [],
     this.selectedYear = 2024,
-    this.getDateYearState = ResponseState.initial,
+    this.getDateYearState = ResponseEnum.initial,
     this.validationMessage = '',
   });
 
   DateYearState copyWith({
     List<DateInfoEntity>? datesInfo,
     int? selectedYear,
-    ResponseState? getDateYearState,
+    ResponseEnum? getDateYearState,
     String? validationMessage,
   }) {
     return DateYearState(

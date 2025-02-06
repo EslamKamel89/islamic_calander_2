@@ -8,7 +8,7 @@ class DateConversionState {
   DateTime? selectedGeorgianDate = DateTime.now();
   // String? selectedOldHijriDate;
   // String? selectedNewHijriDate;
-  ResponseState? getSelectedDateInfoState = ResponseState.initial;
+  ResponseEnum? getSelectedDateInfoState = ResponseEnum.initial;
   SelectedDateConversionEntity? selectedDateConversionEntity;
   DataProcessingOption? selectedOption = DataProcessingOption.regular;
   String? buildWhen = '';
@@ -29,7 +29,7 @@ class DateConversionState {
     String? selectedOldHijriDate,
     String? selectedNewHijriDate,
     SelectedDateConversionEntity? selectedDateConversionEntity,
-    ResponseState? getSelectedDateInfoState,
+    ResponseEnum? getSelectedDateInfoState,
     String? buildWhen,
     DataProcessingOption? selectedOption,
   }) {

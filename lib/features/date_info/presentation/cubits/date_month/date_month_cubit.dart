@@ -15,19 +15,19 @@ class DateMonthCubit extends Cubit<DateMonthState> {
 
   Future getDateMonth(int year, MonthEnum month) async {
     final t = prt('getDateMonth - DateMonthCubit');
-    emit(state.copyWith(getDateYearState: ResponseState.loading, selectedYear: year));
+    emit(state.copyWith(getDateYearState: ResponseEnum.loading, selectedYear: year));
     final result = await dateInfoRepo.getDateInfoMonth(year, month);
     return result.fold(
       (Failure failure) {
         pr(failure, t);
-        emit(state.copyWith(getDateYearState: ResponseState.failure, datesInfo: []));
+        emit(state.copyWith(getDateYearState: ResponseEnum.failure, datesInfo: []));
       },
       (List<DateInfoModel> models) {
         pr(models, t);
         emit(
           state.copyWith(
             datesInfo: models,
-            getDateYearState: ResponseState.success,
+            getDateYearState: ResponseEnum.success,
           ),
         );
       },
