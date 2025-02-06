@@ -126,32 +126,32 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
                     SizedBox(width: 5.w),
                     PrayTimeWidget(
                       pray: 'العشاء',
-                      imagePath: AssetsData.one,
-                      dateTime: _prayerTimes?.fajr,
+                      imagePath: AssetsData.five,
+                      dateTime: _prayerTimes?.isha,
                       currentTimeZone: _currentTimeZone!,
                     ),
                     PrayTimeWidget(
                       pray: 'المغرب',
-                      imagePath: AssetsData.two,
-                      dateTime: _prayerTimes?.dhuhr,
-                      currentTimeZone: _currentTimeZone!,
-                    ),
-                    PrayTimeWidget(
-                      pray: 'العصر',
-                      imagePath: AssetsData.three,
-                      dateTime: _prayerTimes?.asr,
-                      currentTimeZone: _currentTimeZone!,
-                    ),
-                    PrayTimeWidget(
-                      pray: 'الظهر',
                       imagePath: AssetsData.four,
                       dateTime: _prayerTimes?.maghrib,
                       currentTimeZone: _currentTimeZone!,
                     ),
                     PrayTimeWidget(
+                      pray: 'العصر',
+                      imagePath: AssetsData.one,
+                      dateTime: _prayerTimes?.asr,
+                      currentTimeZone: _currentTimeZone!,
+                    ),
+                    PrayTimeWidget(
+                      pray: 'الظهر',
+                      imagePath: AssetsData.two,
+                      dateTime: _prayerTimes?.dhuhr,
+                      currentTimeZone: _currentTimeZone!,
+                    ),
+                    PrayTimeWidget(
                       pray: 'الفجر',
-                      imagePath: AssetsData.five,
-                      dateTime: _prayerTimes?.isha,
+                      imagePath: AssetsData.three,
+                      dateTime: _prayerTimes?.fajr,
                       currentTimeZone: _currentTimeZone!,
                     ),
                     SizedBox(width: 5.w),
@@ -191,7 +191,7 @@ class PrayTimeWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          txt(pray),
+          txt((pray)),
           dateTime == null
               ? CustomFadingWidget(
                   child: _buildImage(),
