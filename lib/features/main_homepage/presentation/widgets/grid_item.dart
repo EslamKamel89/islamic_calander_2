@@ -28,7 +28,7 @@ class GridItem extends StatelessWidget {
                 child: Image.asset(
                   image!,
                   fit: BoxFit.fill,
-                  height: 100.h,
+                  height: 60.h,
                 ),
               ),
             Text(

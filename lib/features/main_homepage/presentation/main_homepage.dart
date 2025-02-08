@@ -161,6 +161,15 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     },
                   ),
                 ),
+                Expanded(
+                  child: GridItem(
+                    title: 'World Prayers',
+                    image: AssetsData.hallalResturant,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
+                    },
+                  ),
+                ),
               ],
             ),
           ],

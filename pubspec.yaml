@@ -48,6 +48,7 @@ dependencies:
   get_it: ^8.0.2
   getwidget: ^5.0.0
   google_fonts: ^6.2.1
+  google_maps_flutter: ^2.10.0
   hijri: ^3.0.0
   intl: ^0.19.0
   material_design_icons_flutter: ^7.0.7296
@@ -56,6 +57,7 @@ dependencies:
   table_calendar: ^3.1.2
   timezone: ^0.10.0
   url_launcher: ^6.3.1
+  widget_to_marker: ^1.0.6
 
 dev_dependencies:
   flutter_lints: ^4.0.0
