@@ -134,6 +134,33 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
               children: [
                 Expanded(
                   child: GridItem(
+                    title: 'Date Conversion',
+                    image: AssetsData.dateConversionIcon,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutesNames.dateConversionView);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: GridItem(
+                    title: 'Moon Phase',
+                    image: AssetsData.moonIcon,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(AppRoutesNames.moonPhaseView);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: GridItem(
+                    title: 'Eclipse',
+                    image: AssetsData.moonEclipseIcon,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(AppRoutesNames.eclipseView);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: GridItem(
                     title: 'Find Qibla',
                     image: AssetsData.compass,
                     onTap: () {
@@ -141,6 +168,10 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     },
                   ),
                 ),
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(
                   child: GridItem(
                     title: 'Mosques',
@@ -164,12 +195,13 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                 Expanded(
                   child: GridItem(
                     title: 'World Prayers',
-                    image: AssetsData.hallalResturant,
+                    image: AssetsData.globe,
                     onTap: () async {
                       Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
                     },
                   ),
                 ),
+                const Expanded(child: SizedBox())
               ],
             ),
           ],

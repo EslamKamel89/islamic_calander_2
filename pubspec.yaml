@@ -41,6 +41,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_compass: ^0.8.1
   flutter_launcher_icons: ^0.14.1
+  flutter_map: ^7.0.2
   flutter_screenutil: ^5.9.3
   flutter_staggered_grid_view: ^0.7.0
   flutter_timezone: ^4.1.0
@@ -48,9 +49,10 @@ dependencies:
   get_it: ^8.0.2
   getwidget: ^5.0.0
   google_fonts: ^6.2.1
-  google_maps_flutter: ^2.10.0
   hijri: ^3.0.0
   intl: ^0.19.0
+  lat_lng_to_timezone: ^0.2.0
+  latlong2: ^0.9.1
   material_design_icons_flutter: ^7.0.7296
   sensors_plus: ^6.1.1
   shared_preferences: ^2.3.3
