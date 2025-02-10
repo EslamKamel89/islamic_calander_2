@@ -5,23 +5,8 @@ import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 
 class WisdomCarousel extends StatelessWidget {
   // List of Islamic wisdoms
-  final List<String> wisdoms = [
-    "Speak good or remain silent.",
-    // "The best among you are those who have the best manners and character.",
-    "A smile is charity.",
-    // "Do not waste water, even if you perform ablution on a running river.",
-    "Seek knowledge from the cradle to the grave.",
-    "Strive for excellence in whatever you do.",
-    "Kindness is a mark of faith, and whoever is not kind has no faith.",
-    // "The strong is not the one who overcomes others, but the one who controls himself in anger.",
-    "He who does not thank people does not thank Allah.",
-    "Patience is the key to relief.",
-    // "The best among you is the one who doesn't harm others with his tongue and hands.",
-    "Modesty brings nothing except good.",
-    "Seek knowledge from the cradle to the grave.",
-  ];
 
-  WisdomCarousel({super.key});
+  const WisdomCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,3 +69,19 @@ class WisdomCarousel extends StatelessWidget {
     );
   }
 }
+
+final List<String> wisdoms = [
+  "Speak good or remain silent.",
+  // "The best among you are those who have the best manners and character.",
+  "A smile is charity.",
+  // "Do not waste water, even if you perform ablution on a running river.",
+  "Seek knowledge from the cradle to the grave.",
+  "Strive for excellence in whatever you do.",
+  "Kindness is a mark of faith, and whoever is not kind has no faith.",
+  // "The strong is not the one who overcomes others, but the one who controls himself in anger.",
+  "He who does not thank people does not thank Allah.",
+  "Patience is the key to relief.",
+  // "The best among you is the one who doesn't harm others with his tongue and hands.",
+  "Modesty brings nothing except good.",
+  "Seek knowledge from the cradle to the grave.",
+];

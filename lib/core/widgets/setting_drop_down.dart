@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/enums/prayer_calc_method.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
@@ -14,11 +15,12 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.settings,
         size: 36,
-        color: Theme.of(context).colorScheme.primary,
-      ),
+        // color: Theme.of(context).colorScheme.primary,
+        color: Colors.white,
+      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 10000.ms, begin: 0, end: 2),
       onPressed: () {
         _showModernDropdown(context);
       },
@@ -37,6 +39,8 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
 }
 
 PrayerCalcMethod selectedPrayersMethod = PrayerCalcMethod.muslimWorldLeague;
+ValueNotifier<PrayerCalcMethod> selectedPrayersNotifier =
+    ValueNotifier<PrayerCalcMethod>(PrayerCalcMethod.muslimWorldLeague);
 
 class CalcOptionsWidget extends StatefulWidget {
   const CalcOptionsWidget({super.key});
@@ -61,6 +65,7 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
               prayerCalc: prayerCalc,
               onTap: () {
                 selectedPrayersMethod = prayerCalc;
+                selectedPrayersNotifier.value = prayerCalc;
                 setState(() {});
               },
             );

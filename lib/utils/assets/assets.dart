@@ -32,4 +32,6 @@ class AssetsData {
   static const String dateConversionIcon = "${_relativePath}date_conversion.png";
   static const String moonEclipseIcon = "${_relativePath}moon-eclipse.png";
   static const String moonIcon = "${_relativePath}moon-icon.png";
+  static const String globe2 = "${_relativePath}globe2.png";
+  static const String islamicPattern2 = "${_relativePath}pattern.png";
 }

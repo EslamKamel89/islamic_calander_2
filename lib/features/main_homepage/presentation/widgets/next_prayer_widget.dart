@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
+import 'package:islamic_calander_2/core/widgets/sizer.dart';
+import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
+import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_state.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
-class NextPrayerWidget extends StatelessWidget {
+class NextPrayerWidget extends StatefulWidget {
   const NextPrayerWidget({
     super.key,
   });
 
+  @override
+  State<NextPrayerWidget> createState() => _NextPrayerWidgetState();
+}
+
+class _NextPrayerWidgetState extends State<NextPrayerWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PrayersTimesTodayCubit, PrayersTimesTodayState>(
@@ -29,7 +40,7 @@ class NextPrayerWidget extends StatelessWidget {
   }
 }
 
-class PrayerCard extends StatelessWidget {
+class PrayerCard extends StatefulWidget {
   final String prayerName;
   final Duration timeRemaining;
 
@@ -40,11 +51,16 @@ class PrayerCard extends StatelessWidget {
   });
 
   @override
+  State<PrayerCard> createState() => _PrayerCardState();
+}
+
+class _PrayerCardState extends State<PrayerCard> {
+  @override
   Widget build(BuildContext context) {
     // Format the remaining time as HH:MM:SS.
-    final hours = timeRemaining.inHours;
-    final minutes = timeRemaining.inMinutes.remainder(60);
-    final seconds = timeRemaining.inSeconds.remainder(60);
+    final hours = widget.timeRemaining.inHours;
+    final minutes = widget.timeRemaining.inMinutes.remainder(60);
+    final seconds = widget.timeRemaining.inSeconds.remainder(60);
     final timeRemainingText = '${hours.toString().padLeft(2, '0')}:'
         '${minutes.toString().padLeft(2, '0')}:'
         '${seconds.toString().padLeft(2, '0')}';
@@ -94,6 +110,7 @@ class PrayerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 10),
                   const Text(
                     'Next Prayer',
                     style: TextStyle(
@@ -102,9 +119,8 @@ class PrayerCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 4),
                   Text(
-                    prayerName,
+                    widget.prayerName,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -128,12 +144,63 @@ class PrayerCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const CityWidget(),
+                  const SizedBox(height: 5),
+                  const NewHijrWidget(),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class NewHijrWidget extends StatefulWidget {
+  const NewHijrWidget({super.key});
+
+  @override
+  State<NewHijrWidget> createState() => _NewHijrWidgetState();
+}
+
+class _NewHijrWidgetState extends State<NewHijrWidget> {
+  String? newHijriDate;
+  @override
+  void initState() {
+    getNewHijri();
+    super.initState();
+  }
+
+  Future getNewHijri() async {
+    DateConversionRepo repo = serviceLocator();
+    final response = await repo.getDateConversion(DateTime.now(), DataProcessingOption.regular);
+    response.fold((_) {}, (model) {
+      if (mounted) {
+        setState(() {
+          newHijriDate = model.newHijriUpdated;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (newHijriDate == null) return const SizedBox();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Image.asset(
+          'assets/images/calendar_7.png',
+          width: 20.w,
+          height: 20.w,
+        ),
+        const Sizer(),
+        Text(
+          newHijriDate ?? '',
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+      ],
     );
   }
 }

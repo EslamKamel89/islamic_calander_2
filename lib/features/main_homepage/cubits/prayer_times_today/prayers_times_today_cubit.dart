@@ -11,6 +11,8 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_state.dart';
 
 class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
+  Coordinates? _cordinates;
+  dynamic _params;
   PrayersTimesTodayCubit() : super(PrayersTimesTodayState(response: ResponseEnum.initial));
   Future getPrayersTimesToday() async {
     final t = prt('getPrayersTimesToday - PrayersTimesTodayCubit');
@@ -19,18 +21,18 @@ class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
     if (currentPosition == null) return pr('currentPosition is null', t);
     String currentTimeZone = await getLocalTimezone();
 
-    final coordinates = Coordinates(
+    _cordinates = Coordinates(
       currentPosition.latitude,
       currentPosition.longitude,
     );
-    final params = CalculationMethod.muslimWorldLeague();
-    params.madhab = Madhab.hanafi;
+    _params = CalculationMethod.muslimWorldLeague();
+    _params.madhab = Madhab.hanafi;
 
     final date = DateTime.now();
     PrayerTimes prayerTimes = PrayerTimes(
-      coordinates: coordinates,
+      coordinates: _cordinates!,
       date: date,
-      calculationParameters: params,
+      calculationParameters: _params,
       precision: true,
     );
 
@@ -52,6 +54,7 @@ class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
     if (state.prayerTimes == null) return;
 
     final now = DateTime.now();
+    final tomorrow = now.add(const Duration(days: 1));
     final prayers = {
       'Fajr': state.prayerTimes!.fajr,
       'Dhuhr': state.prayerTimes!.dhuhr,
@@ -75,6 +78,17 @@ class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
       emit(state.copyWith(
         nextPrayer: nextPrayerName,
         timeRemaining: nextPrayerTime.difference(now),
+      ));
+    } else {
+      final tomorrowPrayerTimes = PrayerTimes(
+        coordinates: _cordinates!,
+        calculationParameters: _params,
+        date: tomorrow,
+        precision: true,
+      );
+      emit(state.copyWith(
+        nextPrayer: "Fajr",
+        timeRemaining: tomorrowPrayerTimes.fajr?.difference(now),
       ));
     }
     // pr(_nextPrayer, 'next prayer');

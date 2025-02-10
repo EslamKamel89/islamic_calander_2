@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
-import 'package:islamic_calander_2/core/router/app_routes_names.dart';
-import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
-import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/explore_more.dart';
-import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/grid_item.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/next_prayer_widget.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -28,7 +25,7 @@ class _MainHomePageState extends State<MainHomePage> {
   void initState() {
     Future.delayed(const Duration(seconds: 3)).then(
       (value) {
-        showCustomBottomSheet();
+        // showCustomBottomSheet();
       },
     );
     super.initState();
@@ -48,47 +45,93 @@ class _MainHomePageState extends State<MainHomePage> {
           width: context.width,
           height: context.height,
         ).animate().fade(duration: longAnimationDuration, begin: 0, end: 1),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.white.withOpacity(0.2),
-            foregroundColor: Colors.black,
-            actions: const [SettingsDropdown()],
-          ),
-          drawer: const DefaultDrawer(opacity: 0.7),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  // color: Colors.red,
-                  width: double.infinity,
-                  height: 800.h,
-                  // padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // HomepageHeader(
-                        //     animationDuration: animationDuration, secondaryAnimationDuration: shortAnimationDuration),
-                        // DateWidget(
-                        //   animationDuration: animationDuration,
-                        // ).animate().fade(duration: animationDuration, begin: 0, end: 1),
-                        const NextPrayerWidget(),
-                        SizedBox(height: 10.h),
-                        const AllPraysTimeWidget(),
-                        // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
-                        SizedBox(height: 10.h),
-                        // const PrayerTimes(),
-                        ExploreMore(onTap: () {
-                          showCustomBottomSheet();
-                        }),
-                      ],
+        SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            // appBar: AppBar(
+            //   backgroundColor: Colors.white.withOpacity(0.2),
+            //   foregroundColor: Colors.black,
+            //   actions: const [SettingsDropdown()],
+            // ),
+            // drawer: const DefaultDrawer(opacity: 0.7),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    // color: Colors.red,
+                    width: double.infinity,
+                    height: 800.h,
+                    // padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 15),
+                          // HomepageHeader(
+                          //     animationDuration: animationDuration, secondaryAnimationDuration: shortAnimationDuration),
+                          // DateWidget(
+                          //   animationDuration: animationDuration,
+                          // ).animate().fade(duration: animationDuration, begin: 0, end: 1),
+                          const Stack(
+                            children: [
+                              NextPrayerWidget(),
+                              Positioned(
+                                top: 10,
+                                right: 20,
+                                child: SettingsDropdown(),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          const AllPraysTimeWidget(),
+                          // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
+                          SizedBox(height: 10.h),
+                          const IslamicWisdomCard(
+                            author: "Prophet Muhammad (PBUH)",
+                            wisdom:
+                                "When you see a person who has been given more than you in wealth and beauty, look to those who have been given less.",
+                          ).animate().fade(delay: 1000.ms, duration: 4000.ms, begin: 0, end: 1)
+                          // const PrayerTimes(),
+                          // ExploreMore(onTap: () {
+                          //   showCustomBottomSheet();
+                          // }),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
+        Positioned(
+          bottom: 30.h,
+          right: 10,
+          left: 10,
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                showCustomBottomSheet();
+              },
+              child: Container(
+                      width: 50.w,
+                      height: 50.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.w),
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: Image.asset(
+                        AssetsData.globe2,
+                        fit: BoxFit.cover,
+                      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 6000.ms, begin: 0, end: 2)
+                      // .then()
+                      // .rotate(duration: 4000.ms, begin: 2, end: 0),
+                      )
+                  .animate()
+                  .move(
+                      duration: 3000.ms, begin: Offset(0, -context.height), end: Offset.zero, curve: Curves.bounceOut),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -107,159 +150,5 @@ class _MainHomePageState extends State<MainHomePage> {
         );
       },
     );
-  }
-}
-
-class MainpageBottomSheetWidget extends StatefulWidget {
-  const MainpageBottomSheetWidget({
-    super.key,
-  });
-
-  @override
-  State<MainpageBottomSheetWidget> createState() => _MainpageBottomSheetWidgetState();
-}
-
-class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        height: 600.h,
-        width: double.infinity,
-        color: Colors.black.withOpacity(0.5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: GridItem(
-                    title: 'Date Conversion',
-                    image: AssetsData.dateConversionIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutesNames.dateConversionView);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: GridItem(
-                    title: 'Moon Phase',
-                    image: AssetsData.moonIcon,
-                    onTap: () async {
-                      Navigator.of(context).pushNamed(AppRoutesNames.moonPhaseView);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: GridItem(
-                    title: 'Eclipse',
-                    image: AssetsData.moonEclipseIcon,
-                    onTap: () async {
-                      Navigator.of(context).pushNamed(AppRoutesNames.eclipseView);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: GridItem(
-                    title: 'Find Qibla',
-                    image: AssetsData.compass,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: GridItem(
-                    title: 'Mosques',
-                    image: AssetsData.mosque,
-                    onTap: () async {
-                      const url = "geo:0,0?q=mosque";
-                      await launchUrl(Uri.parse(url));
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: GridItem(
-                    title: 'Halal Restruants',
-                    image: AssetsData.hallalResturant,
-                    onTap: () async {
-                      const url = "geo:0,0?q=halal+restraurant";
-                      await launchUrl(Uri.parse(url));
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: GridItem(
-                    title: 'World Prayers',
-                    image: AssetsData.globe,
-                    onTap: () async {
-                      Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
-                    },
-                  ),
-                ),
-                const Expanded(child: SizedBox())
-              ],
-            ),
-          ],
-        )
-        // StaggeredGrid.count(
-        //   // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //   //   crossAxisCount: 3,
-        //   //   mainAxisSpacing: 8,
-        //   //   crossAxisSpacing: 8,
-        //   //   // childAspectRatio: 1, // Width/height ratio (1 = square)
-        //   //   mainAxisExtent: 170.h,
-        //   // ),
-        //   crossAxisCount: 3,
-
-        //   mainAxisSpacing: 3,
-        //   crossAxisSpacing: 4,
-        //   children: [
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Find Qibla',
-        //         image: AssetsData.compass,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Mosques',
-        //         image: AssetsData.mosque,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Halal Restruants',
-        //         image: AssetsData.hallalResturant,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        // const StaggeredGridTile.count(
-        //   crossAxisCellCount: 3,
-        //   mainAxisCellCount: 2,
-        //   child: NextPrayerWidget(),
-        //   // child: NextPrayerWidget(),
-        //     // ),
-        //   ],
-        // ),
-        );
   }
 }

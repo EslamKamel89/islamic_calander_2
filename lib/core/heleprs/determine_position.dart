@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/globals.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
@@ -31,4 +32,16 @@ Future<Position?> determinePosition() async {
   }
 
   return await Geolocator.getCurrentPosition();
+}
+
+Future<String?> getCityName() async {
+  final position = await determinePosition();
+  if (position == null) return null;
+  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+  if (placemarks.isNotEmpty) {
+    return placemarks.first.administrativeArea;
+  } else {
+    return null;
+  }
 }

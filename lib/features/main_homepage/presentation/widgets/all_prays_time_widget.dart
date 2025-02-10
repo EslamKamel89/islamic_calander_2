@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/utc_to_local_timezone.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
+import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_times_by_date/prayers_times_by_date_cubit.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
@@ -23,6 +24,11 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
   @override
   void initState() {
     super.initState();
+    selectedPrayersNotifier.addListener(() {
+      if (mounted) {
+        context.read<PrayersTimesByDateCubit>().getPrayersTimesByDate(selectedDate);
+      }
+    });
   }
 
   @override
@@ -32,54 +38,51 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PrayersTimesByDateCubit()..getPrayersTimesByDate(selectedDate),
-      child: BlocBuilder<PrayersTimesByDateCubit, PrayersTimesByDateState>(
-        builder: (context, state) {
-          final controller = context.read<PrayersTimesByDateCubit>();
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            selectedDate = selectedDate.subtract(const Duration(days: 1));
-                            controller.getPrayersTimesByDate(selectedDate);
-                          },
-                          child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
-                      txt(formateDateDetailed(selectedDate)),
-                      InkWell(
-                          onTap: () {
-                            selectedDate = selectedDate.add(const Duration(days: 1));
-                            controller.getPrayersTimesByDate(selectedDate);
-                          },
-                          child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
-                    ],
-                  ),
+    return BlocBuilder<PrayersTimesByDateCubit, PrayersTimesByDateState>(
+      builder: (context, state) {
+        final controller = context.read<PrayersTimesByDateCubit>();
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          selectedDate = selectedDate.subtract(const Duration(days: 1));
+                          controller.getPrayersTimesByDate(selectedDate);
+                        },
+                        child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
+                    txt(formateDateDetailed(selectedDate)),
+                    InkWell(
+                        onTap: () {
+                          selectedDate = selectedDate.add(const Duration(days: 1));
+                          controller.getPrayersTimesByDate(selectedDate);
+                        },
+                        child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
+                  ],
                 ),
-                SizedBox(height: 10.h),
-                Material(
-                  borderRadius: BorderRadius.circular(15.w),
-                  elevation: 2,
-                  shadowColor: Colors.grey.withOpacity(0.3),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.w),
-                      color: Colors.white,
-                    ),
-                    child: PrayersWidget(state).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+              ),
+              SizedBox(height: 10.h),
+              Material(
+                borderRadius: BorderRadius.circular(15.w),
+                elevation: 2,
+                shadowColor: Colors.grey.withOpacity(0.3),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.w),
+                    color: Colors.white,
                   ),
+                  child: PrayersWidget(state).animate().fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
