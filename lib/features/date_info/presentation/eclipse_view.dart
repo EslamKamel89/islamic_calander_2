@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/eclipse_enum.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
-import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/core/widgets/default_screen_padding.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
@@ -40,7 +39,7 @@ class _EclipseViewState extends State<EclipseView> {
     return Scaffold(
       appBar: AppBar(title: txt('Moon Phases', e: St.bold20)),
       resizeToAvoidBottomInset: false,
-      drawer: const DefaultDrawer(),
+      // drawer: const DefaultDrawer(),
       body: DefaultScreenPadding(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
