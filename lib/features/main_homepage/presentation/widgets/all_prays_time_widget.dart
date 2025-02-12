@@ -4,8 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/utc_to_local_timezone.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
+import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
+import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_times_by_date/prayers_times_by_date_cubit.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
@@ -21,12 +24,26 @@ class AllPraysTimeWidget extends StatefulWidget {
 
 class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
   DateTime selectedDate = DateTime.now();
+  String? newHijriDate;
   @override
   void initState() {
     super.initState();
+    getNewHijri();
     selectedPrayersNotifier.addListener(() {
       if (mounted) {
         context.read<PrayersTimesByDateCubit>().getPrayersTimesByDate(selectedDate);
+      }
+    });
+  }
+
+  Future getNewHijri() async {
+    DateConversionRepo repo = serviceLocator();
+    final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
+    response.fold((_) {}, (model) {
+      if (mounted) {
+        setState(() {
+          newHijriDate = model.newHijriUpdated;
+        });
       }
     });
   }
@@ -51,16 +68,23 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                        onTap: () {
+                        onTap: () async {
                           selectedDate = selectedDate.subtract(const Duration(days: 1));
                           controller.getPrayersTimesByDate(selectedDate);
+                          getNewHijri();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
-                    txt(formateDateDetailed(selectedDate)),
+                    Column(
+                      children: [
+                        txt(formateDateDetailed(selectedDate)),
+                        if (newHijriDate != null) txt(newHijriDate ?? ''),
+                      ],
+                    ),
                     InkWell(
-                        onTap: () {
+                        onTap: () async {
                           selectedDate = selectedDate.add(const Duration(days: 1));
                           controller.getPrayersTimesByDate(selectedDate);
+                          getNewHijri();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
@@ -169,17 +193,20 @@ class PrayTimeWidget extends StatelessWidget {
             : localTime.minute.toString();
 
     return SizedBox(
-      height: 120.h,
+      // height: 110.h,
       // color: Colors.red,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
         children: [
           txt((pray)),
+          const SizedBox(height: 5),
           dateTime == null
               ? CustomFadingWidget(
                   child: _buildImage(),
                 )
               : _buildImage(),
+          const SizedBox(height: 5),
           dateTime == null
               ? CustomFadingWidget(child: txt('00:00', e: St.reg14))
               : txt('$hoursStr:$minutesStr\n$amOrpm', e: St.reg14),

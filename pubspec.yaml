@@ -54,6 +54,7 @@ dependencies:
   intl: ^0.19.0
   lat_lng_to_timezone: ^0.2.0
   latlong2: ^0.9.1
+  lottie: 3.2.0
   material_design_icons_flutter: ^7.0.7296
   sensors_plus: ^6.1.1
   shared_preferences: ^2.3.3

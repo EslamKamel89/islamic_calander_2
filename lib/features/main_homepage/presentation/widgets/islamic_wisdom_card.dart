@@ -17,15 +17,14 @@ class IslamicWisdomCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(16.0),
-      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        //  A rich gradient reminiscent of traditional Islamic art.
         gradient: LinearGradient(
           colors: [
-            Colors.white.withOpacity(0.8),
-            Colors.white.withOpacity(0.8),
-            Colors.white.withOpacity(0.8),
-            context.primaryColor.withOpacity(0.8),
+            Colors.white.withOpacity(0.2),
+            Colors.white.withOpacity(0.2),
+            Colors.white.withOpacity(0.2),
+            context.primaryColor.withOpacity(0.2),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -35,8 +34,8 @@ class IslamicWisdomCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
         // A subtle white border and shadow for a refined look.
         border: Border.all(
-          color: Colors.white.withOpacity(0.8),
-          width: 2,
+          color: const Color(0xffFFB800).withOpacity(0.5),
+          width: 1,
         ),
         // boxShadow: const [
         //   BoxShadow(
@@ -46,53 +45,60 @@ class IslamicWisdomCard extends StatelessWidget {
         //   )
         // ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // const Icon(
-          //   Icons.nights_stay,
-          //   size: 48,
-          //   color: Colors.black87,
-          // ),
-          // const SizedBox(height: 16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.8),
+          // borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // const Icon(
+            //   Icons.nights_stay,
+            //   size: 48,
+            //   color: Colors.black87,
+            // ),
+            // const SizedBox(height: 16),
 
-          Container(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Text(
-              wisdom,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+            Container(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+              // decoration: BoxDecoration(
+              //   color: Colors.white.withOpacity(0.8),
+              //   borderRadius: BorderRadius.circular(20.0),
+              // ),
+              child: Text(
+                wisdom,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          // The author of the wisdom.
-          Container(
-            padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Text(
-              '- $author',
-              textAlign: TextAlign.right,
-              style: const TextStyle(
-                fontFamily: 'Scheherazade',
-                fontSize: 16,
-                color: Colors.black,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+            const SizedBox(height: 16),
+            // The author of the wisdom.
+            Container(
+              padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
+              // decoration: BoxDecoration(
+              //   color: Colors.grey.withOpacity(0.4),
+              //   borderRadius: BorderRadius.circular(20.0),
+              // ),
+              child: Text(
+                '- $author',
+                textAlign: TextAlign.right,
+                style: const TextStyle(
+                  fontFamily: 'Scheherazade',
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

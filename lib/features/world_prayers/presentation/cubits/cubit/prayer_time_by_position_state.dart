@@ -6,29 +6,33 @@ class PrayerTimeByPositionState {
   PrayerTimes? prayerTimes;
   String? currentTimeZone;
   ResponseEnum? response;
+  String? city;
   PrayerTimeByPositionState({
     this.position,
     this.prayerTimes,
     this.currentTimeZone,
     this.response,
+    this.city,
   });
-
-  @override
-  String toString() {
-    return 'PrayerTimeByPositionState(position: $position, prayerTimes: $prayerTimes, currentTimeZone: $currentTimeZone, response: $response)';
-  }
 
   PrayerTimeByPositionState copyWith({
     LatLng? position,
     PrayerTimes? prayerTimes,
     String? currentTimeZone,
     ResponseEnum? response,
+    String? city,
   }) {
     return PrayerTimeByPositionState(
       position: position ?? this.position,
       prayerTimes: prayerTimes ?? this.prayerTimes,
       currentTimeZone: currentTimeZone ?? this.currentTimeZone,
       response: response ?? this.response,
+      city: city ?? this.city,
     );
+  }
+
+  @override
+  String toString() {
+    return 'PrayerTimeByPositionState(position: $position, prayerTimes: $prayerTimes, currentTimeZone: $currentTimeZone, response: $response, city: $city)';
   }
 }

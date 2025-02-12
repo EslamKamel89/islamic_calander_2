@@ -4,11 +4,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/world_prayers/presentation/cubits/cubit/prayer_time_by_position_cubit.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:lottie/lottie.dart' as Lot;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class WorldPrayersView extends StatefulWidget {
@@ -119,45 +121,72 @@ class _WorldPrayersModalState extends State<WorldPrayersModal> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 const SizedBox(height: 100),
-                const Text(
-                  'Coordinates',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Latitude: ',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      lat,
-                      style: TextStyle(fontSize: 25, color: context.primaryColor),
-                    ),
-                    const Text(
-                      ' | Longitude: ',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      long,
-                      style: TextStyle(fontSize: 25, color: context.primaryColor),
-                    ),
-                  ],
-                ),
-                if (state.response == ResponseEnum.loading) const Center(child: CircularProgressIndicator()),
+                // const Text(
+                //   'Coordinates',
+                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     const Text(
+                //       'Latitude: ',
+                //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                //     ),
+                //     Text(
+                //       lat,
+                //       style: TextStyle(fontSize: 25, color: context.primaryColor),
+                //     ),
+                //     const Text(
+                //       ' | Longitude: ',
+                //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                //     ),
+                //     Text(
+                //       long,
+                //       style: TextStyle(fontSize: 25, color: context.primaryColor),
+                //     ),
+                //   ],
+                // ),
+                if (state.response == ResponseEnum.loading)
+                  SizedBox(height: 180.h, child: const Center(child: CircularProgressIndicator())),
                 if (state.response == ResponseEnum.success)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     const Text(
+                      //       'Time Zone: ',
+                      //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      //     ),
+                      //     Text(
+                      //       state.currentTimeZone ?? '',
+                      //       style: TextStyle(fontSize: 25, color: context.primaryColor),
+                      //     ),
+                      //   ],
+                      // ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Time Zone: ',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          // const Text(
+                          //   'City: ',
+                          //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          // ),
+                          // const Icon(Icons.location_on, color: Colors.red, size: 50)
+                          //     .animate(onPlay: (controller) => controller.repeat())
+                          //     .rotate(duration: 1000.ms, begin: -0.25, end: 0.25)
+                          //     .then()
+                          //     .rotate(duration: 1000.ms, begin: 0.25, end: -0.25),
+                          Lot.Lottie.asset(
+                            AssetsData.map,
+                            width: 90,
+                            height: 90,
+                            fit: BoxFit.cover,
                           ),
+                          const SizedBox(width: 5),
                           Text(
-                            state.currentTimeZone ?? '',
+                            state.city ?? '',
                             style: TextStyle(fontSize: 25, color: context.primaryColor),
                           ),
                         ],
@@ -172,9 +201,22 @@ class _WorldPrayersModalState extends State<WorldPrayersModal> {
                     ],
                   ),
                 const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                      onPressed: () => Navigator.of(context).pop(),
+                      label: const Text('Back', style: TextStyle(color: Colors.black)),
+                    ),
+                    const SizedBox(width: 19),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.home, color: Colors.white),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false),
+                      label: const Text('Home', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
                 ),
               ],
             ),

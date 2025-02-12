@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/globals.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
+import 'package:latlong2/latlong.dart';
 
 Future<Position?> determinePosition() async {
   bool serviceEnabled;
@@ -40,7 +41,19 @@ Future<String?> getCityName() async {
   List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
 
   if (placemarks.isNotEmpty) {
+    // return "${placemarks.first.administrativeArea}";
     return placemarks.first.administrativeArea;
+  } else {
+    return null;
+  }
+}
+
+Future<String?> getCityNameByPosition(LatLng? position) async {
+  if (position == null) return null;
+  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+  if (placemarks.isNotEmpty) {
+    return "${placemarks.first.administrativeArea}\n${placemarks.first.country}";
   } else {
     return null;
   }

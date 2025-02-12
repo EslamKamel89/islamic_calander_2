@@ -1,6 +1,7 @@
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tz;
 import 'package:latlong2/latlong.dart';
@@ -31,11 +32,11 @@ class PrayerTimeByPositionCubit extends Cubit<PrayerTimeByPositionState> {
 
     emit(pr(
         state.copyWith(
-          position: currentPosition,
-          prayerTimes: prayerTimes,
-          currentTimeZone: currentTimeZone,
-          response: ResponseEnum.success,
-        ),
+            position: currentPosition,
+            prayerTimes: prayerTimes,
+            currentTimeZone: currentTimeZone,
+            response: ResponseEnum.success,
+            city: await getCityNameByPosition(currentPosition)),
         t));
   }
 }

@@ -123,7 +123,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     widget.prayerName,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -146,7 +146,7 @@ class _PrayerCardState extends State<PrayerCard> {
                   ),
                   const CityWidget(),
                   const SizedBox(height: 5),
-                  const NewHijrWidget(),
+                  // const NewHijrWidget(),
                 ],
               ),
             ),

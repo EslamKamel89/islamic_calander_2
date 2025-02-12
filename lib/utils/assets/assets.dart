@@ -34,4 +34,5 @@ class AssetsData {
   static const String moonIcon = "${_relativePath}moon-icon.png";
   static const String globe2 = "${_relativePath}globe2.png";
   static const String islamicPattern2 = "${_relativePath}pattern.png";
+  static const String map = "${_relativePath}map_lottie.json";
 }
