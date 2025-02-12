@@ -48,8 +48,10 @@ class _DateYearViewState extends State<DateYearView> {
             handleInputChange: (String year) {
               try {
                 int yearInt = int.parse(year);
-                int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
-                int minYear = context.read<DateConversionCubit>().state.firstDay.year;
+                int maxYear =
+                    context.read<DateConversionCubit>().state.lastDay.year;
+                int minYear =
+                    context.read<DateConversionCubit>().state.firstDay.year;
                 pr(minYear, 'minYear');
                 pr(maxYear, 'maxYear');
                 pr(yearInt, 'enteredYear');
@@ -58,7 +60,8 @@ class _DateYearViewState extends State<DateYearView> {
                   controller.validate('');
                 } else {
                   pr('condition not met');
-                  controller.validate('Year range between $minYear and $maxYear');
+                  controller
+                      .validate('Year range between $minYear and $maxYear');
                 }
               } catch (e) {
                 controller.validate('You have to enter numeric values');
@@ -70,7 +73,8 @@ class _DateYearViewState extends State<DateYearView> {
             builder: (context, state) {
               return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: txt(state.validationMessage, c: Colors.red, e: St.reg14));
+                  child:
+                      txt(state.validationMessage, c: Colors.red, e: St.reg14));
             },
           ),
           BlocBuilder<DateYearCubit, DateYearState>(

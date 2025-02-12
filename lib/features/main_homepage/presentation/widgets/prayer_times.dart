@@ -21,7 +21,8 @@ class PrayerTimesWidget extends StatelessWidget {
       return Stack(
         children: [
           Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.w)),
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(20.w)),
             clipBehavior: Clip.hardEdge,
             child: Image.asset(
               AssetsData.islamicPattern,

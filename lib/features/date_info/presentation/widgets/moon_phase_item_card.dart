@@ -27,11 +27,15 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [context.primaryColor, context.primaryColor.withOpacity(0.7)],
+            colors: [
+              context.primaryColor,
+              context.primaryColor.withOpacity(0.7)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(20), // Same as card shape for consistency
+          borderRadius:
+              BorderRadius.circular(20), // Same as card shape for consistency
           boxShadow: [
             BoxShadow(
               color: context.secondaryHeaderColor.withOpacity(0.3),
@@ -81,7 +85,8 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
                     _buildDataItem('Hijri Date', widget.model.hjridate ?? ''),
                     widget.model.ecllipse == '' || widget.model.ecllipse == null
                         ? const SizedBox()
-                        : _buildDataItem('Moon Ecllipse', widget.model.ecllipse ?? ''),
+                        : _buildDataItem(
+                            'Moon Ecllipse', widget.model.ecllipse ?? ''),
                   ],
                 ),
               ),

@@ -7,7 +7,10 @@ class SelectedDateConversionEntity {
   String? selectedNewHijriDate;
   String? newHijriUpdated;
   SelectedDateConversionEntity(
-      {this.selectedGeorgianDate, this.selectedOldHijriDate, this.selectedNewHijriDate, this.newHijriUpdated});
+      {this.selectedGeorgianDate,
+      this.selectedOldHijriDate,
+      this.selectedNewHijriDate,
+      this.newHijriUpdated});
 
   @override
   String toString() =>
@@ -35,7 +38,8 @@ class SelectedDateConversionEntity {
       }
       String oldDay = selectedOldHijriDate!.split(' ')[1].trim();
       String newDay = selectedNewHijriDate!.split(',')[1].trim();
-      String resultNewHijri = selectedNewHijriDate!.replaceFirst(',$newDay,', ',$oldDay,');
+      String resultNewHijri =
+          selectedNewHijriDate!.replaceFirst(',$newDay,', ',$oldDay,');
       // pr(oldDay, '$t - oldDay');
       // pr(newDay, '$t - newDay');
       pr(resultNewHijri, '$t - resultNewHijri');
@@ -47,7 +51,8 @@ class SelectedDateConversionEntity {
   }
 
   String? newHijriUpdatedDateProccessed() {
-    final t = prt('newHijriUpdatedDateProccessed  - SelectedDateConversionEntity');
+    final t =
+        prt('newHijriUpdatedDateProccessed  - SelectedDateConversionEntity');
     try {
       if (selectedOldHijriDate == null || selectedNewHijriDate == null) {
         return selectedNewHijriDate;
@@ -56,7 +61,8 @@ class SelectedDateConversionEntity {
       String newDay = newHijriUpdated!.split(',')[1].trim();
       int oldDayMinusOne = int.parse(oldDay);
       oldDayMinusOne = oldDayMinusOne == 1 ? 1 : oldDayMinusOne - 1;
-      String resultNewHijriUpdated = newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
+      String resultNewHijriUpdated =
+          newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
       pr(resultNewHijriUpdated, '$t - resultNewHijriUpdated');
       return resultNewHijriUpdated;
     } catch (e) {

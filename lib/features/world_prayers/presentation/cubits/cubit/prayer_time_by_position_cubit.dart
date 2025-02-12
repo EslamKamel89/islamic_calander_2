@@ -13,7 +13,8 @@ class PrayerTimeByPositionCubit extends Cubit<PrayerTimeByPositionState> {
   Future getPrayersTimes(LatLng currentPosition) async {
     final t = prt('getPrayersTimes - PrayerTimeByPositionCubit');
     emit(state.copyWith(response: ResponseEnum.loading));
-    String currentTimeZone = tz.latLngToTimezoneString(currentPosition.latitude, currentPosition.longitude);
+    String currentTimeZone = tz.latLngToTimezoneString(
+        currentPosition.latitude, currentPosition.longitude);
 
     final coordinates = Coordinates(
       currentPosition.latitude,

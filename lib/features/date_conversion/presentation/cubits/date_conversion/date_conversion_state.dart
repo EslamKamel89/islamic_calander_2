@@ -38,8 +38,10 @@ class DateConversionState {
       selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
       // selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
       // selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
-      selectedDateConversionEntity: selectedDateConversionEntity ?? this.selectedDateConversionEntity,
-      getSelectedDateInfoState: getSelectedDateInfoState ?? this.getSelectedDateInfoState,
+      selectedDateConversionEntity:
+          selectedDateConversionEntity ?? this.selectedDateConversionEntity,
+      getSelectedDateInfoState:
+          getSelectedDateInfoState ?? this.getSelectedDateInfoState,
       buildWhen: buildWhen ?? this.buildWhen,
       selectedOption: selectedOption ?? this.selectedOption,
     );

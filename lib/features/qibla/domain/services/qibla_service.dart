@@ -13,7 +13,8 @@ class QiblaService {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      if (context != null) showSnackbar('Error', 'Location services are disabled.', true);
+      if (context != null)
+        showSnackbar('Error', 'Location services are disabled.', true);
       return null;
     }
 
@@ -21,14 +22,18 @@ class QiblaService {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        if (context != null) showSnackbar('Error', 'Location services are denied.', true);
+        if (context != null)
+          showSnackbar('Error', 'Location services are denied.', true);
         return null;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       if (context != null) {
-        showSnackbar('Error', 'Location permissions are permanently denied, we cannot request permissions.', true);
+        showSnackbar(
+            'Error',
+            'Location permissions are permanently denied, we cannot request permissions.',
+            true);
       }
       return null;
     }
@@ -48,7 +53,8 @@ class QiblaService {
 
     // Calculate bearing
     double y = sin(kaabaLngRad - userLngRad) * cos(kaabaLatRad);
-    double x = cos(userLatRad) * sin(kaabaLatRad) - sin(userLatRad) * cos(kaabaLatRad) * cos(kaabaLngRad - userLngRad);
+    double x = cos(userLatRad) * sin(kaabaLatRad) -
+        sin(userLatRad) * cos(kaabaLatRad) * cos(kaabaLngRad - userLngRad);
     double bearing = atan2(y, x);
 
     // Convert radians to degrees and normalize

@@ -70,7 +70,8 @@ class AppRouter {
 }
 
 class CustomPageRoute<T> extends MaterialPageRoute<T> {
-  CustomPageRoute({required super.builder, required RouteSettings super.settings});
+  CustomPageRoute(
+      {required super.builder, required RouteSettings super.settings});
   @override
   Widget buildTransitions(
     BuildContext context,

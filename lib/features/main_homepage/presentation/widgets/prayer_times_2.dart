@@ -96,7 +96,8 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
     if (nextPrayerTime != null && nextPrayerName != null) {
       _nextPrayer = nextPrayerName;
       _timeRemaining = nextPrayerTime.difference(now);
-      _nextPrayerController.update(UpdateNextPrayerInfoState(nextPrayer: _nextPrayer, timeRemaining: _timeRemaining));
+      _nextPrayerController.update(UpdateNextPrayerInfoState(
+          nextPrayer: _nextPrayer, timeRemaining: _timeRemaining));
     }
     // pr(_nextPrayer, 'next prayer');
     // pr(_timeRemaining, 'time remaining');
@@ -132,21 +133,28 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
                 width: context.width - 8,
                 child: Row(
                   children: [
-                    _prayerWidget(_prayerTimes?.fajr)
-                        .animate()
-                        .moveY(delay: 0.ms, begin: -700.h, end: 0, duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.dhuhr)
-                        .animate()
-                        .moveY(delay: 300.ms, begin: -700.h, end: 0, duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.asr)
-                        .animate()
-                        .moveY(delay: 600.ms, begin: -700.h, end: 0, duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.maghrib)
-                        .animate()
-                        .moveY(delay: 900.ms, begin: -700.h, end: 0, duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.isha)
-                        .animate()
-                        .moveY(delay: 1200.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.fajr).animate().moveY(
+                        delay: 0.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.dhuhr).animate().moveY(
+                        delay: 300.ms,
+                        begin: -700.h,
+                        end: 0,
+                        duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.asr).animate().moveY(
+                        delay: 600.ms,
+                        begin: -700.h,
+                        end: 0,
+                        duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.maghrib).animate().moveY(
+                        delay: 900.ms,
+                        begin: -700.h,
+                        end: 0,
+                        duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.isha).animate().moveY(
+                        delay: 1200.ms,
+                        begin: -700.h,
+                        end: 0,
+                        duration: 1000.ms),
                   ],
                 ),
               ),
@@ -163,7 +171,9 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
     int hour = localTime.hour > 12 ? localTime.hour - 12 : localTime.hour;
     amOrpm = localTime.hour >= 12 ? 'PM' : 'AM';
     String hoursStr = hour.toString().length == 1 ? '0$hour' : hour.toString();
-    String minutesStr = localTime.minute.toString().length == 1 ? '0${localTime.minute}' : localTime.minute.toString();
+    String minutesStr = localTime.minute.toString().length == 1
+        ? '0${localTime.minute}'
+        : localTime.minute.toString();
     return Flexible(
       flex: 1,
       child: Center(
@@ -174,15 +184,24 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
           children: [
             Text(
               '$hoursStr :',
-              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               minutesStr,
-              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               amOrpm,
-              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

@@ -37,7 +37,10 @@ class _YearSearchWidgetState extends State<YearSearchWidget> {
             child: Center(
               child: Text(
                 'Go To Year',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.primaryColor),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.primaryColor),
               ),
             ),
           ),

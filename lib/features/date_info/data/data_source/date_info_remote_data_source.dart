@@ -22,12 +22,15 @@ class DateInfoRemoteDataSource {
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');
-    List<DateInfoModel> models = dataList.map<DateInfoModel>((json) => DateInfoModel.fromJson(json)).toList();
+    List<DateInfoModel> models = dataList
+        .map<DateInfoModel>((json) => DateInfoModel.fromJson(json))
+        .toList();
     pr(models, '$t - parsed respnose');
     return models;
   }
 
-  Future<List<DateInfoModel>> getDateInfoMonth(int year, MonthEnum month) async {
+  Future<List<DateInfoModel>> getDateInfoMonth(
+      int year, MonthEnum month) async {
     final t = prt('getDateInfoYear - DateInfoRemoteDataSource');
     final data = await api.get(EndPoint.dateInfoMonthEndPoint, queryParameter: {
       'year': year,
@@ -35,12 +38,15 @@ class DateInfoRemoteDataSource {
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');
-    List<DateInfoModel> models = dataList.map<DateInfoModel>((json) => DateInfoModel.fromJson(json)).toList();
+    List<DateInfoModel> models = dataList
+        .map<DateInfoModel>((json) => DateInfoModel.fromJson(json))
+        .toList();
     pr(models, '$t - parsed respnose');
     return models;
   }
 
-  Future<List<MoonInfoModel>> getMoonInfoMonth(int year, MoonPhaseEnum moonPhase) async {
+  Future<List<MoonInfoModel>> getMoonInfoMonth(
+      int year, MoonPhaseEnum moonPhase) async {
     final t = prt('getDateInfoYear - DateInfoRemoteDataSource');
     final data = await api.get(EndPoint.getMoonPhaseEndPoint, queryParameter: {
       'year': year,
@@ -48,12 +54,15 @@ class DateInfoRemoteDataSource {
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');
-    List<MoonInfoModel> models = dataList.map<MoonInfoModel>((json) => MoonInfoModel.fromJson(json)).toList();
+    List<MoonInfoModel> models = dataList
+        .map<MoonInfoModel>((json) => MoonInfoModel.fromJson(json))
+        .toList();
     pr(models, '$t - parsed respnose');
     return models;
   }
 
-  Future<List<MoonInfoModel>> getEclipseInfoMonth(int year, EclipseEnum eclipse) async {
+  Future<List<MoonInfoModel>> getEclipseInfoMonth(
+      int year, EclipseEnum eclipse) async {
     final t = prt('getEclipseInfoMonth - DateInfoRemoteDataSource');
     final data = await api.get(EndPoint.getEclipseEndPoint, queryParameter: {
       'year': year,
@@ -61,7 +70,9 @@ class DateInfoRemoteDataSource {
     });
     List dataList = jsonDecode(data);
     pr(dataList, '$t - raw respnose');
-    List<MoonInfoModel> models = dataList.map<MoonInfoModel>((json) => MoonInfoModel.fromJson(json)).toList();
+    List<MoonInfoModel> models = dataList
+        .map<MoonInfoModel>((json) => MoonInfoModel.fromJson(json))
+        .toList();
     pr(models, '$t - parsed respnose');
     return models;
   }

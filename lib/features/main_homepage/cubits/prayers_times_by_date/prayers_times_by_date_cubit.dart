@@ -8,7 +8,6 @@ import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
-import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 
 part 'prayers_times_by_date_state.dart';
 
@@ -45,7 +44,7 @@ class PrayersTimesByDateCubit extends Cubit<PrayersTimesByDateState> {
   }
 
   dynamic _params() {
-    PrayerCalcMethod calcMethod = selectedPrayersMethod;
+    PrayerCalcMethod calcMethod = PrayerCalcMethod.muslimWorldLeague;
     pr(calcMethod);
 
     switch (calcMethod) {

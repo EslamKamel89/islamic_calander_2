@@ -16,7 +16,10 @@ class DefaultDrawer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [context.primaryColor.withOpacity(opacity), context.secondaryHeaderColor.withOpacity(opacity)],
+            colors: [
+              context.primaryColor.withOpacity(opacity),
+              context.secondaryHeaderColor.withOpacity(opacity)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -26,7 +29,8 @@ class DefaultDrawer extends StatelessWidget {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: txt('New Islamic Calendar', e: St.bold16),
-              accountEmail: const Text("The best use of time is to spend it\nin the remembrance of Allah."),
+              accountEmail: const Text(
+                  "The best use of time is to spend it\nin the remembrance of Allah."),
               currentAccountPicture: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
                 child: Icon(
@@ -44,7 +48,8 @@ class DefaultDrawer extends StatelessWidget {
               icon: MdiIcons.home,
               text: 'Home',
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.mainHomepage, (_) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutesNames.mainHomepage, (_) => false);
               },
             ),
             _createDrawerItem(
@@ -52,7 +57,8 @@ class DefaultDrawer extends StatelessWidget {
               icon: MdiIcons.mosqueOutline,
               text: 'Data Conversion',
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.dateConversionView, (_) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutesNames.dateConversionView, (_) => false);
               },
             ),
             // _createDrawerItem(
@@ -76,7 +82,8 @@ class DefaultDrawer extends StatelessWidget {
               icon: MdiIcons.themeLightDark,
               text: 'Moon Phase',
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.moonPhaseView, (_) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutesNames.moonPhaseView, (_) => false);
               },
             ),
             _createDrawerItem(
@@ -84,7 +91,8 @@ class DefaultDrawer extends StatelessWidget {
               icon: MdiIcons.sunAngle,
               text: 'Eclipse',
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, AppRoutesNames.eclipseView, (_) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutesNames.eclipseView, (_) => false);
               },
             ),
             // const Divider(color: Colors.white70),
@@ -104,7 +112,9 @@ class DefaultDrawer extends StatelessWidget {
   }
 
   Widget _createDrawerItem(BuildContext context,
-      {required IconData icon, required String text, GestureTapCallback? onTap}) {
+      {required IconData icon,
+      required String text,
+      GestureTapCallback? onTap}) {
     return ListTile(
       title: Text(text, style: const TextStyle(color: Colors.white)),
       leading: Icon(icon, color: context.secondaryHeaderColor),

@@ -16,12 +16,14 @@ class DateYearCubit extends Cubit<DateYearState> {
   }) : super(DateYearState());
   Future getDateYear(int year) async {
     final t = prt('getDateYear - DeteYearCubit');
-    emit(state.copyWith(getDateYearState: ResponseEnum.loading, selectedYear: year));
+    emit(state.copyWith(
+        getDateYearState: ResponseEnum.loading, selectedYear: year));
     final result = await dateInfoRepo.getDateInfoYear(year);
     return result.fold(
       (Failure failure) {
         pr(failure, t);
-        emit(state.copyWith(getDateYearState: ResponseEnum.failure, datesInfo: []));
+        emit(state
+            .copyWith(getDateYearState: ResponseEnum.failure, datesInfo: []));
       },
       (List<DateInfoModel> models) {
         pr(models, t);

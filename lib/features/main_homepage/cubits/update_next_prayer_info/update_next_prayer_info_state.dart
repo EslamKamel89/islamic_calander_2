@@ -11,5 +11,6 @@ class UpdateNextPrayerInfoState {
   });
 
   @override
-  String toString() => 'UpdateNextPrayerInfoState(nextPrayer: $nextPrayer, timeRemaining: $timeRemaining)';
+  String toString() =>
+      'UpdateNextPrayerInfoState(nextPrayer: $nextPrayer, timeRemaining: $timeRemaining)';
 }

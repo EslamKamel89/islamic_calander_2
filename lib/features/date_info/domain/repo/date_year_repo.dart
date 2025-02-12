@@ -8,7 +8,10 @@ import 'package:islamic_calander_2/features/date_info/domain/entities/moon_info_
 
 abstract class DateInfoRepo {
   Future<Either<Failure, List<DateInfoModel>>> getDateInfoYear(int year);
-  Future<Either<Failure, List<DateInfoModel>>> getDateInfoMonth(int year, MonthEnum month);
-  Future<Either<Failure, List<MoonInfoModel>>> getMoonInfoMonth(int year, MoonPhaseEnum moonPhase);
-  Future<Either<Failure, List<MoonInfoModel>>> getEclipseInfoMonth(int year, EclipseEnum eclipse);
+  Future<Either<Failure, List<DateInfoModel>>> getDateInfoMonth(
+      int year, MonthEnum month);
+  Future<Either<Failure, List<MoonInfoModel>>> getMoonInfoMonth(
+      int year, MoonPhaseEnum moonPhase);
+  Future<Either<Failure, List<MoonInfoModel>>> getEclipseInfoMonth(
+      int year, EclipseEnum eclipse);
 }

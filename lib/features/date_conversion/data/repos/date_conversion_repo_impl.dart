@@ -16,7 +16,8 @@ class DateConversionRepoImpl implements DateConversionRepo {
       DateTime selectedDate, DataProcessingOption selectedOption) async {
     final t = prt('getDateConversion - DateConversionRepoImpl');
     try {
-      SelectedDateConversionModel model = await homeRepoDataSource.getDateConversion(selectedDate, selectedOption);
+      SelectedDateConversionModel model = await homeRepoDataSource
+          .getDateConversion(selectedDate, selectedOption);
       pr(model, t);
       return Right(model);
     } catch (e) {

@@ -18,7 +18,8 @@ class DateInfoRepoImpl implements DateInfoRepo {
   Future<Either<Failure, List<DateInfoModel>>> getDateInfoYear(int year) async {
     final t = prt('getDateInfoYear - DateInfoRepoImpl');
     try {
-      List<DateInfoModel> models = await dateInfoRemoteDataSource.getDateInfoYear(year);
+      List<DateInfoModel> models =
+          await dateInfoRemoteDataSource.getDateInfoYear(year);
       pr(models, t);
       return Right(models);
     } catch (e) {
@@ -32,10 +33,12 @@ class DateInfoRepoImpl implements DateInfoRepo {
   }
 
   @override
-  Future<Either<Failure, List<DateInfoModel>>> getDateInfoMonth(int year, MonthEnum month) async {
+  Future<Either<Failure, List<DateInfoModel>>> getDateInfoMonth(
+      int year, MonthEnum month) async {
     final t = prt('getDateInfoYear - DateInfoRepoImpl');
     try {
-      List<DateInfoModel> models = await dateInfoRemoteDataSource.getDateInfoMonth(year, month);
+      List<DateInfoModel> models =
+          await dateInfoRemoteDataSource.getDateInfoMonth(year, month);
       pr(models, t);
       return Right(models);
     } catch (e) {
@@ -49,10 +52,12 @@ class DateInfoRepoImpl implements DateInfoRepo {
   }
 
   @override
-  Future<Either<Failure, List<MoonInfoModel>>> getMoonInfoMonth(int year, MoonPhaseEnum moonPhase) async {
+  Future<Either<Failure, List<MoonInfoModel>>> getMoonInfoMonth(
+      int year, MoonPhaseEnum moonPhase) async {
     final t = prt('getMoonInfoMonth - DateInfoRepoImpl');
     try {
-      List<MoonInfoModel> models = await dateInfoRemoteDataSource.getMoonInfoMonth(year, moonPhase);
+      List<MoonInfoModel> models =
+          await dateInfoRemoteDataSource.getMoonInfoMonth(year, moonPhase);
       pr(models, t);
       return Right(models);
     } catch (e) {
@@ -66,10 +71,12 @@ class DateInfoRepoImpl implements DateInfoRepo {
   }
 
   @override
-  Future<Either<Failure, List<MoonInfoModel>>> getEclipseInfoMonth(int year, EclipseEnum eclipse) async {
+  Future<Either<Failure, List<MoonInfoModel>>> getEclipseInfoMonth(
+      int year, EclipseEnum eclipse) async {
     final t = prt('getEclipseInfoMonth - DateInfoRepoImpl');
     try {
-      List<MoonInfoModel> models = await dateInfoRemoteDataSource.getEclipseInfoMonth(year, eclipse);
+      List<MoonInfoModel> models =
+          await dateInfoRemoteDataSource.getEclipseInfoMonth(year, eclipse);
       pr(models, t);
       return Right(models);
     } catch (e) {

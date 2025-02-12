@@ -85,14 +85,16 @@ class _UiComponentScreenState extends State<UiComponentScreen> {
               const Sizer(),
               ElevatedButton(
                 onPressed: () {
-                  showSnackbar('Success', 'This is the default success snack bar', false);
+                  showSnackbar('Success',
+                      'This is the default success snack bar', false);
                 },
                 child: const Text('Success Snack Bar'),
               ),
               const Sizer(),
               ElevatedButton(
                 onPressed: () {
-                  showSnackbar('Error', 'This is the default error snack bar', true);
+                  showSnackbar(
+                      'Error', 'This is the default error snack bar', true);
                 },
                 child: const Text('Error Snack Bar'),
               ),

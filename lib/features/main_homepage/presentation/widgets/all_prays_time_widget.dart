@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
-import 'package:islamic_calander_2/core/heleprs/utc_to_local_timezone.dart';
+import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
+import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
-import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_times_by_date/prayers_times_by_date_cubit.dart';
+import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
+import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_time_api/prayers_time_api_cubit.dart';
+import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
@@ -23,20 +28,41 @@ class AllPraysTimeWidget extends StatefulWidget {
 }
 
 class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PrayerTimesApiCubit(params: PrayerTimeParams()),
+      child: const AppPrayersTimeBuilder(),
+    );
+  }
+}
+
+class AppPrayersTimeBuilder extends StatefulWidget {
+  const AppPrayersTimeBuilder({super.key});
+
+  @override
+  State<AppPrayersTimeBuilder> createState() => _AppPrayersTimeBuilderState();
+}
+
+class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   DateTime selectedDate = DateTime.now();
   String? newHijriDate;
+  late PrayerTimesApiCubit cubit;
   @override
   void initState() {
-    super.initState();
-    getNewHijri();
+    cubit = context.read<PrayerTimesApiCubit>();
+    _getPrayerTime();
+    _getNewHijri();
     selectedPrayersNotifier.addListener(() {
+      cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
       if (mounted) {
-        context.read<PrayersTimesByDateCubit>().getPrayersTimesByDate(selectedDate);
+        cubit.getPrayerTime();
       }
     });
+    super.initState();
   }
 
-  Future getNewHijri() async {
+  Future _getNewHijri() async {
     DateConversionRepo repo = serviceLocator();
     final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
     response.fold((_) {}, (model) {
@@ -48,6 +74,19 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
     });
   }
 
+  Future _getPrayerTime() async {
+    Position? position = await determinePosition();
+    if (position == null) return;
+    cubit.params = cubit.params.copyWith(
+      latitude: position.latitude,
+      longitude: position.longitude,
+      method: IslamicOrganization.muslimWorldLeague,
+      latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
+      date: selectedDate,
+    );
+    await cubit.getPrayerTime();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -55,9 +94,8 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PrayersTimesByDateCubit, PrayersTimesByDateState>(
+    return BlocBuilder<PrayerTimesApiCubit, ApiResponseModel<PrayersTimeModel>>(
       builder: (context, state) {
-        final controller = context.read<PrayersTimesByDateCubit>();
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Column(
@@ -70,8 +108,9 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.subtract(const Duration(days: 1));
-                          controller.getPrayersTimesByDate(selectedDate);
-                          getNewHijri();
+                          cubit.params = cubit.params.copyWith(date: selectedDate);
+                          cubit.getPrayerTime();
+                          _getNewHijri();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
                     Column(
@@ -83,8 +122,9 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.add(const Duration(days: 1));
-                          controller.getPrayersTimesByDate(selectedDate);
-                          getNewHijri();
+                          cubit.params = cubit.params.copyWith(date: selectedDate);
+                          cubit.getPrayerTime();
+                          _getNewHijri();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
@@ -100,7 +140,7 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child: PrayersWidget(state).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+                  child: PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -113,10 +153,10 @@ class _AllPraysTimeWidgetState extends State<AllPraysTimeWidget> {
 
 class PrayersWidget extends StatelessWidget {
   const PrayersWidget(
-    this.state, {
+    this.model, {
     super.key,
   });
-  final PrayersTimesByDateState state;
+  final PrayersTimeModel? model;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -126,32 +166,32 @@ class PrayersWidget extends StatelessWidget {
         PrayTimeWidget(
           pray: 'Fajr',
           imagePath: AssetsData.three,
-          dateTime: state.prayerTimes?.fajr,
-          currentTimeZone: state.currentTimeZone,
+          time: model?.fajr,
+          // currentTimeZone: model.currentTimeZone,
         ),
         PrayTimeWidget(
           pray: 'Dhuhr',
           imagePath: AssetsData.two,
-          dateTime: state.prayerTimes?.dhuhr,
-          currentTimeZone: state.currentTimeZone,
+          time: model?.dhuhr,
+          // currentTimeZone: model.currentTimeZone,
         ),
         PrayTimeWidget(
           pray: 'Asr',
           imagePath: AssetsData.one,
-          dateTime: state.prayerTimes?.asr,
-          currentTimeZone: state.currentTimeZone,
+          time: model?.asr,
+          // currentTimeZone: model.currentTimeZone,
         ),
         PrayTimeWidget(
           pray: 'Maghrib',
           imagePath: AssetsData.four,
-          dateTime: state.prayerTimes?.maghrib,
-          currentTimeZone: state.currentTimeZone,
+          time: model?.maghrib,
+          // currentTimeZone: model.currentTimeZone,
         ),
         PrayTimeWidget(
           pray: 'Isha',
           imagePath: AssetsData.five,
-          dateTime: state.prayerTimes?.isha,
-          currentTimeZone: state.currentTimeZone,
+          time: model?.isha,
+          // currentTimeZone: model.currentTimeZone,
         ),
         SizedBox(width: 5.w),
       ],
@@ -160,37 +200,28 @@ class PrayersWidget extends StatelessWidget {
 }
 
 class PrayTimeWidget extends StatelessWidget {
-  const PrayTimeWidget(
-      {super.key, required this.pray, required this.imagePath, required this.dateTime, required this.currentTimeZone});
+  const PrayTimeWidget({super.key, required this.pray, required this.imagePath, required this.time});
   final String pray;
-  final DateTime? dateTime;
+  final String? time;
   final String imagePath;
-  final String? currentTimeZone;
+  // final String? currentTimeZone;
   @override
   Widget build(BuildContext context) {
     // if (dateTime == null) return const SizedBox();
-    DateTime? localTime = dateTime == null || currentTimeZone == null ? null : utcToLocal(dateTime!, currentTimeZone!);
+    // DateTime? localTime = dateTime == null || currentTimeZone == null ? null : utcToLocal(dateTime!, currentTimeZone!);
     String? amOrpm;
-    int? hour = localTime == null
+    String? hourStr = time?.split(':').first;
+    String? minStr = time?.split(':').last;
+    if ([hourStr, minStr, time].contains(null)) {
+      return _loadingWidget();
+    }
+    int? hour = intParse(hourStr);
+    amOrpm = hour != null && hour >= 12 ? 'PM' : 'AM';
+    hour = hour == null
         ? null
-        : localTime.hour > 12
-            ? localTime.hour - 12
-            : localTime.hour;
-    amOrpm = localTime == null
-        ? null
-        : localTime.hour >= 12
-            ? 'PM'
-            : 'AM';
-    String hoursStr = hour == null
-        ? ''
-        : hour.toString().length == 1
-            ? '0$hour'
-            : hour.toString();
-    String minutesStr = localTime == null
-        ? ''
-        : localTime.minute.toString().length == 1
-            ? '0${localTime.minute}'
-            : localTime.minute.toString();
+        : hour > 12
+            ? hour - 12
+            : hour;
 
     return SizedBox(
       // height: 110.h,
@@ -201,17 +232,27 @@ class PrayTimeWidget extends StatelessWidget {
         children: [
           txt((pray)),
           const SizedBox(height: 5),
-          dateTime == null
-              ? CustomFadingWidget(
-                  child: _buildImage(),
-                )
-              : _buildImage(),
+          _buildImage(),
           const SizedBox(height: 5),
-          dateTime == null
-              ? CustomFadingWidget(child: txt('00:00', e: St.reg14))
-              : txt('$hoursStr:$minutesStr\n$amOrpm', e: St.reg14),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg14),
         ],
       ),
+    );
+  }
+
+  Column _loadingWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        txt((pray)),
+        const SizedBox(height: 5),
+        CustomFadingWidget(
+          child: _buildImage(),
+        ),
+        const SizedBox(height: 5),
+        CustomFadingWidget(child: txt('00:00', e: St.reg14)),
+      ],
     );
   }
 

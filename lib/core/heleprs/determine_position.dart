@@ -12,7 +12,8 @@ Future<Position?> determinePosition() async {
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
-    if (context != null) showSnackbar('Error', 'Location services are disabled.', true);
+    if (context != null)
+      showSnackbar('Error', 'Location services are disabled.', true);
     return null;
   }
 
@@ -20,14 +21,18 @@ Future<Position?> determinePosition() async {
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
-      if (context != null) showSnackbar('Error', 'Location services are denied.', true);
+      if (context != null)
+        showSnackbar('Error', 'Location services are denied.', true);
       return null;
     }
   }
 
   if (permission == LocationPermission.deniedForever) {
     if (context != null) {
-      showSnackbar('Error', 'Location permissions are permanently denied, we cannot request permissions.', true);
+      showSnackbar(
+          'Error',
+          'Location permissions are permanently denied, we cannot request permissions.',
+          true);
     }
     return null;
   }
@@ -38,7 +43,8 @@ Future<Position?> determinePosition() async {
 Future<String?> getCityName() async {
   final position = await determinePosition();
   if (position == null) return null;
-  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+  List<Placemark> placemarks =
+      await placemarkFromCoordinates(position.latitude, position.longitude);
 
   if (placemarks.isNotEmpty) {
     // return "${placemarks.first.administrativeArea}";
@@ -50,7 +56,8 @@ Future<String?> getCityName() async {
 
 Future<String?> getCityNameByPosition(LatLng? position) async {
   if (position == null) return null;
-  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+  List<Placemark> placemarks =
+      await placemarkFromCoordinates(position.latitude, position.longitude);
 
   if (placemarks.isNotEmpty) {
     return "${placemarks.first.administrativeArea}\n${placemarks.first.country}";

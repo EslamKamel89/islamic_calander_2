@@ -30,7 +30,8 @@ class IslamicWisdomCard extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
         // color: Colors.white.withOpacity(0.2),
-        image: const DecorationImage(image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
+        image: const DecorationImage(
+            image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(20.0),
         // A subtle white border and shadow for a refined look.
         border: Border.all(
@@ -62,7 +63,8 @@ class IslamicWisdomCard extends StatelessWidget {
             // const SizedBox(height: 16),
 
             Container(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+              padding: const EdgeInsets.only(
+                  top: 10, left: 10, right: 10, bottom: 5),
               // decoration: BoxDecoration(
               //   color: Colors.white.withOpacity(0.8),
               //   borderRadius: BorderRadius.circular(20.0),
@@ -80,7 +82,8 @@ class IslamicWisdomCard extends StatelessWidget {
             const SizedBox(height: 16),
             // The author of the wisdom.
             Container(
-              padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 5, left: 10, right: 10, bottom: 10),
               // decoration: BoxDecoration(
               //   color: Colors.grey.withOpacity(0.4),
               //   borderRadius: BorderRadius.circular(20.0),

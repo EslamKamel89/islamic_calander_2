@@ -27,7 +27,8 @@ class HomeRepoDataSource {
       'month': month,
       'day': day,
     });
-    SelectedDateConversionModel model = pr(SelectedDateConversionModel.fromJson(jsonDecode(data)), t);
+    SelectedDateConversionModel model =
+        pr(SelectedDateConversionModel.fromJson(jsonDecode(data)), t);
     return model;
   }
 }

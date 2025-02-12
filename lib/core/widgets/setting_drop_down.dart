@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/enums/prayer_calc_method.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class SettingsDropdown extends StatefulWidget {
@@ -38,9 +39,8 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
   }
 }
 
-PrayerCalcMethod selectedPrayersMethod = PrayerCalcMethod.muslimWorldLeague;
-ValueNotifier<PrayerCalcMethod> selectedPrayersNotifier =
-    ValueNotifier<PrayerCalcMethod>(PrayerCalcMethod.muslimWorldLeague);
+ValueNotifier<IslamicOrganization> selectedPrayersNotifier =
+    ValueNotifier<IslamicOrganization>(IslamicOrganization.muslimWorldLeague);
 
 class CalcOptionsWidget extends StatefulWidget {
   const CalcOptionsWidget({super.key});
@@ -49,6 +49,7 @@ class CalcOptionsWidget extends StatefulWidget {
 }
 
 class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
+  IslamicOrganization selectedPrayersMethod = IslamicOrganization.muslimWorldLeague;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +59,8 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
           const SizedBox(height: 10),
           txt('Prayers Calculation Method', e: St.bold20),
           const Divider(),
-          ...List.generate(PrayerCalcMethod.values.length, (index) {
-            final prayerCalc = PrayerCalcMethod.values[index];
+          ...List.generate(IslamicOrganization.values.length, (index) {
+            final prayerCalc = IslamicOrganization.values[index];
             return CalcMethodWidget(
               selectedMethod: selectedPrayersMethod,
               prayerCalc: prayerCalc,
@@ -78,8 +79,8 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
 
 class CalcMethodWidget extends StatelessWidget {
   const CalcMethodWidget({super.key, required this.selectedMethod, required this.prayerCalc, required this.onTap});
-  final PrayerCalcMethod selectedMethod;
-  final PrayerCalcMethod prayerCalc;
+  final IslamicOrganization selectedMethod;
+  final IslamicOrganization prayerCalc;
   final Function() onTap;
   @override
   Widget build(BuildContext context) {
@@ -88,10 +89,12 @@ class CalcMethodWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
-        title:
-            txt(prayerCalc.name(), maxLines: 20, e: St.bold16, c: selectedMethod == prayerCalc ? Colors.white : null),
-        subtitle: txt(prayerCalc.description(),
-            e: St.reg14, maxLines: 20, c: selectedMethod == prayerCalc ? Colors.white : null),
+        title: txt(prayerCalc.fullString,
+            maxLines: 20, e: St.bold16, c: selectedMethod == prayerCalc ? Colors.white : null),
+        // subtitle: txt(prayerCalc.description(),
+        //     e: St.reg14,
+        //     maxLines: 20,
+        //     c: selectedMethod == prayerCalc ? Colors.white : null),
         onTap: onTap,
       ),
     );

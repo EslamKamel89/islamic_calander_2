@@ -33,7 +33,10 @@ class GridItem extends StatelessWidget {
               ),
             Text(
               '$title\n',
-              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               maxLines: 2,
             ),

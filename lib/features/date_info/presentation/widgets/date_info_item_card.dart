@@ -27,11 +27,15 @@ class _DateInfoItemCardState extends State<DateInfoItemCard> {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [context.primaryColor, context.primaryColor.withOpacity(0.7)],
+            colors: [
+              context.primaryColor,
+              context.primaryColor.withOpacity(0.7)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(20), // Same as card shape for consistency
+          borderRadius:
+              BorderRadius.circular(20), // Same as card shape for consistency
           boxShadow: [
             BoxShadow(
               color: context.secondaryHeaderColor.withOpacity(0.3),
@@ -76,16 +80,22 @@ class _DateInfoItemCardState extends State<DateInfoItemCard> {
                 visible: isVisible,
                 child: Column(
                   children: [
-                    _buildDataItem('Full Moon Start', '${widget.model.fmStart}'),
+                    _buildDataItem(
+                        'Full Moon Start', '${widget.model.fmStart}'),
                     _buildDataItem('Full Moon End', '${widget.model.fmEnd}'),
                     _buildDataItem('Hijri Start', '${widget.model.hgStart}'),
                     _buildDataItem('Hijri End', '${widget.model.hgEnd}'),
-                    _buildDataItem('Hijri New Start', '${widget.model.hnStart}'),
+                    _buildDataItem(
+                        'Hijri New Start', '${widget.model.hnStart}'),
                     _buildDataItem('Hijri New End', '${widget.model.hnEnd}'),
-                    _buildDataItem('Hijri Old Start', '${widget.model.oldHgHijriStart}'),
-                    _buildDataItem('Hijri Old End', '${widget.model.oldHgHijriEnd}'),
-                    _buildDataItem('Old FM Hijri Start', '${widget.model.oldFmHijriStart}'),
-                    _buildDataItem('Old FM Moon Hijri End', '${widget.model.oldFmHijriEnd}'),
+                    _buildDataItem(
+                        'Hijri Old Start', '${widget.model.oldHgHijriStart}'),
+                    _buildDataItem(
+                        'Hijri Old End', '${widget.model.oldHgHijriEnd}'),
+                    _buildDataItem('Old FM Hijri Start',
+                        '${widget.model.oldFmHijriStart}'),
+                    _buildDataItem('Old FM Moon Hijri End',
+                        '${widget.model.oldFmHijriEnd}'),
                   ],
                 ),
               ),

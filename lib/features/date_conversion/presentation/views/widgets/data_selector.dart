@@ -25,7 +25,10 @@ class DataSelectorState extends State<DataSelector> {
         children: [
           Text(
             'Select type of data:',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.primaryColor),
+            style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: context.primaryColor),
           ),
           const SizedBox(height: 15.0),
           Row(
@@ -38,11 +41,14 @@ class DataSelectorState extends State<DataSelector> {
                       Text(
                         'Lunar',
                         style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.lunar
+                          color: controller.state.selectedOption ==
+                                  DataProcessingOption.lunar
                               ? context.primaryColor
                               : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.lunar ? FontWeight.bold : null,
+                          fontWeight: controller.state.selectedOption ==
+                                  DataProcessingOption.lunar
+                              ? FontWeight.bold
+                              : null,
                         ),
                       ),
                     ],
@@ -67,11 +73,14 @@ class DataSelectorState extends State<DataSelector> {
                       Text(
                         'Regular',
                         style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.regular
+                          color: controller.state.selectedOption ==
+                                  DataProcessingOption.regular
                               ? context.primaryColor
                               : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.regular ? FontWeight.bold : null,
+                          fontWeight: controller.state.selectedOption ==
+                                  DataProcessingOption.regular
+                              ? FontWeight.bold
+                              : null,
                         ),
                       ),
                     ],

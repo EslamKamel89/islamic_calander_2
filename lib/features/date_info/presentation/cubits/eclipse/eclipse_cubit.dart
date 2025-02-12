@@ -15,12 +15,14 @@ class EclipseCubit extends Cubit<EclipseState> {
 
   Future getEclipseInfoMonth(int year, EclipseEnum eclipse) async {
     final t = prt('getEclipseInfoMonth - EclipseCubit');
-    emit(state.copyWith(getEclipseState: ResponseEnum.loading, selectedYear: year));
+    emit(state.copyWith(
+        getEclipseState: ResponseEnum.loading, selectedYear: year));
     final result = await dateInfoRepo.getEclipseInfoMonth(year, eclipse);
     return result.fold(
       (Failure failure) {
         pr(failure, t);
-        emit(state.copyWith(getEclipseState: ResponseEnum.failure, moonPhasesInfo: []));
+        emit(state.copyWith(
+            getEclipseState: ResponseEnum.failure, moonPhasesInfo: []));
       },
       (List<MoonInfoModel> models) {
         pr(models, t);

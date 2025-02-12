@@ -8,8 +8,7 @@ import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
-import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_cubit.dart';
-import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_state.dart';
+import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
@@ -25,7 +24,7 @@ class NextPrayerWidget extends StatefulWidget {
 class _NextPrayerWidgetState extends State<NextPrayerWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PrayersTimesTodayCubit, PrayersTimesTodayState>(
+    return BlocBuilder<UpdateNextPrayerApiCubit, UpdateNextPrayerApiState>(
       builder: (context, state) {
         // if (state.nextPrayer == null || state.timeRemaining == null) return const SizedBox();
         if (state.response != ResponseEnum.success) {

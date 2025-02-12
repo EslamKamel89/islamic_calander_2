@@ -43,10 +43,18 @@ class DateInfoModel extends DateInfoEntity {
       hgEnd: json['hg_end'] != null ? json['hg_end'] as String : null,
       hnStart: json['hn_start'] != null ? json['hn_start'] as String : null,
       hnEnd: json['hn_end'] != null ? json['hn_end'] as String : null,
-      oldHgHijriStart: json['old_hg_hijri_start'] != null ? json['old_hg_hijri_start'] as String : null,
-      oldHgHijriEnd: json['old_hg_hijri_end'] != null ? json['old_hg_hijri_end'] as String : null,
-      oldFmHijriStart: json['old_fm_hijri_start'] != null ? json['old_fm_hijri_start'] as String : null,
-      oldFmHijriEnd: json['old_fm_hijri_end'] != null ? json['old_fm_hijri_end'] as String : null,
+      oldHgHijriStart: json['old_hg_hijri_start'] != null
+          ? json['old_hg_hijri_start'] as String
+          : null,
+      oldHgHijriEnd: json['old_hg_hijri_end'] != null
+          ? json['old_hg_hijri_end'] as String
+          : null,
+      oldFmHijriStart: json['old_fm_hijri_start'] != null
+          ? json['old_fm_hijri_start'] as String
+          : null,
+      oldFmHijriEnd: json['old_fm_hijri_end'] != null
+          ? json['old_fm_hijri_end'] as String
+          : null,
     );
   }
 }
