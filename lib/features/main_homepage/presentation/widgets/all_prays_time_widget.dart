@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
@@ -75,16 +76,28 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getPrayerTime() async {
-    Position? position = await determinePosition();
-    if (position == null) return;
-    cubit.params = cubit.params.copyWith(
-      latitude: position.latitude,
-      longitude: position.longitude,
-      method: IslamicOrganization.muslimWorldLeague,
-      latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
-      date: selectedDate,
-    );
-    await cubit.getPrayerTime();
+    do {
+      final t = prt('Bug fix2');
+      Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
+      pr(position, '$t - position');
+      if ([position, position?.latitude, position?.longitude].contains(null)) {
+        await Future.delayed(const Duration(seconds: 1));
+        continue;
+      }
+
+      // pr(position.longitude, t);
+      cubit.params = pr(
+          cubit.params.copyWith(
+            latitude: position!.latitude,
+            longitude: position.longitude,
+            method: IslamicOrganization.muslimWorldLeague,
+            latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
+            date: selectedDate,
+          ),
+          '$t - params');
+      await cubit.getPrayerTime();
+      await Future.delayed(const Duration(seconds: 1));
+    } while (cubit.state.data == null);
   }
 
   @override
@@ -108,9 +121,14 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.subtract(const Duration(days: 1));
-                          cubit.params = cubit.params.copyWith(date: selectedDate);
-                          cubit.getPrayerTime();
                           _getNewHijri();
+                          Position? position = await serviceLocator<GeoPosition>().position();
+                          if ([position, position?.latitude, position?.longitude].contains(null)) {
+                            return;
+                          }
+                          cubit.params = cubit.params.copyWith(
+                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+                          cubit.getPrayerTime();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
                     Column(
@@ -122,9 +140,14 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.add(const Duration(days: 1));
-                          cubit.params = cubit.params.copyWith(date: selectedDate);
-                          cubit.getPrayerTime();
                           _getNewHijri();
+                          Position? position = await serviceLocator<GeoPosition>().position();
+                          if ([position, position?.latitude, position?.longitude].contains(null)) {
+                            return;
+                          }
+                          cubit.params = cubit.params.copyWith(
+                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+                          cubit.getPrayerTime();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],

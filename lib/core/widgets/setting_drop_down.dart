@@ -41,6 +41,7 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
 
 ValueNotifier<IslamicOrganization> selectedPrayersNotifier =
     ValueNotifier<IslamicOrganization>(IslamicOrganization.muslimWorldLeague);
+IslamicOrganization selectedPrayersMethod = IslamicOrganization.muslimWorldLeague;
 
 class CalcOptionsWidget extends StatefulWidget {
   const CalcOptionsWidget({super.key});
@@ -49,7 +50,6 @@ class CalcOptionsWidget extends StatefulWidget {
 }
 
 class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
-  IslamicOrganization selectedPrayersMethod = IslamicOrganization.muslimWorldLeague;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,6 +68,7 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
                 selectedPrayersMethod = prayerCalc;
                 selectedPrayersNotifier.value = prayerCalc;
                 setState(() {});
+                Navigator.of(context).pop();
               },
             );
           }),

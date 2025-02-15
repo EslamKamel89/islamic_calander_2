@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
-import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
-import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
+import 'package:islamic_calander_2/core/heleprs/now.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/prayers_controller.dart';
@@ -19,18 +18,23 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
   PrayerTimeParams? params;
   UpdateNextPrayerApiCubit() : super(UpdateNextPrayerApiState(response: ResponseEnum.initial));
   Future init() async {
+    // ignore: prefer_conditional_assignment
     if (params == null) {
-      Position? position = await determinePosition();
-      if (position == null) {
-        showSnackbar('Error', "Can't fetch location", true);
-        return;
-      }
+      // Position? position = await serviceLocator<GeoPosition>().position();
+      // if (position == null) {
+      //   await Future.delayed(const Duration(seconds: 1));
+      //   position = await serviceLocator<GeoPosition>().position();
+      //   if (position == null) {
+      //     showSnackbar('Error', "Can't fetch location", true);
+      //     return;
+      //   }
+      // }
       params = PrayerTimeParams(
-        latitude: position.latitude,
-        longitude: position.longitude,
+        // latitude: position.latitude,
+        // longitude: position.longitude,
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         method: IslamicOrganization.muslimWorldLeague,
-        date: DateTime.now(),
+        date: customNow(),
       );
     }
     emit(state.copyWith(response: ResponseEnum.loading));
@@ -40,21 +44,30 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
   }
 
   Future _nextPrayerPeriodicFunction() async {
-    const t = '_nextPrayerPeriodicFunction - UpdateNextPrayerApiCubit';
-    DateTime now = DateTime.now();
+    // final t = prt('_nextPrayerPeriodicFunction - UpdateNextPrayerApiCubit');
+    DateTime now = customNow();
+    Position? position = await serviceLocator<GeoPosition>().position();
+    if ([position, position?.latitude, position?.longitude].contains(null)) {
+      // pr('position is null', t);
+      return;
+    }
+    params = params!.copyWith(latitude: position!.latitude, longitude: position.longitude);
     if (params!.date?.day != now.day || state.prayerTimeModel == null) {
       params!.date = now;
       state.prayerTimeModel = (await controller.prayerTime(params!)).data;
+      state.nextDayPrayerTimeModel =
+          (await controller.prayerTime(params!.copyWith(date: params?.date?.add(const Duration(days: 1))))).data;
     }
-    if (state.prayerTimeModel == null) {
-      pr('Error Occured: prayerTimeModel is null', t);
+    if (state.prayerTimeModel == null || state.nextDayPrayerTimeModel == null) {
+      // pr('Error Occured: prayerTimeModel is null', t);
       return;
     }
     NextPrayerModel nextPrayerModel = state.prayerTimeModel!.getNextPrayer();
-    if (nextPrayerModel.nextPrayer == 'Fajr') {
-      state.prayerTimeModel =
-          (await controller.prayerTime(params!.copyWith(date: now.add(const Duration(days: 1))))).data;
-      DateTime? fajrTime = state.prayerTimeModel?.fajrDateTime();
+    if (nextPrayerModel.nextPrayer?.contains('Fajr') == true) {
+      // state.prayerTimeModel =
+      //     (await controller.prayerTime(params!.copyWith(date: now.add(const Duration(days: 1))))).data;
+      DateTime? fajrTime = nextPrayerModel.nextPrayerTime ?? state.nextDayPrayerTimeModel?.fajrDateTime();
+      // pr(fajrTime, '$t - next day fajr time');
       emit(
         state.copyWith(
             nextPrayer: nextPrayerModel.nextPrayer,

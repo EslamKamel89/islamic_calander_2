@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_info/update_next_prayer_info_cubit.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -30,18 +31,20 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  Future init() async {
     _nextPrayerController = context.read<UpdateNextPrayerInfoCubit>();
-    determinePosition().then((position) {
-      if (position == null) return;
-      _currentPosition = position;
-      getLocalTimezone().then((localTimeZone) {
-        _currentTimeZone = localTimeZone;
-        _getPrayerTimes();
-        _timer = Timer.periodic(1000.ms, (_) {
-          _calculateNextPrayer();
-        });
-        setState(() {});
+    _currentPosition = await serviceLocator<GeoPosition>().position();
+    if (_currentPosition == null) return;
+    getLocalTimezone().then((localTimeZone) {
+      _currentTimeZone = localTimeZone;
+      _getPrayerTimes();
+      _timer = Timer.periodic(1000.ms, (_) {
+        _calculateNextPrayer();
       });
+      setState(() {});
     });
   }
 
@@ -96,8 +99,7 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
     if (nextPrayerTime != null && nextPrayerName != null) {
       _nextPrayer = nextPrayerName;
       _timeRemaining = nextPrayerTime.difference(now);
-      _nextPrayerController.update(UpdateNextPrayerInfoState(
-          nextPrayer: _nextPrayer, timeRemaining: _timeRemaining));
+      _nextPrayerController.update(UpdateNextPrayerInfoState(nextPrayer: _nextPrayer, timeRemaining: _timeRemaining));
     }
     // pr(_nextPrayer, 'next prayer');
     // pr(_timeRemaining, 'time remaining');
@@ -133,28 +135,21 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
                 width: context.width - 8,
                 child: Row(
                   children: [
-                    _prayerWidget(_prayerTimes?.fajr).animate().moveY(
-                        delay: 0.ms, begin: -700.h, end: 0, duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.dhuhr).animate().moveY(
-                        delay: 300.ms,
-                        begin: -700.h,
-                        end: 0,
-                        duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.asr).animate().moveY(
-                        delay: 600.ms,
-                        begin: -700.h,
-                        end: 0,
-                        duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.maghrib).animate().moveY(
-                        delay: 900.ms,
-                        begin: -700.h,
-                        end: 0,
-                        duration: 1000.ms),
-                    _prayerWidget(_prayerTimes?.isha).animate().moveY(
-                        delay: 1200.ms,
-                        begin: -700.h,
-                        end: 0,
-                        duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.fajr)
+                        .animate()
+                        .moveY(delay: 0.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.dhuhr)
+                        .animate()
+                        .moveY(delay: 300.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.asr)
+                        .animate()
+                        .moveY(delay: 600.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.maghrib)
+                        .animate()
+                        .moveY(delay: 900.ms, begin: -700.h, end: 0, duration: 1000.ms),
+                    _prayerWidget(_prayerTimes?.isha)
+                        .animate()
+                        .moveY(delay: 1200.ms, begin: -700.h, end: 0, duration: 1000.ms),
                   ],
                 ),
               ),
@@ -171,9 +166,7 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
     int hour = localTime.hour > 12 ? localTime.hour - 12 : localTime.hour;
     amOrpm = localTime.hour >= 12 ? 'PM' : 'AM';
     String hoursStr = hour.toString().length == 1 ? '0$hour' : hour.toString();
-    String minutesStr = localTime.minute.toString().length == 1
-        ? '0${localTime.minute}'
-        : localTime.minute.toString();
+    String minutesStr = localTime.minute.toString().length == 1 ? '0${localTime.minute}' : localTime.minute.toString();
     return Flexible(
       flex: 1,
       child: Center(
@@ -184,24 +177,15 @@ class _PrayerTimes2WidgetState extends State<PrayerTimes2Widget> {
           children: [
             Text(
               '$hoursStr :',
-              style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Text(
               minutesStr,
-              style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Text(
               amOrpm,
-              style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ],
         ),

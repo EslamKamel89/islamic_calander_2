@@ -1,4 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:islamic_calander_2/core/heleprs/now.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+
 class PrayersTimeModel {
   String? fajr;
   String? sunrise;
@@ -12,46 +15,61 @@ class PrayersTimeModel {
   String? firstthird;
   String? lastthird;
   NextPrayerModel getNextPrayer() {
-    DateTime now = DateTime.now();
-    DateTime? fajrTime = fajr == null
-        ? null
-        : now.copyWith(hour: int.parse(fajr!.split(':').first), minute: int.parse(fajr!.split(':').last), second: 0);
-    DateTime? dhuhrTime = dhuhr == null
-        ? null
-        : now.copyWith(hour: int.parse(dhuhr!.split(':').first), minute: int.parse(dhuhr!.split(':').last), second: 0);
-    DateTime? asrTime = asr == null
-        ? null
-        : now.copyWith(hour: int.parse(asr!.split(':').first), minute: int.parse(asr!.split(':').last), second: 0);
-    DateTime? maghribTime = maghrib == null
-        ? null
-        : now.copyWith(
-            hour: int.parse(maghrib!.split(':').first), minute: int.parse(maghrib!.split(':').last), second: 0);
-    DateTime? ishaTime = isha == null
-        ? null
-        : now.copyWith(hour: int.parse(isha!.split(':').first), minute: int.parse(isha!.split(':').last), second: 0);
-    if (ishaTime != null && now.isAfter(ishaTime)) {
-      return NextPrayerModel(nextPrayer: 'Fajr');
+    try {
+      DateTime now = customNow();
+      DateTime? fajrTime = fajr == null
+          ? null
+          : now.copyWith(hour: int.parse(fajr!.split(':').first), minute: int.parse(fajr!.split(':').last), second: 0);
+      DateTime? dhuhrTime = dhuhr == null
+          ? null
+          : now.copyWith(
+              hour: int.parse(dhuhr!.split(':').first), minute: int.parse(dhuhr!.split(':').last), second: 0);
+      DateTime? asrTime = asr == null
+          ? null
+          : now.copyWith(hour: int.parse(asr!.split(':').first), minute: int.parse(asr!.split(':').last), second: 0);
+      DateTime? maghribTime = maghrib == null
+          ? null
+          : now.copyWith(
+              hour: int.parse(maghrib!.split(':').first), minute: int.parse(maghrib!.split(':').last), second: 0);
+      DateTime? ishaTime = isha == null
+          ? null
+          : now.copyWith(hour: int.parse(isha!.split(':').first), minute: int.parse(isha!.split(':').last), second: 0);
+      if (fajrTime != null && now.isBefore(fajrTime)) {
+        return NextPrayerModel(nextPrayer: 'Fajr', nextPrayerTime: fajrTime);
+      }
+      if (now.isAfter(fajrTime!) && now.isBefore(dhuhrTime!)) {
+        return NextPrayerModel(nextPrayer: 'Dhuhr', nextPrayerTime: dhuhrTime);
+      }
+      if (now.isAfter(dhuhrTime!) && now.isBefore(asrTime!)) {
+        return NextPrayerModel(nextPrayer: 'Asr', nextPrayerTime: asrTime);
+      }
+      if (now.isAfter(asrTime!) && now.isBefore(maghribTime!)) {
+        return NextPrayerModel(nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
+      }
+      if (now.isAfter(maghribTime!) && now.isBefore(ishaTime!)) {
+        return NextPrayerModel(nextPrayer: 'Isha', nextPrayerTime: ishaTime);
+      }
+      if (now.isAfter(ishaTime!)) {
+        return NextPrayerModel(nextPrayer: 'Fajr');
+      }
+
+      pr(this, 'prayers time model when there is error');
+      pr(now, 'time when there is error');
+      return NextPrayerModel(nextPrayer: '');
+    } catch (_) {
+      return NextPrayerModel(nextPrayer: '');
     }
-    if (maghribTime != null && now.isAfter(maghribTime)) {
-      return NextPrayerModel(nextPrayer: 'Isha', nextPrayerTime: ishaTime);
-    }
-    if (asrTime != null && now.isAfter(asrTime)) {
-      return NextPrayerModel(nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
-    }
-    if (dhuhrTime != null && now.isAfter(dhuhrTime)) {
-      return NextPrayerModel(nextPrayer: 'Asr', nextPrayerTime: asrTime);
-    }
-    if (fajrTime != null && now.isAfter(fajrTime)) {
-      return NextPrayerModel(nextPrayer: 'Dhuhr', nextPrayerTime: dhuhrTime);
-    }
-    return NextPrayerModel(nextPrayer: 'Error');
   }
 
   DateTime? fajrDateTime() {
-    DateTime now = DateTime.now();
+    DateTime now = customNow();
     DateTime? fajrTime = fajr == null
         ? null
-        : now.copyWith(hour: int.parse(fajr!.split(':').first), minute: int.parse(fajr!.split(':').last), second: 0);
+        : now.copyWith(
+            day: now.day + 1,
+            hour: int.parse(fajr!.split(':').first),
+            minute: int.parse(fajr!.split(':').last),
+            second: 0);
     return fajrTime;
   }
 

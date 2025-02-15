@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
-import 'package:islamic_calander_2/core/widgets/default_drawer.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 // class QiblaFinderView extends StatefulWidget {
 //   const QiblaFinderView({super.key});
@@ -75,7 +74,7 @@ class _QiblaFinderViewState extends State<QiblaFinderView> {
           ),
         ),
       ),
-      endDrawer: const DefaultDrawer(opacity: 0.7),
+      // endDrawer: const DefaultDrawer(opacity: 0.7),
       body: SafeArea(
         child: FutureBuilder<Position?>(
           future: getPosition,
@@ -132,8 +131,7 @@ class _QiblaFinderViewState extends State<QiblaFinderView> {
                               angle: -2 * pi * (direction / 360),
                               child: Transform(
                                 alignment: FractionalOffset.center,
-                                transform: Matrix4.rotationZ(
-                                    qiblaDirection * pi / 180),
+                                transform: Matrix4.rotationZ(qiblaDirection * pi / 180),
                                 origin: Offset.zero,
                                 child: Image.asset(
                                   AssetsData.kabaa,
@@ -150,8 +148,7 @@ class _QiblaFinderViewState extends State<QiblaFinderView> {
                                 angle: -2 * pi * (direction / 360),
                                 child: Transform(
                                   alignment: FractionalOffset.center,
-                                  transform: Matrix4.rotationZ(
-                                      qiblaDirection * pi / 180),
+                                  transform: Matrix4.rotationZ(qiblaDirection * pi / 180),
                                   origin: Offset.zero,
                                   child: const Align(
                                     alignment: Alignment.topCenter,
@@ -195,9 +192,7 @@ class _QiblaFinderViewState extends State<QiblaFinderView> {
 }
 
 String showHeading(double direction, double qiblaDirection) {
-  return qiblaDirection.toInt() != direction.toInt()
-      ? '${direction.toStringAsFixed(0)}°'
-      : "You're facing Makkah!";
+  return qiblaDirection.toInt() != direction.toInt() ? '${direction.toStringAsFixed(0)}°' : "You're facing Makkah!";
 }
 
 class CompassCustomPainter extends CustomPainter {
@@ -253,22 +248,17 @@ class CompassCustomPainter extends CustomPainter {
 
     // Draw The Light Grey Lines 16 Times While Rotating 22.5° Degrees
     for (int i = 1; i <= 16; i++) {
-      canvas.drawLine(
-          Offset.fromDirection(-(angle + 22.5 * i) * pi / 180, 60),
-          Offset.fromDirection(-(angle + 22.5 * i) * pi / 180, 80),
-          lightIndexLine);
+      canvas.drawLine(Offset.fromDirection(-(angle + 22.5 * i) * pi / 180, 60),
+          Offset.fromDirection(-(angle + 22.5 * i) * pi / 180, 80), lightIndexLine);
     }
 
     // Draw The Dark Grey Lines 3 Times While Rotating 90° Degrees
     for (int i = 1; i <= 3; i++) {
-      canvas.drawLine(
-          Offset.fromDirection(-(angle + 90 * i) * pi / 180, 60),
-          Offset.fromDirection(-(angle + 90 * i) * pi / 180, 80),
-          darkIndexLine);
+      canvas.drawLine(Offset.fromDirection(-(angle + 90 * i) * pi / 180, 60),
+          Offset.fromDirection(-(angle + 90 * i) * pi / 180, 80), darkIndexLine);
     }
 
-    canvas.drawLine(Offset.fromDirection(rotation, 60),
-        Offset.fromDirection(rotation, 80), northRedBrush);
+    canvas.drawLine(Offset.fromDirection(rotation, 60), Offset.fromDirection(rotation, 80), northRedBrush);
 
     // Draw North Triangle
     // Path path = Path();

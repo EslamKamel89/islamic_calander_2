@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
@@ -23,6 +24,7 @@ class _MainHomePageState extends State<MainHomePage> {
   bool bottomSheetOpen = false;
   @override
   void initState() {
+    checkPermissionsLoop();
     Future.delayed(const Duration(seconds: 3)).then(
       (value) {
         // showCustomBottomSheet();
@@ -35,15 +37,15 @@ class _MainHomePageState extends State<MainHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final updatePrayerCubit = context.read<UpdateNextPrayerApiCubit>();
+    // final t = prt('Bug fix');
+    // pr(updatePrayerCubit.timer, t);
     return Stack(
       children: [
-        Container(
-            width: context.width, height: context.height, color: Colors.white),
+        Container(width: context.width, height: context.height, color: Colors.white),
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AssetsData.homepageBackground),
-                fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
           ),
           width: context.width,
           height: context.height,
@@ -92,11 +94,7 @@ class _MainHomePageState extends State<MainHomePage> {
                             author: "Prophet Muhammad (PBUH)",
                             wisdom:
                                 "When you see a person who has been given more than you in wealth and beauty, look to those who have been given less.",
-                          ).animate().fade(
-                              delay: 1000.ms,
-                              duration: 4000.ms,
-                              begin: 0,
-                              end: 1)
+                          ).animate().fade(delay: 1000.ms, duration: 4000.ms, begin: 0, end: 1)
                           // const PrayerTimes(),
                           // ExploreMore(onTap: () {
                           //   showCustomBottomSheet();
@@ -129,18 +127,13 @@ class _MainHomePageState extends State<MainHomePage> {
                       child: Image.asset(
                         AssetsData.globe2,
                         fit: BoxFit.cover,
-                      )
-                          .animate(onPlay: (controller) => controller.repeat())
-                          .rotate(duration: 6000.ms, begin: 0, end: 2)
+                      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 6000.ms, begin: 0, end: 2)
                       // .then()
                       // .rotate(duration: 4000.ms, begin: 2, end: 0),
                       )
                   .animate()
                   .move(
-                      duration: 3000.ms,
-                      begin: Offset(0, -context.height),
-                      end: Offset.zero,
-                      curve: Curves.bounceOut),
+                      duration: 3000.ms, begin: Offset(0, -context.height), end: Offset.zero, curve: Curves.bounceOut),
             ),
           ),
         )

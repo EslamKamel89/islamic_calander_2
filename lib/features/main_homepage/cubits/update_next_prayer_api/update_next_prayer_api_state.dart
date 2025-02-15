@@ -6,12 +6,14 @@ class UpdateNextPrayerApiState {
   Duration? timeRemaining;
   DateTime? nextPrayerTime;
   PrayersTimeModel? prayerTimeModel;
+  PrayersTimeModel? nextDayPrayerTimeModel;
   ResponseEnum? response;
   UpdateNextPrayerApiState({
     this.nextPrayer,
     this.timeRemaining,
     this.nextPrayerTime,
     this.prayerTimeModel,
+    this.nextDayPrayerTimeModel,
     this.response,
   });
 
@@ -20,6 +22,7 @@ class UpdateNextPrayerApiState {
     Duration? timeRemaining,
     DateTime? nextPrayerTime,
     PrayersTimeModel? prayerTimeModel,
+    PrayersTimeModel? nextDayPrayerTimeModel,
     ResponseEnum? response,
   }) {
     return UpdateNextPrayerApiState(
@@ -27,12 +30,13 @@ class UpdateNextPrayerApiState {
       timeRemaining: timeRemaining ?? this.timeRemaining,
       nextPrayerTime: nextPrayerTime ?? this.nextPrayerTime,
       prayerTimeModel: prayerTimeModel ?? this.prayerTimeModel,
+      nextDayPrayerTimeModel: nextDayPrayerTimeModel ?? this.nextDayPrayerTimeModel,
       response: response ?? this.response,
     );
   }
 
   @override
   String toString() {
-    return 'UpdateNextPrayerApiState(nextPrayer: $nextPrayer, timeRemaining: $timeRemaining, nextPrayerTime: $nextPrayerTime, prayerTimeModel: $prayerTimeModel, response: $response)';
+    return 'UpdateNextPrayerApiState(nextPrayer: $nextPrayer, timeRemaining: $timeRemaining, nextPrayerTime: $nextPrayerTime, prayerTimeModel: $prayerTimeModel, nextDayPrayerTimeModel: $nextDayPrayerTimeModel, response: $response)';
   }
 }

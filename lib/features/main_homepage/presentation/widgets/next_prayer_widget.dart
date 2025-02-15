@@ -143,6 +143,14 @@ class _PrayerCardState extends State<PrayerCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  // Text(
+                  //   customNow().toString(),
+                  //   style: const TextStyle(
+                  //     color: Colors.white70,
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                   const CityWidget(),
                   const SizedBox(height: 5),
                   // const NewHijrWidget(),

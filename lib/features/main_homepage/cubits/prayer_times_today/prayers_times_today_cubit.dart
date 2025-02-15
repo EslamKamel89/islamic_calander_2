@@ -8,17 +8,17 @@ import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_today/prayers_times_today_state.dart';
 
 class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
   Coordinates? _cordinates;
   dynamic _params;
-  PrayersTimesTodayCubit()
-      : super(PrayersTimesTodayState(response: ResponseEnum.initial));
+  PrayersTimesTodayCubit() : super(PrayersTimesTodayState(response: ResponseEnum.initial));
   Future getPrayersTimesToday() async {
     final t = prt('getPrayersTimesToday - PrayersTimesTodayCubit');
     emit(state.copyWith(response: ResponseEnum.loading));
-    Position? currentPosition = await determinePosition();
+    Position? currentPosition = await serviceLocator<GeoPosition>().position();
     if (currentPosition == null) return pr('currentPosition is null', t);
     String currentTimeZone = await getLocalTimezone();
 
