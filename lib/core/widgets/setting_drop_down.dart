@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/enums/prayer_calc_method.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
@@ -38,10 +39,6 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
         builder: (context) => const CalcOptionsWidget());
   }
 }
-
-ValueNotifier<IslamicOrganization> selectedPrayersNotifier =
-    ValueNotifier<IslamicOrganization>(IslamicOrganization.muslimWorldLeague);
-IslamicOrganization selectedPrayersMethod = IslamicOrganization.muslimWorldLeague;
 
 class CalcOptionsWidget extends StatefulWidget {
   const CalcOptionsWidget({super.key});

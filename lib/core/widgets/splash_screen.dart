@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/themes/themedata.dart';
 
@@ -16,9 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // serviceLocator<GeoPosition>().init();
+    cachePrayerMehtod();
     Future.delayed(const Duration(milliseconds: 3900), () {
-      // Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.dateConversionView, (_) => false);
       Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
     });
   }
