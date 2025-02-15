@@ -190,8 +190,14 @@ class PrayersWidget extends StatelessWidget {
         SizedBox(width: 5.w),
         PrayTimeWidget(
           pray: 'Fajr',
-          imagePath: AssetsData.three,
+          imagePath: AssetsData.fajr,
           time: model?.fajr,
+          // currentTimeZone: model.currentTimeZone,
+        ),
+        PrayTimeWidget(
+          pray: 'Sunrise',
+          imagePath: AssetsData.three,
+          time: model?.sunrise,
           // currentTimeZone: model.currentTimeZone,
         ),
         PrayTimeWidget(
@@ -255,11 +261,11 @@ class PrayTimeWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          txt((pray)),
+          txt(pray, e: St.bold12),
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg14),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg12),
         ],
       ),
     );
@@ -270,20 +276,20 @@ class PrayTimeWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        txt((pray)),
+        txt(pray, e: St.bold12),
         const SizedBox(height: 5),
         CustomFadingWidget(
           child: _buildImage(),
         ),
         const SizedBox(height: 5),
-        CustomFadingWidget(child: txt('00:00', e: St.reg14)),
+        CustomFadingWidget(child: txt('00:00', e: St.reg12)),
       ],
     );
   }
 
   Container _buildImage() {
     return Container(
-      width: 30.w,
+      width: 25.w,
       height: 30.w,
       clipBehavior: Clip.hardEdge,
       decoration: const BoxDecoration(),

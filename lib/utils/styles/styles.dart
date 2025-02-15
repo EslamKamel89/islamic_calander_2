@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum St {
+  reg12,
+  bold12,
   reg14,
   semi14,
   bold14,
@@ -54,6 +56,14 @@ Text txt(
   w = FontWeight.normal;
   if (e != null) {
     switch (e) {
+      case St.reg12:
+        s = 12.sp;
+        w = FontWeight.normal;
+        break;
+      case St.bold12:
+        s = 12.sp;
+        w = FontWeight.bold;
+        break;
       case St.semi14:
         s = 14.sp;
         w = FontWeight.w600;
@@ -131,8 +141,7 @@ Text txt(
   if (googleFontCallback != null) {
     return Text(
       text,
-      style: googleFontCallback()
-          .copyWith(fontSize: s.sp, fontWeight: w, color: c),
+      style: googleFontCallback().copyWith(fontSize: s.sp, fontWeight: w, color: c),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
