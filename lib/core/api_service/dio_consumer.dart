@@ -8,14 +8,11 @@ import 'package:islamic_calander_2/core/api_service/check_internet.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 
 class DioConsumer extends ApiConsumer {
-  final Dio dio;
-
-  DioConsumer({required this.dio}) {
+  DioConsumer({required Dio dio}) : super(dio: dio) {
     dio.options.baseUrl = EndPoint.baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 60);
     dio.options.receiveTimeout = const Duration(seconds: 60);
-    dio.interceptors
-        .add(DioInterceptor()); // i use the interceptor to add the header
+    dio.interceptors.add(DioInterceptor()); // i use the interceptor to add the header
     dio.interceptors.add(LogInterceptor(
       request: true,
       requestHeader: true,

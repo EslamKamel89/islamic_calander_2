@@ -16,13 +16,16 @@ import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 class MoonImageController {
   ApiConsumer api = serviceLocator();
 
-  Future<ApiResponseModel<String>> moonImage({required Position position, required DateTime dateTime}) async {
+  Future<ApiResponseModel<String?>> moonImage({required Position position, required DateTime dateTime}) async {
     final t = prt('moonImage - MoonImageController');
     try {
-      final response = await api.get(
+      final temp = api.dio.options.headers;
+      api.dio.options.headers = EndPoint.authorizationHeader();
+      final response = await api.post(
         EndPoint.moonPhaseEndPoint,
         data: _requestData(position, dateTime),
       );
+      api.dio.options.headers = temp;
       return pr(
           ApiResponseModel(
             response: ResponseEnum.success,

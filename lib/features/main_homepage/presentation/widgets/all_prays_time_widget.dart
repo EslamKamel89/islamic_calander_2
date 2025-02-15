@@ -6,7 +6,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
-import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
@@ -14,6 +13,7 @@ import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
+import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_time_api/prayers_time_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
@@ -49,9 +49,11 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   DateTime selectedDate = DateTime.now();
   String? newHijriDate;
   late PrayerTimesApiCubit cubit;
+  late MoonImageCubit moonImageCubit;
   @override
   void initState() {
     cubit = context.read<PrayerTimesApiCubit>();
+    moonImageCubit = context.read<MoonImageCubit>();
     _getPrayerTime();
     _getNewHijri();
     selectedPrayersNotifier.addListener(() {
@@ -77,24 +79,20 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   Future _getPrayerTime() async {
     do {
-      final t = prt('Bug fix2');
       Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
-      pr(position, '$t - position');
       if ([position, position?.latitude, position?.longitude].contains(null)) {
         await Future.delayed(const Duration(seconds: 1));
         continue;
       }
 
       // pr(position.longitude, t);
-      cubit.params = pr(
-          cubit.params.copyWith(
-            latitude: position!.latitude,
-            longitude: position.longitude,
-            method: IslamicOrganization.muslimWorldLeague,
-            latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
-            date: selectedDate,
-          ),
-          '$t - params');
+      cubit.params = cubit.params.copyWith(
+        latitude: position!.latitude,
+        longitude: position.longitude,
+        method: IslamicOrganization.muslimWorldLeague,
+        latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
+        date: selectedDate,
+      );
       await cubit.getPrayerTime();
       await Future.delayed(const Duration(seconds: 1));
     } while (cubit.state.data == null);
@@ -129,6 +127,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                           cubit.params = cubit.params.copyWith(
                               date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
                           cubit.getPrayerTime();
+                          moonImageCubit.dateTime = selectedDate;
+                          moonImageCubit.moonImage();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
                     Column(
@@ -148,6 +148,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                           cubit.params = cubit.params.copyWith(
                               date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
                           cubit.getPrayerTime();
+                          moonImageCubit.dateTime = selectedDate;
+                          moonImageCubit.moonImage();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],

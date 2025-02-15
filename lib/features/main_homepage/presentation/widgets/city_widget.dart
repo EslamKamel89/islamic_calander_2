@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:lottie/lottie.dart' as Lot;
@@ -52,15 +51,18 @@ class _CityWidgetState extends State<CityWidget> {
                 height: 50,
                 fit: BoxFit.cover,
               ),
-            ).animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+            ),
+          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
           const SizedBox(width: 5),
           if (deviceLocation != null)
             Expanded(
               child: AutoSizeText(
-                deviceLocation!,
+                // child: Text(
+                deviceLocation ?? '',
                 style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
-            ).animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+            )
+          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
         ],
       ),
     );

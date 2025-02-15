@@ -17,5 +17,9 @@ class EndPoint {
   static String applicationSecretKey =
       "e8445168f919dfee14bb201d54bfa77652cdb01f058d427dc369280d4b0bdcff2d251c872b3c491c21f5cee0836d4035cf60103239690803e5dc691ca654322cd98e9813f57c9a5a4e079d9c3f2fe9eb98bdc4b42df33786831f9e21c5a1d66a57e768b256a48d826c74837f3ba2c3c2";
   static Map<String, String> authorizationHeader() =>
-      {'Authorization': base64Encode(utf8.encode('$applicationID:$applicationSecretKey'))};
+      {'Authorization': 'Basic ${base64Encode(utf8.encode('$applicationID:$applicationSecretKey'))}'};
+  // {
+  //   'Authorization':
+  //       'Basic NjE5OWM1MmItYTIxMi00ZjFhLWJlMDEtYWVlZTUzZWJkMDRhOmU4NDQ1MTY4ZjkxOWRmZWUxNGJiMjAxZDU0YmZhNzc2NTJjZGIwMWYwNThkNDI3ZGMzNjkyODBkNGIwYmRjZmYyZDI1MWM4NzJiM2M0OTFjMjFmNWNlZTA4MzZkNDAzNWNmNjAxMDMyMzk2OTA4MDNlNWRjNjkxY2E2NTQzMjJjZDk4ZTk4MTNmNTdjOWE1YTRlMDc5ZDljM2YyZmU5ZWI5OGJkYzRiNDJkZjMzNzg2ODMxZjllMjFjNWExZDY2YTU3ZTc2OGIyNTZhNDhkODI2Yzc0ODM3ZjNiYTJjM2My'
+  // };
 }

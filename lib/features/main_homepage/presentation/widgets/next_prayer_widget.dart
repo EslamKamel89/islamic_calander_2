@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
-import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
-import 'package:islamic_calander_2/core/widgets/sizer.dart';
-import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
-import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/moon_phase_image.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
 class NextPrayerWidget extends StatefulWidget {
@@ -22,19 +18,144 @@ class NextPrayerWidget extends StatefulWidget {
 }
 
 class _NextPrayerWidgetState extends State<NextPrayerWidget> {
+  Widget cityWidget = const CityWidget();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateNextPrayerApiCubit, UpdateNextPrayerApiState>(
       builder: (context, state) {
         // if (state.nextPrayer == null || state.timeRemaining == null) return const SizedBox();
         if (state.response != ResponseEnum.success) {
-          return const PrayerCard(prayerName: '', timeRemaining: Duration(seconds: 0))
+          return PrayerCard2(prayerName: '', timeRemaining: const Duration(seconds: 0), cityWidget: cityWidget)
               .animate(onPlay: (controller) => controller.repeat)
               .fade(duration: 500.ms, begin: 0, end: 0.5);
         }
-        return PrayerCard(
-            prayerName: state.nextPrayer ?? '', timeRemaining: state.timeRemaining ?? const Duration(seconds: 0));
+        return PrayerCard2(
+          prayerName: state.nextPrayer ?? '',
+          timeRemaining: state.timeRemaining ?? const Duration(seconds: 0),
+          cityWidget: cityWidget,
+        );
       },
+    );
+  }
+}
+
+class PrayerCard2 extends StatefulWidget {
+  final String prayerName;
+  final Duration timeRemaining;
+  final Widget cityWidget;
+  const PrayerCard2({
+    super.key,
+    required this.prayerName,
+    required this.timeRemaining,
+    required this.cityWidget,
+  });
+
+  @override
+  State<PrayerCard2> createState() => _PrayerCard2State();
+}
+
+class _PrayerCard2State extends State<PrayerCard2> {
+  @override
+  Widget build(BuildContext context) {
+    // Format the remaining time as HH:MM:SS.
+    final hours = widget.timeRemaining.inHours;
+    final minutes = widget.timeRemaining.inMinutes.remainder(60);
+    final seconds = widget.timeRemaining.inSeconds.remainder(60);
+    final timeRemainingText = '${hours.toString().padLeft(2, '0')}:'
+        '${minutes.toString().padLeft(2, '0')}:'
+        '${seconds.toString().padLeft(2, '0')}';
+
+    return Card(
+      elevation: 8,
+      color: Colors.transparent,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: context.height / 4),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [context.primaryColor.withOpacity(0.4), context.primaryColor],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Stack(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                // height: context.height / 3,
+              ),
+              const Positioned(left: 0, child: MoonPhaseImage()),
+              Positioned(
+                right: 0,
+                child: SizedBox(
+                  width: context.width * 0.55,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                        // width: double.infinity,
+                      ),
+                      const Text(
+                        'Next Prayer',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        widget.prayerName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Time Remaining:',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        timeRemainingText,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // Text(
+                      //   customNow().toString(),
+                      //   style: const TextStyle(
+                      //     color: Colors.white70,
+                      //     fontSize: 20,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      widget.cityWidget,
+                      const SizedBox(height: 5),
+                      // const NewHijrWidget(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -160,54 +281,6 @@ class _PrayerCardState extends State<PrayerCard> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class NewHijrWidget extends StatefulWidget {
-  const NewHijrWidget({super.key});
-
-  @override
-  State<NewHijrWidget> createState() => _NewHijrWidgetState();
-}
-
-class _NewHijrWidgetState extends State<NewHijrWidget> {
-  String? newHijriDate;
-  @override
-  void initState() {
-    getNewHijri();
-    super.initState();
-  }
-
-  Future getNewHijri() async {
-    DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(DateTime.now(), DataProcessingOption.regular);
-    response.fold((_) {}, (model) {
-      if (mounted) {
-        setState(() {
-          newHijriDate = model.newHijriUpdated;
-        });
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (newHijriDate == null) return const SizedBox();
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Image.asset(
-          'assets/images/calendar_7.png',
-          width: 20.w,
-          height: 20.w,
-        ),
-        const Sizer(),
-        Text(
-          newHijriDate ?? '',
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-      ],
     );
   }
 }

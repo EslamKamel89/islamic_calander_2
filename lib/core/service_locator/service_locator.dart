@@ -11,6 +11,7 @@ import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_con
 import 'package:islamic_calander_2/features/date_info/data/data_source/date_info_remote_data_source.dart';
 import 'package:islamic_calander_2/features/date_info/data/repo/date_year_repo_imp.dart';
 import 'package:islamic_calander_2/features/date_info/domain/repo/date_year_repo.dart';
+import 'package:islamic_calander_2/features/main_homepage/controllers/moon_image_controller.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/prayers_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,4 +32,5 @@ Future initServiceLocator() async {
   serviceLocator
       .registerLazySingleton<DateInfoRepo>(() => DateInfoRepoImpl(dateInfoRemoteDataSource: serviceLocator()));
   serviceLocator.registerLazySingleton<PrayersController>(() => PrayersController());
+  serviceLocator.registerLazySingleton<MoonImageController>(() => MoonImageController());
 }
