@@ -57,13 +57,25 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     moonImageCubit = context.read<MoonImageCubit>();
     _getPrayerTime();
     _getNewHijri();
+    _selectedPrayerMethodNotifier();
+    _checkUserCountryNotifier();
+    super.initState();
+  }
+
+  /// i used this function to determine the prayer time calculation method based on position if there are no cached calculation method
+  void _checkUserCountryNotifier() {
+    positionNotifier.addListener(() async {
+      await checkUserCountry();
+    });
+  }
+
+  void _selectedPrayerMethodNotifier() {
     selectedPrayersNotifier.addListener(() {
       cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
       if (mounted) {
         cubit.getPrayerTime();
       }
     });
-    super.initState();
   }
 
   Future _getNewHijri() async {
