@@ -62,7 +62,7 @@ class _MainHomePageState extends State<MainHomePage> {
                   SizedBox(
                     // color: Colors.red,
                     width: double.infinity,
-                    height: 800.h,
+                    // height: 800.h,
                     // padding: EdgeInsets.symmetric(horizontal: 15.w),
                     child: SingleChildScrollView(
                       child: Column(

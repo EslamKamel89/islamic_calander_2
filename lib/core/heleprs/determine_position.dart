@@ -101,7 +101,8 @@ Future<String?> getCityName() async {
 
   if (placemarks.isNotEmpty) {
     // return "${placemarks.first.administrativeArea}";
-    return placemarks.first.administrativeArea;
+    // return placemarks.first.administrativeArea;
+    return '${placemarks.first.subAdministrativeArea}\n${placemarks.first.administrativeArea}\n${placemarks.first.country}';
   } else {
     return null;
   }

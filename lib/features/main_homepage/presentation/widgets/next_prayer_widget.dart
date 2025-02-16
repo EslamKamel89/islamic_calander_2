@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
@@ -76,8 +77,9 @@ class _PrayerCard2State extends State<PrayerCard2> {
         constraints: BoxConstraints(minHeight: context.height / 4),
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [context.primaryColor.withOpacity(0.4), context.primaryColor],
+            gradient: const LinearGradient(
+              colors: [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
+              stops: [0.0, 0.5, 0.65, 0.8, 1.0],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -86,9 +88,9 @@ class _PrayerCard2State extends State<PrayerCard2> {
           child: Stack(
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
-                // height: context.height / 3,
+                height: context.height * 0.3,
               ),
               const Positioned(left: 0, child: MoonPhaseImage()),
               Positioned(
@@ -98,7 +100,7 @@ class _PrayerCard2State extends State<PrayerCard2> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    // mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       const SizedBox(
                         height: 10,
@@ -145,7 +147,10 @@ class _PrayerCard2State extends State<PrayerCard2> {
                       //     fontWeight: FontWeight.bold,
                       //   ),
                       // ),
-                      widget.cityWidget,
+                      Transform.translate(
+                        offset: Offset(-40.w, 0),
+                        child: widget.cityWidget,
+                      ),
                       const SizedBox(height: 5),
                       // const NewHijrWidget(),
                     ],
