@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
@@ -27,21 +27,36 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
   }
 
   Future _getMoonImage() async {
-    do {
-      Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
-      if ([position, position?.latitude, position?.longitude].contains(null)) {
-        await Future.delayed(const Duration(seconds: 1));
-        continue;
-      }
-
-      // pr(position.longitude, t);
-      cubit.position = position;
+    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    if (positionInMemory != null) {
+      pr('calling cubit.moonImage() in  MoonPhaseImage widget directly because positionInMemory is not null: ${positionNotifier.value}');
+      cubit.position = positionInMemory;
       cubit.dateTime = cubit.dateTime ?? DateTime.now();
-
       await cubit.moonImage();
-      await Future.delayed(const Duration(seconds: 1));
-      break;
-    } while (cubit.state.data == null);
+      return;
+    }
+    positionNotifier.addListener(() async {
+      pr('listener in MoonPhaseImage widget is called because position is changed: ${positionNotifier.value}');
+      if (positionNotifier.value == null) return;
+      cubit.position = positionNotifier.value;
+      cubit.dateTime = cubit.dateTime ?? DateTime.now();
+      await cubit.moonImage();
+    });
+    // do {
+    //   Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
+    //   if ([position, position?.latitude, position?.longitude].contains(null)) {
+    //     await Future.delayed(const Duration(seconds: 1));
+    //     continue;
+    //   }
+
+    //   // pr(position.longitude, t);
+    //   cubit.position = position;
+    //   cubit.dateTime = cubit.dateTime ?? DateTime.now();
+
+    //   await cubit.moonImage();
+    //   await Future.delayed(const Duration(seconds: 1));
+    //   break;
+    // } while (cubit.state.data == null);
   }
 
   @override

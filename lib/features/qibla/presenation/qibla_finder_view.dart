@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 // class QiblaFinderView extends StatefulWidget {
 //   const QiblaFinderView({super.key});
@@ -55,7 +56,7 @@ class _QiblaFinderViewState extends State<QiblaFinderView> {
   @override
   void initState() {
     super.initState();
-    getPosition = determinePosition();
+    getPosition = serviceLocator<GeoPosition>().position();
   }
 
   @override

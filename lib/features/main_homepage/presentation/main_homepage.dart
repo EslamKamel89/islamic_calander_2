@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
-import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
@@ -24,16 +23,14 @@ class _MainHomePageState extends State<MainHomePage> {
   bool bottomSheetOpen = false;
   @override
   void initState() {
-    checkPermissionsLoop();
-    Future.delayed(const Duration(seconds: 3)).then(
-      (value) {
-        // showCustomBottomSheet();
-      },
-    );
+    init();
     super.initState();
   }
 
-  void Function(Duration timeRemaning, String nextPrayer)? updateNextPrayerInfo;
+  Future init() async {
+    // await positionFetchedTrigger();
+    // await checkPermissionsLoop();
+  }
 
   @override
   Widget build(BuildContext context) {

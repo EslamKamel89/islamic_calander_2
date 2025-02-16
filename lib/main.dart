@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl_standalone.dart';
-import 'package:islamic_calander_2/core/globals.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/router/app_router.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
-import 'package:islamic_calander_2/core/globals.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';

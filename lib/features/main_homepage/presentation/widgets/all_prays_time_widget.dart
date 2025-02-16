@@ -7,6 +7,7 @@ import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
@@ -78,24 +79,49 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getPrayerTime() async {
-    do {
-      Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
-      if ([position, position?.latitude, position?.longitude].contains(null)) {
-        await Future.delayed(const Duration(seconds: 1));
-        continue;
-      }
-
-      // pr(position.longitude, t);
+    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    if (positionInMemory != null) {
+      pr('calling cubit.getPrayerTime() in  AppPrayersTimeBuilder widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.params = cubit.params.copyWith(
-        latitude: position!.latitude,
-        longitude: position.longitude,
+        latitude: positionInMemory.latitude,
+        longitude: positionInMemory.longitude,
         method: IslamicOrganization.muslimWorldLeague,
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         date: selectedDate,
       );
       await cubit.getPrayerTime();
-      await Future.delayed(const Duration(seconds: 1));
-    } while (cubit.state.data == null);
+      return;
+    }
+    positionNotifier.addListener(() async {
+      pr('listener in AppPrayersTimeBuilder widget is called because position is changed: ${positionNotifier.value}');
+      if (positionNotifier.value == null) return;
+      cubit.params = cubit.params.copyWith(
+        latitude: positionNotifier.value!.latitude,
+        longitude: positionNotifier.value!.longitude,
+        method: IslamicOrganization.muslimWorldLeague,
+        latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
+        date: selectedDate,
+      );
+      await cubit.getPrayerTime();
+    });
+    // do {
+    //   Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
+    //   if ([position, position?.latitude, position?.longitude].contains(null)) {
+    //     await Future.delayed(const Duration(seconds: 1));
+    //     continue;
+    //   }
+
+    //   // pr(position.longitude, t);
+    //   cubit.params = cubit.params.copyWith(
+    //     latitude: position!.latitude,
+    //     longitude: position.longitude,
+    //     method: IslamicOrganization.muslimWorldLeague,
+    //     latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
+    //     date: selectedDate,
+    //   );
+    //   await cubit.getPrayerTime();
+    //   await Future.delayed(const Duration(seconds: 1));
+    // } while (cubit.state.data == null);
   }
 
   @override
