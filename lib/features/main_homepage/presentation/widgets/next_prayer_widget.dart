@@ -19,21 +19,19 @@ class NextPrayerWidget extends StatefulWidget {
 }
 
 class _NextPrayerWidgetState extends State<NextPrayerWidget> {
-  Widget cityWidget = const CityWidget();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateNextPrayerApiCubit, UpdateNextPrayerApiState>(
       builder: (context, state) {
         // if (state.nextPrayer == null || state.timeRemaining == null) return const SizedBox();
         if (state.response != ResponseEnum.success) {
-          return PrayerCard2(prayerName: '', timeRemaining: const Duration(seconds: 0), cityWidget: cityWidget)
+          return const PrayerCard2(prayerName: '', timeRemaining: Duration(seconds: 0))
               .animate(onPlay: (controller) => controller.repeat)
               .fade(duration: 500.ms, begin: 0, end: 0.5);
         }
         return PrayerCard2(
           prayerName: state.nextPrayer ?? '',
           timeRemaining: state.timeRemaining ?? const Duration(seconds: 0),
-          cityWidget: cityWidget,
         );
       },
     );
@@ -43,12 +41,10 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget> {
 class PrayerCard2 extends StatefulWidget {
   final String prayerName;
   final Duration timeRemaining;
-  final Widget cityWidget;
   const PrayerCard2({
     super.key,
     required this.prayerName,
     required this.timeRemaining,
-    required this.cityWidget,
   });
 
   @override
@@ -73,8 +69,8 @@ class _PrayerCard2State extends State<PrayerCard2> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: context.height / 4),
+      child: SizedBox(
+        // constraints: BoxConstraints(minHeight: context.height / 4),
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -88,73 +84,71 @@ class _PrayerCard2State extends State<PrayerCard2> {
           child: Stack(
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: double.infinity,
-                height: context.height * 0.3,
+                // height: context.height * 0.3,
               ),
               const Positioned(left: 0, child: MoonPhaseImage()),
-              Positioned(
-                right: 0,
-                child: SizedBox(
-                  width: context.width * 0.55,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                        // width: double.infinity,
+              Container(
+                width: context.width,
+                padding: EdgeInsets.only(left: context.width * 0.4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                      // width: double.infinity,
+                    ),
+                    const Text(
+                      'Next Prayer',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
-                      const Text(
-                        'Next Prayer',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    ),
+                    Text(
+                      widget.prayerName,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Text(
-                        widget.prayerName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Time Remaining:',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Time Remaining:',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                        ),
+                    ),
+                    Text(
+                      timeRemainingText,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Text(
-                        timeRemainingText,
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      // Text(
-                      //   customNow().toString(),
-                      //   style: const TextStyle(
-                      //     color: Colors.white70,
-                      //     fontSize: 20,
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                      Transform.translate(
-                        offset: Offset(-40.w, 0),
-                        child: widget.cityWidget,
-                      ),
-                      const SizedBox(height: 5),
-                      // const NewHijrWidget(),
-                    ],
-                  ),
+                    ),
+                    // Text(
+                    //   customNow().toString(),
+                    //   style: const TextStyle(
+                    //     color: Colors.white70,
+                    //     fontSize: 20,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    Transform.translate(
+                      offset: Offset(-40.w, 0),
+                      child: const CityWidget(),
+                    ),
+                    const SizedBox(height: 5),
+                    // const NewHijrWidget(),
+                  ],
                 ),
               ),
             ],
