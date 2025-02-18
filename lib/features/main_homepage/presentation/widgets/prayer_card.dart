@@ -117,12 +117,3 @@ class _PrayerCardState extends State<PrayerCard> {
     );
   }
 }
-
-class PrayerCardLoading extends StatelessWidget {
-  const PrayerCardLoading({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

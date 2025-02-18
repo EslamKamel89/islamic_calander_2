@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/enums/prayer_calc_method.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
@@ -48,6 +49,18 @@ class CalcOptionsWidget extends StatefulWidget {
 
 class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
   @override
+  void initState() {
+    selectedPrayersNotifier.addListener(() {
+      pr(selectedPrayersNotifier.value, 'updating the selected value');
+      selectedPrayersMethod = selectedPrayersNotifier.value;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -59,7 +72,7 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
           ...List.generate(IslamicOrganization.values.length, (index) {
             final prayerCalc = IslamicOrganization.values[index];
             return CalcMethodWidget(
-              selectedMethod: selectedPrayersMethod,
+              selectedMethod: selectedPrayersNotifier.value,
               prayerCalc: prayerCalc,
               onTap: () {
                 selectedPrayersMethod = prayerCalc;

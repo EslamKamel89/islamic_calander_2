@@ -126,10 +126,10 @@ class _CityWidgetState extends State<CityWidget> {
 
   String _locationStr(LocationInfoModel model) {
     String result = '';
-    if (model.county != null) result = '$result${model.county}\n';
-    if (model.state != null) result = '$result${model.state}\n';
-    if (model.city != null) result = '$result${model.city}\n';
+    if (model.county != null && model.state == null) result = '$result${model.county}\n';
+    if (model.state != null && model.county == null) result = '$result${model.state}\n';
+    if (model.city != null && ![model.county, model.state].contains(model.city)) result = '$result${model.city}\n';
     if (model.country != null) result = '$result${model.country}';
-    return pr(result, 'test');
+    return result;
   }
 }

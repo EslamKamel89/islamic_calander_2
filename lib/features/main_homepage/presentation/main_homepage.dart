@@ -34,9 +34,8 @@ class _MainHomePageState extends State<MainHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final updatePrayerCubit = context.read<UpdateNextPrayerApiCubit>();
-    // final t = prt('Bug fix');
-    // pr(updatePrayerCubit.timer, t);
+    // prt('sh cleared');
+    // serviceLocator<SharedPreferences>().clear();
     return Stack(
       children: [
         Container(width: context.width, height: context.height, color: Colors.white),

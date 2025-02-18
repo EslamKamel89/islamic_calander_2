@@ -26,21 +26,21 @@ void cachePrayerMehtod() {
 }
 
 Future<void> checkUserCountry() async {
-  // final t = prt('checkUserCountry');
+  final t = prt('checkUserCountry');
   try {
     if (positionNotifier.value == null) return;
-    // pr(positionNotifier.value, '$t - positionNotifier.value');
+    pr(positionNotifier.value, '$t - positionNotifier.value');
     final sp = serviceLocator<SharedPreferences>();
     final cachedCalcValue = sp.getInt(ShPrefKey.calcPrayerTimeSetting);
     if (cachedCalcValue != null) return;
-    // pr(cachedCalcValue, '$t - cachedCalcValue');
+    pr(cachedCalcValue, '$t - cachedCalcValue');
     List<Placemark> placemarks =
         await placemarkFromCoordinates(positionNotifier.value!.latitude, positionNotifier.value!.longitude);
     if (placemarks.isEmpty) return;
-    // pr(placemarks, '$t - placemarks');
+    pr(placemarks, '$t - placemarks');
     String? country = placemarks.first.country;
     if (country == null) return;
-    // pr(country, '$t - country');
+    pr(country, '$t - country');
     final userCountry = country.toLowerCase();
     final monitoredCountries = [
       'united states of america',
@@ -54,8 +54,8 @@ Future<void> checkUserCountry() async {
       'morocco',
     ];
     if (!monitoredCountries.contains(userCountry)) return;
-    // pr('country found', t);
-    switch (country) {
+    pr('country found', t);
+    switch (userCountry) {
       case 'united states of america':
         sp.setInt(ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.islamicSocietyNorthAmerica.value);
         selectedPrayersNotifier.value = IslamicOrganization.islamicSocietyNorthAmerica;
@@ -66,7 +66,8 @@ Future<void> checkUserCountry() async {
         break;
       case 'united arab emirates':
         sp.setInt(ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.dubai.value);
-        selectedPrayersNotifier.value = IslamicOrganization.dubai;
+        selectedPrayersNotifier.value = pr(IslamicOrganization.dubai, t);
+
         break;
       case 'egypt':
         sp.setInt(ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.egyptianGeneralAuthority.value);
