@@ -91,11 +91,12 @@ class _MainHomePageState extends State<MainHomePage> {
                             author: "Prophet Muhammad (PBUH)",
                             wisdom:
                                 "When you see a person who has been given more than you in wealth and beauty, look to those who have been given less.",
-                          ).animate().fade(delay: 1000.ms, duration: 4000.ms, begin: 0, end: 1)
+                          ).animate().fade(delay: 1000.ms, duration: 4000.ms, begin: 0, end: 1),
                           // const PrayerTimes(),
                           // ExploreMore(onTap: () {
                           //   showCustomBottomSheet();
                           // }),
+                          const SizedBox(height: 50),
                         ],
                       ),
                     ),

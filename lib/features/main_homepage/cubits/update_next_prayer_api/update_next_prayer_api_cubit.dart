@@ -52,6 +52,7 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
       return;
     }
     params = params!.copyWith(latitude: position!.latitude, longitude: position.longitude);
+
     if (params!.date?.day != now.day || state.prayerTimeModel == null) {
       params!.date = now;
       state.prayerTimeModel = (await controller.prayerTime(params!)).data;
