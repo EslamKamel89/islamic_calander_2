@@ -101,7 +101,7 @@ class CalcMethodWidget extends StatelessWidget {
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
         title: txt(prayerCalc.fullString,
-            maxLines: 20, e: St.bold16, c: selectedMethod == prayerCalc ? Colors.white : null),
+            maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,
         //     maxLines: 20,

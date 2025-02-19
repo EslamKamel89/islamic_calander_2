@@ -24,6 +24,7 @@ class CityWidget extends StatefulWidget {
 class _CityWidgetState extends State<CityWidget> {
   String? deviceLocation;
   LocationInfoModel? locationInfoModel;
+  LocationInfoModel2? locationInfoModel2;
   @override
   void initState() {
     // getCityName().then((city) {
@@ -40,13 +41,34 @@ class _CityWidgetState extends State<CityWidget> {
   Future _getLocationData() async {
     final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
-      await _fetchLocationData(positionInMemory);
+      await _fetchLocationData2(positionInMemory);
       return;
     }
     positionNotifier.addListener(() async {
       if (positionNotifier.value == null) return;
-      await _fetchLocationData(positionNotifier.value!);
+      await _fetchLocationData2(positionNotifier.value!);
     });
+  }
+
+  Future _fetchLocationData2(Position position) async {
+    final t = prt('_fetchLocationData - CityWidget');
+    String url = "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+    final api = serviceLocator<ApiConsumer>();
+    try {
+      final response = await api.get(url);
+      setState(() {
+        locationInfoModel2 = LocationInfoModel2.fromMap(jsonDecode(response));
+      });
+      pr(locationInfoModel2, t);
+    } catch (e) {
+      String errorMessage = e.toString();
+      if (e is DioException) {
+        errorMessage = jsonEncode(e.response?.data ?? 'Unknown error occured');
+      }
+      showSnackbar('Error', errorMessage, true);
+      pr(errorMessage, t);
+      return;
+    }
   }
 
   Future _fetchLocationData(Position position) async {
@@ -80,7 +102,7 @@ class _CityWidgetState extends State<CityWidget> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (locationInfoModel == null)
+          if (locationInfoModel2 == null)
             Opacity(
               opacity: 0.8,
               child: Lot.Lottie.asset(
@@ -90,7 +112,7 @@ class _CityWidgetState extends State<CityWidget> {
                 fit: BoxFit.cover,
               ),
             ),
-          if (locationInfoModel == null)
+          if (locationInfoModel2 == null)
             Container(
               width: 100.w,
               height: 100.w,
@@ -99,7 +121,7 @@ class _CityWidgetState extends State<CityWidget> {
                 color: Colors.white,
               ),
             ),
-          if (locationInfoModel != null)
+          if (locationInfoModel2 != null)
             SizedBox(
               child: Lot.Lottie.asset(
                 AssetsData.map,
@@ -110,11 +132,11 @@ class _CityWidgetState extends State<CityWidget> {
             ),
           // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
           const SizedBox(width: 5),
-          if (locationInfoModel != null)
+          if (locationInfoModel2 != null)
             Expanded(
               child: AutoSizeText(
                 // child: Text(
-                _locationStr(locationInfoModel!),
+                _locationStr2(locationInfoModel2!),
                 style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
             )
@@ -130,6 +152,13 @@ class _CityWidgetState extends State<CityWidget> {
     if (model.state != null && model.county == null) result = '$result${model.state}\n';
     if (model.city != null && ![model.county, model.state].contains(model.city)) result = '$result${model.city}\n';
     if (model.country != null) result = '$result${model.country}';
+    return result;
+  }
+
+  String _locationStr2(LocationInfoModel2 model) {
+    String result = '';
+    if (model.one != null) result = '$result${model.one}\n';
+    if (model.two != null) result = '$result${model.two}\n';
     return result;
   }
 }

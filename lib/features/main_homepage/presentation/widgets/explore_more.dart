@@ -32,7 +32,7 @@ class ExploreMore extends StatelessWidget {
             ),
             txt(
               "Explore More",
-              e: St.bold14,
+              e: St.bold16,
               googleFontCallback: GoogleFonts.cinzel,
               c: Colors.white,
             ),

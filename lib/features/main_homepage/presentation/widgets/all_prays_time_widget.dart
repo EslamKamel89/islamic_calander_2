@@ -299,11 +299,11 @@ class PrayTimeWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          txt(pray, e: St.bold12),
+          txt(pray, e: St.bold16),
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg12),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg16),
         ],
       ),
     );
@@ -314,13 +314,13 @@ class PrayTimeWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        txt(pray, e: St.bold12),
+        txt(pray, e: St.bold16),
         const SizedBox(height: 5),
         CustomFadingWidget(
           child: _buildImage(),
         ),
         const SizedBox(height: 5),
-        CustomFadingWidget(child: txt('00:00', e: St.reg12)),
+        CustomFadingWidget(child: txt('00:00', e: St.reg16)),
       ],
     );
   }

@@ -50,21 +50,17 @@ class _DateMonthViewState extends State<DateMonthView> {
             handleInputChange: (String year) {
               try {
                 int yearInt = int.parse(year);
-                int maxYear =
-                    context.read<DateConversionCubit>().state.lastDay.year;
-                int minYear =
-                    context.read<DateConversionCubit>().state.firstDay.year;
+                int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+                int minYear = context.read<DateConversionCubit>().state.firstDay.year;
                 pr(minYear, 'minYear');
                 pr(maxYear, 'maxYear');
                 pr(yearInt, 'enteredYear');
                 if (yearInt <= maxYear && yearInt >= minYear) {
-                  controller.getDateMonth(
-                      yearInt, controller.state.selectedMonth);
+                  controller.getDateMonth(yearInt, controller.state.selectedMonth);
                   controller.validate('');
                 } else {
                   pr('condition not met');
-                  controller
-                      .validate('Year range between $minYear and $maxYear');
+                  controller.validate('Year range between $minYear and $maxYear');
                 }
               } catch (e) {
                 controller.validate('You have to enter numeric values');
@@ -78,22 +74,17 @@ class _DateMonthViewState extends State<DateMonthView> {
                   ? const SizedBox()
                   : Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: txt(state.validationMessage,
-                          c: Colors.red, e: St.reg14));
+                      child: txt(state.validationMessage, c: Colors.red, e: St.reg16));
             },
           ),
           MonthDropdownWidget(handleMonthSelected: (MonthEnum month) {
-            int maxYear =
-                context.read<DateConversionCubit>().state.lastDay.year;
-            int minYear =
-                context.read<DateConversionCubit>().state.firstDay.year;
+            int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+            int minYear = context.read<DateConversionCubit>().state.firstDay.year;
             pr(minYear, 'minYear');
             pr(maxYear, 'maxYear');
             controller.state.selectedMonth = month;
-            if (controller.state.selectedYear <= maxYear &&
-                controller.state.selectedYear >= minYear) {
-              controller.getDateMonth(controller.state.selectedYear,
-                  controller.state.selectedMonth);
+            if (controller.state.selectedYear <= maxYear && controller.state.selectedYear >= minYear) {
+              controller.getDateMonth(controller.state.selectedYear, controller.state.selectedMonth);
               controller.validate('');
             } else {
               pr('condition not met');

@@ -29,10 +29,7 @@ class DateWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Colors.blue.shade100.withOpacity(0.1),
-                Colors.blue.withOpacity(0.1)
-              ],
+              colors: [Colors.blue.shade100.withOpacity(0.1), Colors.blue.withOpacity(0.1)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -47,9 +44,7 @@ class DateWidget extends StatelessWidget {
                 e: St.bold16,
                 googleFontCallback: GoogleFonts.cinzel,
                 c: context.secondaryHeaderColor,
-              )
-                  .animate()
-                  .moveX(duration: animationDuration, begin: -500, end: 0),
+              ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
               const SizedBox(height: 5),
               // Gregorian Date
               LayoutBuilder(builder: (context, constraints) {
@@ -59,19 +54,17 @@ class DateWidget extends StatelessWidget {
                     children: [
                       txt(
                         formateDateEgnlish(today),
-                        e: St.reg14,
+                        e: St.reg16,
                         googleFontCallback: GoogleFonts.cinzel,
                         c: context.primaryColor,
-                      ).animate().moveX(
-                          duration: animationDuration, begin: 500, end: 0),
+                      ).animate().moveX(duration: animationDuration, begin: 500, end: 0),
                       const SizedBox(height: 5),
                       txt(
                         '${hijriDate.hDay} ${hijriDate.longMonthName} ${hijriDate.hYear}',
                         googleFontCallback: GoogleFonts.cinzel,
-                        e: St.reg14,
+                        e: St.reg16,
                         c: context.primaryColor,
-                      ).animate().moveX(
-                          duration: animationDuration, begin: -500, end: 0),
+                      ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
                     ],
                   );
                 }
@@ -80,20 +73,17 @@ class DateWidget extends StatelessWidget {
                   children: [
                     txt(
                       formateDateEgnlish(today),
-                      e: St.reg14,
+                      e: St.reg16,
                       googleFontCallback: GoogleFonts.cinzel,
                       c: context.primaryColor,
-                    )
-                        .animate()
-                        .moveX(duration: animationDuration, begin: 500, end: 0),
+                    ).animate().moveX(duration: animationDuration, begin: 500, end: 0),
                     const SizedBox(width: 5),
                     txt(
                       '${hijriDate.hDay} ${hijriDate.longMonthName} ${hijriDate.hYear}',
                       googleFontCallback: GoogleFonts.cinzel,
-                      e: St.reg14,
+                      e: St.reg16,
                       c: context.primaryColor,
-                    ).animate().moveX(
-                        duration: animationDuration, begin: -500, end: 0),
+                    ).animate().moveX(duration: animationDuration, begin: -500, end: 0),
                   ],
                 );
               }),

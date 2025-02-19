@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum St {
   reg12,
@@ -38,7 +37,7 @@ enum St {
 ///
 /// maxLines => int?
 ///
-/// Default fontSize = 16.sp
+/// Default fontSize = 16
 ///
 /// Default fontWeight = FontWeight.normal
 Text txt(
@@ -52,88 +51,88 @@ Text txt(
   TextStyle Function()? googleFontCallback,
   TextAlign? textAlign,
 }) {
-  s = s ?? 16.sp;
+  s = s ?? 18;
   w = FontWeight.normal;
   if (e != null) {
     switch (e) {
       case St.reg12:
-        s = 12.sp;
+        s = 12;
         w = FontWeight.normal;
         break;
       case St.bold12:
-        s = 12.sp;
+        s = 12;
         w = FontWeight.bold;
         break;
       case St.semi14:
-        s = 14.sp;
+        s = 14;
         w = FontWeight.w600;
         break;
       case St.reg14:
-        s = 14.sp;
+        s = 14;
         w = FontWeight.normal;
         break;
       case St.bold14:
-        s = 14.sp;
+        s = 14;
         w = FontWeight.w900;
         break;
       case St.semi16:
-        s = 16.sp;
+        s = 16;
         w = FontWeight.w600;
         break;
       case St.reg16:
-        s = 16.sp;
+        s = 16;
         w = FontWeight.normal;
         break;
       case St.bold16:
-        s = 16.sp;
+        s = 16;
         w = FontWeight.bold;
         break;
       case St.semi18:
-        s = 18.sp;
+        s = 18;
         w = FontWeight.w600;
         break;
       case St.reg18:
-        s = 18.sp;
+        s = 18;
         w = FontWeight.normal;
         break;
       case St.bold18:
-        s = 18.sp;
+        s = 18;
         w = FontWeight.bold;
         break;
       case St.semi20:
-        s = 20.sp;
+        s = 20;
         w = FontWeight.w600;
         break;
       case St.reg20:
-        s = 20.sp;
+        s = 20;
         w = FontWeight.normal;
         break;
       case St.bold20:
-        s = 20.sp;
+        s = 20;
         w = FontWeight.bold;
         break;
       case St.semi25:
-        s = 25.sp;
+        s = 25;
         w = FontWeight.w600;
         break;
       case St.reg25:
-        s = 25.sp;
+        s = 25;
         w = FontWeight.normal;
         break;
       case St.bold25:
-        s = 25.sp;
+        s = 25;
         w = FontWeight.bold;
         break;
       case St.semi30:
-        s = 30.sp;
+        s = 30;
         w = FontWeight.w600;
         break;
       case St.reg30:
-        s = 30.sp;
+        s = 30;
         w = FontWeight.normal;
         break;
       case St.bold30:
-        s = 30.sp;
+        s = 30;
         w = FontWeight.bold;
         break;
     }
@@ -141,7 +140,7 @@ Text txt(
   if (googleFontCallback != null) {
     return Text(
       text,
-      style: googleFontCallback().copyWith(fontSize: s.sp, fontWeight: w, color: c),
+      style: googleFontCallback().copyWith(fontSize: s, fontWeight: w, color: c),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
@@ -149,7 +148,7 @@ Text txt(
   }
   return Text(
     text,
-    style: TextStyle(fontSize: s.sp, fontWeight: w, fontFamily: f, color: c),
+    style: TextStyle(fontSize: s, fontWeight: w, fontFamily: f, color: c),
     maxLines: maxLines,
     overflow: TextOverflow.ellipsis,
     textAlign: textAlign,

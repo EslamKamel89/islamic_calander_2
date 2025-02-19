@@ -1,6 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class LocationInfoModel {
+  String? houseNumber;
   String? road;
   String? neighbourhood;
+  String? town;
+  String? village;
+  String? residential;
+  String? suburb;
   String? city;
   String? state;
   String? iso31662Lvl4;
@@ -9,8 +16,13 @@ class LocationInfoModel {
   String? county;
 
   LocationInfoModel({
+    this.houseNumber,
     this.road,
+    this.town,
     this.neighbourhood,
+    this.village,
+    this.residential,
+    this.suburb,
     this.city,
     this.state,
     this.iso31662Lvl4,
@@ -21,7 +33,7 @@ class LocationInfoModel {
 
   @override
   String toString() {
-    return 'LocationInfoModel(road: $road, neighbourhood: $neighbourhood,county:$county city: $city, state: $state, iso31662Lvl4: $iso31662Lvl4, country: $country, countryCode: $countryCode)';
+    return 'LocationInfoModel(houseNumber:$houseNumber  road: $road,town:$town neighbourhood: $neighbourhood,county:$county,residential:$residential, suburb:$suburb, village: $village city: $city, state: $state, iso31662Lvl4: $iso31662Lvl4, country: $country, countryCode: $countryCode)';
   }
 
   factory LocationInfoModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +46,12 @@ class LocationInfoModel {
       country: json['country'] as String?,
       countryCode: json['country_code'] as String?,
       county: json['county'] as String?,
+      town: json['town'] as String?,
+      houseNumber: json['house_number'] as String?,
+      residential: json['residential'] as String?,
+      suburb: json['suburb'] as String?,
+      // village: json['village'] as String?,
+      // village: json['village'] as String?,
     );
   }
 
@@ -45,5 +63,35 @@ class LocationInfoModel {
         'ISO3166-2-lvl4': iso31662Lvl4,
         'country': country,
         'country_code': countryCode,
+        'town': town,
+        'village': village,
+        'house_number': houseNumber,
       };
+}
+
+class LocationInfoModel2 {
+  String? one;
+  String? two;
+  String? three;
+  String? four;
+  LocationInfoModel2({
+    this.one,
+    this.two,
+    this.three,
+    this.four,
+  });
+
+  factory LocationInfoModel2.fromMap(Map<String, dynamic> map) {
+    return LocationInfoModel2(
+      one: map['1'] != null ? map['1'] as String : null,
+      two: map['2'] != null ? map['2'] as String : null,
+      three: map['3'] != null ? map['3'] as String : null,
+      four: map['4'] != null ? map['4'] as String : null,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'LocationInfoModel2(one: $one, two: $two, three: $three, four: $four)';
+  }
 }
