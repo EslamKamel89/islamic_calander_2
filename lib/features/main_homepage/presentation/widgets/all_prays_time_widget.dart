@@ -71,7 +71,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   void _selectedPrayerMethodNotifier() {
     selectedPrayersNotifier.addListener(() {
-      cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
+      cubit.params =
+          cubit.params.copyWith(method: selectedPrayersNotifier.value);
       if (mounted) {
         cubit.getPrayerTime();
       }
@@ -80,7 +81,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   Future _getNewHijri() async {
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
+    final response = await repo.getDateConversion(
+        selectedDate, DataProcessingOption.regular);
     response.fold((_) {}, (model) {
       if (mounted) {
         setState(() {
@@ -91,7 +93,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getPrayerTime() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.getPrayerTime() in  AppPrayersTimeBuilder widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.params = cubit.params.copyWith(
@@ -156,14 +159,22 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                   children: [
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.subtract(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.subtract(const Duration(days: 1));
                           _getNewHijri();
-                          Position? position = await serviceLocator<GeoPosition>().position();
-                          if ([position, position?.latitude, position?.longitude].contains(null)) {
+                          Position? position =
+                              await serviceLocator<GeoPosition>().position();
+                          if ([
+                            position,
+                            position?.latitude,
+                            position?.longitude
+                          ].contains(null)) {
                             return;
                           }
                           cubit.params = cubit.params.copyWith(
-                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+                              date: selectedDate,
+                              latitude: position!.latitude,
+                              longitude: position.longitude);
                           cubit.getPrayerTime();
                           moonImageCubit.dateTime = selectedDate;
                           moonImageCubit.moonImage();
@@ -177,19 +188,28 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     ),
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.add(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.add(const Duration(days: 1));
                           _getNewHijri();
-                          Position? position = await serviceLocator<GeoPosition>().position();
-                          if ([position, position?.latitude, position?.longitude].contains(null)) {
+                          Position? position =
+                              await serviceLocator<GeoPosition>().position();
+                          if ([
+                            position,
+                            position?.latitude,
+                            position?.longitude
+                          ].contains(null)) {
                             return;
                           }
                           cubit.params = cubit.params.copyWith(
-                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+                              date: selectedDate,
+                              latitude: position!.latitude,
+                              longitude: position.longitude);
                           cubit.getPrayerTime();
                           moonImageCubit.dateTime = selectedDate;
                           moonImageCubit.moonImage();
                         },
-                        child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
+                        child:
+                            Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
                 ),
               ),
@@ -203,7 +223,9 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child: PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+                  child: PrayersWidget(state.data)
+                      .animate()
+                      .fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -269,7 +291,11 @@ class PrayersWidget extends StatelessWidget {
 }
 
 class PrayTimeWidget extends StatelessWidget {
-  const PrayTimeWidget({super.key, required this.pray, required this.imagePath, required this.time});
+  const PrayTimeWidget(
+      {super.key,
+      required this.pray,
+      required this.imagePath,
+      required this.time});
   final String pray;
   final String? time;
   final String imagePath;
@@ -303,7 +329,8 @@ class PrayTimeWidget extends StatelessWidget {
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg16),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm',
+              e: St.reg16),
         ],
       ),
     );

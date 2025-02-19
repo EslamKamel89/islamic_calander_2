@@ -13,7 +13,8 @@ import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 part 'prayers_times_by_date_state.dart';
 
 class PrayersTimesByDateCubit extends Cubit<PrayersTimesByDateState> {
-  PrayersTimesByDateCubit() : super(PrayersTimesByDateState(response: ResponseEnum.initial));
+  PrayersTimesByDateCubit()
+      : super(PrayersTimesByDateState(response: ResponseEnum.initial));
   Future getPrayersTimesByDate(DateTime date) async {
     final t = prt('getPrayersTimesByDate - PrayersTimesByDateCubit');
     emit(state.copyWith(response: ResponseEnum.loading));

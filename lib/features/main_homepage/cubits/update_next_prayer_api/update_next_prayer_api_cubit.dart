@@ -16,7 +16,8 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
   final PrayersController controller = serviceLocator();
   Timer? timer;
   PrayerTimeParams? params;
-  UpdateNextPrayerApiCubit() : super(UpdateNextPrayerApiState(response: ResponseEnum.initial));
+  UpdateNextPrayerApiCubit()
+      : super(UpdateNextPrayerApiState(response: ResponseEnum.initial));
   Future init() async {
     // ignore: prefer_conditional_assignment
     if (params == null) {
@@ -51,13 +52,15 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
       // pr('position is null', t);
       return;
     }
-    params = params!.copyWith(latitude: position!.latitude, longitude: position.longitude);
+    params = params!
+        .copyWith(latitude: position!.latitude, longitude: position.longitude);
 
     if (params!.date?.day != now.day || state.prayerTimeModel == null) {
       params!.date = now;
       state.prayerTimeModel = (await controller.prayerTime(params!)).data;
-      state.nextDayPrayerTimeModel =
-          (await controller.prayerTime(params!.copyWith(date: params?.date?.add(const Duration(days: 1))))).data;
+      state.nextDayPrayerTimeModel = (await controller.prayerTime(params!
+              .copyWith(date: params?.date?.add(const Duration(days: 1)))))
+          .data;
     }
     if (state.prayerTimeModel == null || state.nextDayPrayerTimeModel == null) {
       // pr('Error Occured: prayerTimeModel is null', t);
@@ -67,7 +70,8 @@ class UpdateNextPrayerApiCubit extends Cubit<UpdateNextPrayerApiState> {
     if (nextPrayerModel.nextPrayer?.contains('Fajr') == true) {
       // state.prayerTimeModel =
       //     (await controller.prayerTime(params!.copyWith(date: now.add(const Duration(days: 1))))).data;
-      DateTime? fajrTime = nextPrayerModel.nextPrayerTime ?? state.nextDayPrayerTimeModel?.fajrDateTime();
+      DateTime? fajrTime = nextPrayerModel.nextPrayerTime ??
+          state.nextDayPrayerTimeModel?.fajrDateTime();
       // pr(fajrTime, '$t - next day fajr time');
       emit(
         state.copyWith(

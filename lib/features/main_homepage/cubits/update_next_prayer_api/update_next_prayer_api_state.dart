@@ -30,7 +30,8 @@ class UpdateNextPrayerApiState {
       timeRemaining: timeRemaining ?? this.timeRemaining,
       nextPrayerTime: nextPrayerTime ?? this.nextPrayerTime,
       prayerTimeModel: prayerTimeModel ?? this.prayerTimeModel,
-      nextDayPrayerTimeModel: nextDayPrayerTimeModel ?? this.nextDayPrayerTimeModel,
+      nextDayPrayerTimeModel:
+          nextDayPrayerTimeModel ?? this.nextDayPrayerTimeModel,
       response: response ?? this.response,
     );
   }

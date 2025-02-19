@@ -39,7 +39,8 @@ class _CityWidgetState extends State<CityWidget> {
   }
 
   Future _getLocationData() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       await _fetchLocationData2(positionInMemory);
       return;
@@ -52,7 +53,8 @@ class _CityWidgetState extends State<CityWidget> {
 
   Future _fetchLocationData2(Position position) async {
     final t = prt('_fetchLocationData - CityWidget');
-    String url = "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+    String url =
+        "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
     final api = serviceLocator<ApiConsumer>();
     try {
       final response = await api.get(url);
@@ -148,9 +150,12 @@ class _CityWidgetState extends State<CityWidget> {
 
   String _locationStr(LocationInfoModel model) {
     String result = '';
-    if (model.county != null && model.state == null) result = '$result${model.county}\n';
-    if (model.state != null && model.county == null) result = '$result${model.state}\n';
-    if (model.city != null && ![model.county, model.state].contains(model.city)) result = '$result${model.city}\n';
+    if (model.county != null && model.state == null)
+      result = '$result${model.county}\n';
+    if (model.state != null && model.county == null)
+      result = '$result${model.state}\n';
+    if (model.city != null && ![model.county, model.state].contains(model.city))
+      result = '$result${model.city}\n';
     if (model.country != null) result = '$result${model.country}';
     return result;
   }

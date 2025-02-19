@@ -50,7 +50,8 @@ class MyApp extends StatelessWidget {
             create: (_) => ThemeCubit(),
           ),
           BlocProvider(
-            create: (context) => DateConversionCubit(dateConversionRepo: serviceLocator()),
+            create: (context) =>
+                DateConversionCubit(dateConversionRepo: serviceLocator()),
           ),
           BlocProvider(
             create: (context) => DateYearCubit(dateInfoRepo: serviceLocator()),

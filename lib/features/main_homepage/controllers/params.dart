@@ -5,7 +5,12 @@ class PrayerTimeParams {
   IslamicOrganization? method;
   DateTime? date;
   LatitudeAdjustmentMethod? latitudeAdjustmentMethod;
-  PrayerTimeParams({this.latitude, this.longitude, this.method, this.latitudeAdjustmentMethod, this.date});
+  PrayerTimeParams(
+      {this.latitude,
+      this.longitude,
+      this.method,
+      this.latitudeAdjustmentMethod,
+      this.date});
 
   PrayerTimeParams copyWith({
     double? latitude,
@@ -18,7 +23,8 @@ class PrayerTimeParams {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       method: method ?? this.method,
-      latitudeAdjustmentMethod: latitudeAdjustmentMethod ?? this.latitudeAdjustmentMethod,
+      latitudeAdjustmentMethod:
+          latitudeAdjustmentMethod ?? this.latitudeAdjustmentMethod,
       date: date ?? this.date,
     );
   }
@@ -40,7 +46,8 @@ class PrayerTimeParams {
 
 enum IslamicOrganization {
   jafariShiaIthnaAshari(0, 'Jafari / Shia Ithna-Ashari'),
-  universityIslamicSciencesKarachi(1, 'University of Islamic Sciences, Karachi'),
+  universityIslamicSciencesKarachi(
+      1, 'University of Islamic Sciences, Karachi'),
   islamicSocietyNorthAmerica(2, 'Islamic Society of North America'),
   muslimWorldLeague(3, 'Muslim World League'),
   ummAlQuraUniversity(4, 'Umm Al-Qura University, Makkah'),
@@ -52,8 +59,10 @@ enum IslamicOrganization {
   majlisUgamaIslamSingapura(11, 'Majlis Ugama Islam Singapura, Singapore'),
   unionOrganizationIslamicDeFrance(12, 'Union Organization islamic de France'),
   diyanetIsleri(13, 'Diyanet İşleri Başkanlığı, Turkey'),
-  spiritualAdministrationMuslimsRussia(14, 'Spiritual Administration of Muslims of Russia'),
-  moonsightingCommitteeWorldwide(15, 'Moonsighting Committee Worldwide (also requires shafaq parameter)'),
+  spiritualAdministrationMuslimsRussia(
+      14, 'Spiritual Administration of Muslims of Russia'),
+  moonsightingCommitteeWorldwide(
+      15, 'Moonsighting Committee Worldwide (also requires shafaq parameter)'),
   dubai(16, 'Dubai (experimental)'),
   jabatanKemajuanIslamMalaysia(17, 'Jabatan Kemajuan Islam Malaysia (JAKIM)'),
   tunisia(18, 'Tunisia'),
@@ -61,7 +70,8 @@ enum IslamicOrganization {
   kemenagIndonesia(20, 'KEMENAG - Kementerian Agama Republik Indonesia'),
   morocco(21, 'Morocco'),
   comunidadeIslamicaLisboa(22, 'Comunidade Islamica de Lisboa'),
-  ministryAwqafJordan(23, 'Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan'),
+  ministryAwqafJordan(
+      23, 'Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan'),
   custom(99, 'Custom');
 
   final int value;

@@ -28,9 +28,11 @@ class AssetsData {
   static const String hallalResturant = "${_relativePath}halal.png";
   // static const String mosque = "${_relativeOldPath}Component 19 – 1@3x.png";
   static const String mosque = "${_relativePath}k_4.png";
-  static const String worldPrayersBackground = "${_relativePath}template10b.png";
+  static const String worldPrayersBackground =
+      "${_relativePath}template10b.png";
   static const String globe = "${_relativePath}globe.png";
-  static const String dateConversionIcon = "${_relativePath}date_conversion.png";
+  static const String dateConversionIcon =
+      "${_relativePath}date_conversion.png";
   static const String moonEclipseIcon = "${_relativePath}moon-eclipse.png";
   static const String moonIcon = "${_relativePath}moon-icon.png";
   static const String globe2 = "${_relativePath}globe2.png";

@@ -97,7 +97,8 @@ Future<Position?> _determinePosition() async {
 Future<String?> getCityName() async {
   final position = await serviceLocator<GeoPosition>().position();
   if (position == null) return null;
-  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+  List<Placemark> placemarks =
+      await placemarkFromCoordinates(position.latitude, position.longitude);
 
   if (placemarks.isNotEmpty) {
     // return "${placemarks.first.administrativeArea}";
@@ -110,7 +111,8 @@ Future<String?> getCityName() async {
 
 Future<String?> getCityNameByPosition(LatLng? position) async {
   if (position == null) return null;
-  List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+  List<Placemark> placemarks =
+      await placemarkFromCoordinates(position.latitude, position.longitude);
 
   if (placemarks.isNotEmpty) {
     return "${placemarks.first.administrativeArea}\n${placemarks.first.country}";

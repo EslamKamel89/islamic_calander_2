@@ -11,10 +11,12 @@ class PrayerTimesApiCubit extends Cubit<ApiResponseModel<PrayersTimeModel>> {
   final PrayersController controller = serviceLocator();
   PrayerTimeParams params;
   PrayerTimesApiCubit({required this.params})
-      : super(ApiResponseModel<PrayersTimeModel>(response: ResponseEnum.initial));
+      : super(
+            ApiResponseModel<PrayersTimeModel>(response: ResponseEnum.initial));
   Future getPrayerTime() async {
     final t = prt('getPrayerTime - PrayerTimesApiCubit');
-    emit(pr(state.copyWith(errorMessage: null, response: ResponseEnum.loading), t));
+    emit(pr(
+        state.copyWith(errorMessage: null, response: ResponseEnum.loading), t));
     pr(params, t);
     emit(pr(await controller.prayerTime(params), t));
   }

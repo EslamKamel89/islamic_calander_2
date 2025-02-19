@@ -22,7 +22,8 @@ class _NewHijrWidgetState extends State<NewHijrWidget> {
 
   Future getNewHijri() async {
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(DateTime.now(), DataProcessingOption.regular);
+    final response = await repo.getDateConversion(
+        DateTime.now(), DataProcessingOption.regular);
     response.fold((_) {}, (model) {
       if (mounted) {
         setState(() {
@@ -46,7 +47,8 @@ class _NewHijrWidgetState extends State<NewHijrWidget> {
         const Sizer(),
         Text(
           newHijriDate ?? '',
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ],
     );

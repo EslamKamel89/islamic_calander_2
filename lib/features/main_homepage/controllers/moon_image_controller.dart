@@ -16,7 +16,8 @@ import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 class MoonImageController {
   ApiConsumer api = serviceLocator();
 
-  Future<ApiResponseModel<String?>> moonImage({required Position position, required DateTime dateTime}) async {
+  Future<ApiResponseModel<String?>> moonImage(
+      {required Position position, required DateTime dateTime}) async {
     final t = prt('moonImage - MoonImageController');
     try {
       final temp = api.dio.options.headers;
@@ -41,7 +42,10 @@ class MoonImageController {
       if (context != null) {
         showSnackbar('Error', errorMessage, true);
       }
-      return pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+      return pr(
+          ApiResponseModel(
+              errorMessage: errorMessage, response: ResponseEnum.failure),
+          t);
     }
   }
 

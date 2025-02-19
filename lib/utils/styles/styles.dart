@@ -140,7 +140,8 @@ Text txt(
   if (googleFontCallback != null) {
     return Text(
       text,
-      style: googleFontCallback().copyWith(fontSize: s, fontWeight: w, color: c),
+      style:
+          googleFontCallback().copyWith(fontSize: s, fontWeight: w, color: c),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,

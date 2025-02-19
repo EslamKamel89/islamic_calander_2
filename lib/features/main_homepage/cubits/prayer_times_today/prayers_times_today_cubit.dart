@@ -14,7 +14,8 @@ import 'package:islamic_calander_2/features/main_homepage/cubits/prayer_times_to
 class PrayersTimesTodayCubit extends Cubit<PrayersTimesTodayState> {
   Coordinates? _cordinates;
   dynamic _params;
-  PrayersTimesTodayCubit() : super(PrayersTimesTodayState(response: ResponseEnum.initial));
+  PrayersTimesTodayCubit()
+      : super(PrayersTimesTodayState(response: ResponseEnum.initial));
   Future getPrayersTimesToday() async {
     final t = prt('getPrayersTimesToday - PrayersTimesTodayCubit');
     emit(state.copyWith(response: ResponseEnum.loading));

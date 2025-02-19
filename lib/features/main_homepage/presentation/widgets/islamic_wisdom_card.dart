@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
-class IslamicWisdomCard extends StatelessWidget {
-  final String wisdom;
-  final String author;
+class IslamicWisdomCard extends StatefulWidget {
+  // final String wisdom;
+  // final String author;
 
   const IslamicWisdomCard({
     super.key,
-    required this.wisdom,
-    required this.author,
+    // required this.wisdom,
+    // required this.author,
   });
 
+  @override
+  State<IslamicWisdomCard> createState() => _IslamicWisdomCardState();
+}
+
+class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
+  WisdomModel? wisdom;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,22 +36,12 @@ class IslamicWisdomCard extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        // color: Colors.white.withOpacity(0.2),
-        image: const DecorationImage(
-            image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
+        image: const DecorationImage(image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(20.0),
-        // A subtle white border and shadow for a refined look.
         border: Border.all(
           color: const Color(0xffFFB800).withOpacity(0.5),
           width: 1,
         ),
-        // boxShadow: const [
-        //   BoxShadow(
-        //     color: Colors.black26,
-        //     blurRadius: 8,
-        //     offset: Offset(2, 2),
-        //   )
-        // ],
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
@@ -55,22 +52,10 @@ class IslamicWisdomCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // const Icon(
-            //   Icons.nights_stay,
-            //   size: 48,
-            //   color: Colors.black87,
-            // ),
-            // const SizedBox(height: 16),
-
             Container(
-              padding: const EdgeInsets.only(
-                  top: 10, left: 10, right: 10, bottom: 5),
-              // decoration: BoxDecoration(
-              //   color: Colors.white.withOpacity(0.8),
-              //   borderRadius: BorderRadius.circular(20.0),
-              // ),
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
               child: Text(
-                wisdom,
+                wisdom?.wisdomEn ?? '',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 20,
@@ -81,25 +66,20 @@ class IslamicWisdomCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             // The author of the wisdom.
-            Container(
-              padding: const EdgeInsets.only(
-                  top: 5, left: 10, right: 10, bottom: 10),
-              // decoration: BoxDecoration(
-              //   color: Colors.grey.withOpacity(0.4),
-              //   borderRadius: BorderRadius.circular(20.0),
-              // ),
-              child: Text(
-                '- $author',
-                textAlign: TextAlign.right,
-                style: const TextStyle(
-                  fontFamily: 'Scheherazade',
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
+            //   child: Text(
+            //     '- $author',
+            //     textAlign: TextAlign.right,
+            //     style: const TextStyle(
+            //       fontFamily: 'Scheherazade',
+            //       fontSize: 16,
+            //       color: Colors.black,
+            //       fontStyle: FontStyle.italic,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -10,15 +10,20 @@ class MoonImageCubit extends Cubit<ApiResponseModel<String?>> {
   final MoonImageController controller = serviceLocator<MoonImageController>();
   Position? position;
   DateTime? dateTime;
-  MoonImageCubit() : super(ApiResponseModel<String?>(response: ResponseEnum.initial));
+  MoonImageCubit()
+      : super(ApiResponseModel<String?>(response: ResponseEnum.initial));
   Future moonImage() async {
     final t = prt('moonImage - MoonImageCubit');
     if ([position, dateTime].contains(null)) {
       pr('error: position or dateTime is null', t);
       return;
     }
-    emit(pr(state.copyWith(errorMessage: null, response: ResponseEnum.loading), t));
-    pr([position!.latitude, position!.latitude, dateTime], '$t - moonImage params');
-    emit(pr(await controller.moonImage(position: position!, dateTime: dateTime!), t));
+    emit(pr(
+        state.copyWith(errorMessage: null, response: ResponseEnum.loading), t));
+    pr([position!.latitude, position!.latitude, dateTime],
+        '$t - moonImage params');
+    emit(pr(
+        await controller.moonImage(position: position!, dateTime: dateTime!),
+        t));
   }
 }

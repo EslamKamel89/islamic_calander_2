@@ -40,7 +40,13 @@ class _PrayerCardState extends State<PrayerCard> {
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
+              colors: [
+                Colors.black,
+                Colors.black,
+                Colors.black87,
+                Colors.black54,
+                Color(0xFF0D3B66)
+              ],
               stops: [0.0, 0.5, 0.65, 0.8, 1.0],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,

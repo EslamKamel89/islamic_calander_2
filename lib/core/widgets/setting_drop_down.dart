@@ -23,7 +23,9 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
         size: 36,
         // color: Theme.of(context).colorScheme.primary,
         color: Colors.white,
-      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 10000.ms, begin: 0, end: 2),
+      )
+          .animate(onPlay: (controller) => controller.repeat())
+          .rotate(duration: 10000.ms, begin: 0, end: 2),
       onPressed: () {
         _showModernDropdown(context);
       },
@@ -89,7 +91,11 @@ class CalcOptionsWidgetState extends State<CalcOptionsWidget> {
 }
 
 class CalcMethodWidget extends StatelessWidget {
-  const CalcMethodWidget({super.key, required this.selectedMethod, required this.prayerCalc, required this.onTap});
+  const CalcMethodWidget(
+      {super.key,
+      required this.selectedMethod,
+      required this.prayerCalc,
+      required this.onTap});
   final IslamicOrganization selectedMethod;
   final IslamicOrganization prayerCalc;
   final Function() onTap;
@@ -101,7 +107,9 @@ class CalcMethodWidget extends StatelessWidget {
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
         title: txt(prayerCalc.fullString,
-            maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
+            maxLines: 20,
+            e: St.bold18,
+            c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,
         //     maxLines: 20,

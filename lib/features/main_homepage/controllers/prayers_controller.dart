@@ -16,7 +16,8 @@ import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_mo
 
 class PrayersController {
   ApiConsumer api = serviceLocator();
-  Future<ApiResponseModel<PrayersTimeModel>> prayerTime(PrayerTimeParams params) async {
+  Future<ApiResponseModel<PrayersTimeModel>> prayerTime(
+      PrayerTimeParams params) async {
     final t = prt('prayerTime - PrayersControllers');
     try {
       final response = await api.get(
@@ -38,7 +39,10 @@ class PrayersController {
       if (context != null) {
         showSnackbar('Error', errorMessage, true);
       }
-      return pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+      return pr(
+          ApiResponseModel(
+              errorMessage: errorMessage, response: ResponseEnum.failure),
+          t);
     }
   }
 }

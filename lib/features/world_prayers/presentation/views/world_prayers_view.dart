@@ -117,7 +117,8 @@ class _WorldPrayersModalState extends State<WorldPrayersModal> {
         method: IslamicOrganization.muslimWorldLeague,
       ))
         ..getPrayerTime(),
-      child: BlocBuilder<PrayerTimesApiCubit, ApiResponseModel<PrayersTimeModel>>(
+      child:
+          BlocBuilder<PrayerTimesApiCubit, ApiResponseModel<PrayersTimeModel>>(
         builder: (context, state) {
           return Container(
             width: context.width,
@@ -160,7 +161,9 @@ class _WorldPrayersModalState extends State<WorldPrayersModal> {
                 //   ],
                 // ),
                 if (state.response == ResponseEnum.loading)
-                  SizedBox(height: 180.h, child: const Center(child: CircularProgressIndicator())),
+                  SizedBox(
+                      height: 180.h,
+                      child: const Center(child: CircularProgressIndicator())),
                 if (state.response == ResponseEnum.success)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -193,16 +196,20 @@ class _WorldPrayersModalState extends State<WorldPrayersModal> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
-                      icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                      icon:
+                          const Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () => Navigator.of(context).pop(),
-                      label: const Text('Back', style: TextStyle(color: Colors.black)),
+                      label: const Text('Back',
+                          style: TextStyle(color: Colors.black)),
                     ),
                     const SizedBox(width: 19),
                     ElevatedButton.icon(
                       icon: const Icon(Icons.home, color: Colors.white),
-                      onPressed: () =>
-                          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false),
-                      label: const Text('Home', style: TextStyle(color: Colors.white)),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              AppRoutesNames.mainHomepage, (_) => false),
+                      label: const Text('Home',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
@@ -219,10 +226,12 @@ class CityAndCountryByPositionWidget extends StatefulWidget {
   const CityAndCountryByPositionWidget({super.key, required this.position});
   final LatLng position;
   @override
-  State<CityAndCountryByPositionWidget> createState() => _CityAndCountryByPositionWidgetState();
+  State<CityAndCountryByPositionWidget> createState() =>
+      _CityAndCountryByPositionWidgetState();
 }
 
-class _CityAndCountryByPositionWidgetState extends State<CityAndCountryByPositionWidget> {
+class _CityAndCountryByPositionWidgetState
+    extends State<CityAndCountryByPositionWidget> {
   String? city;
   @override
   void initState() {

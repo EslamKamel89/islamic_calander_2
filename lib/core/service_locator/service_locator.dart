@@ -19,18 +19,25 @@ final GetIt serviceLocator = GetIt.instance;
 
 Future initServiceLocator() async {
   serviceLocator.registerLazySingleton<Dio>(() => Dio());
-  serviceLocator.registerLazySingleton<ApiConsumer>(() => DioConsumer(dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<ApiConsumer>(
+      () => DioConsumer(dio: serviceLocator()));
   final prefs = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton<SharedPreferences>(() => prefs);
-  serviceLocator.registerLazySingleton<AppMiddleWare>(() => AppMiddleWare(sharedPreferences: serviceLocator()));
-  serviceLocator.registerLazySingleton<AppRouter>(() => AppRouter(appMiddleWare: serviceLocator()));
+  serviceLocator.registerLazySingleton<AppMiddleWare>(
+      () => AppMiddleWare(sharedPreferences: serviceLocator()));
+  serviceLocator.registerLazySingleton<AppRouter>(
+      () => AppRouter(appMiddleWare: serviceLocator()));
   serviceLocator.registerSingleton(GeoPosition());
-  serviceLocator.registerLazySingleton<HomeRepoDataSource>(() => HomeRepoDataSource(api: serviceLocator()));
+  serviceLocator.registerLazySingleton<HomeRepoDataSource>(
+      () => HomeRepoDataSource(api: serviceLocator()));
+  serviceLocator.registerLazySingleton<DateConversionRepo>(
+      () => DateConversionRepoImpl(homeRepoDataSource: serviceLocator()));
+  serviceLocator.registerLazySingleton<DateInfoRemoteDataSource>(
+      () => DateInfoRemoteDataSource(api: serviceLocator()));
+  serviceLocator.registerLazySingleton<DateInfoRepo>(
+      () => DateInfoRepoImpl(dateInfoRemoteDataSource: serviceLocator()));
   serviceLocator
-      .registerLazySingleton<DateConversionRepo>(() => DateConversionRepoImpl(homeRepoDataSource: serviceLocator()));
-  serviceLocator.registerLazySingleton<DateInfoRemoteDataSource>(() => DateInfoRemoteDataSource(api: serviceLocator()));
+      .registerLazySingleton<PrayersController>(() => PrayersController());
   serviceLocator
-      .registerLazySingleton<DateInfoRepo>(() => DateInfoRepoImpl(dateInfoRemoteDataSource: serviceLocator()));
-  serviceLocator.registerLazySingleton<PrayersController>(() => PrayersController());
-  serviceLocator.registerLazySingleton<MoonImageController>(() => MoonImageController());
+      .registerLazySingleton<MoonImageController>(() => MoonImageController());
 }

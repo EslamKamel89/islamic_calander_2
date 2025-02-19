@@ -38,10 +38,13 @@ class _MainHomePageState extends State<MainHomePage> {
     // serviceLocator<SharedPreferences>().clear();
     return Stack(
       children: [
-        Container(width: context.width, height: context.height, color: Colors.white),
+        Container(
+            width: context.width, height: context.height, color: Colors.white),
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
+            image: DecorationImage(
+                image: AssetImage(AssetsData.homepageBackground),
+                fit: BoxFit.cover),
           ),
           width: context.width,
           height: context.height,
@@ -87,10 +90,16 @@ class _MainHomePageState extends State<MainHomePage> {
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),
                           const IslamicWisdomCard(
-                            author: "Prophet Muhammad (PBUH)",
-                            wisdom:
-                                "When you see a person who has been given more than you in wealth and beauty, look to those who have been given less.",
-                          ).animate().fade(delay: 1000.ms, duration: 4000.ms, begin: 0, end: 1),
+                                  // author: "Prophet Muhammad (PBUH)",
+                                  // wisdom:
+                                  //     "When you see a person who has been given more than you in wealth and beauty, look to those who have been given less.",
+                                  )
+                              .animate()
+                              .fade(
+                                  delay: 1000.ms,
+                                  duration: 4000.ms,
+                                  begin: 0,
+                                  end: 1),
                           // const PrayerTimes(),
                           // ExploreMore(onTap: () {
                           //   showCustomBottomSheet();
@@ -124,13 +133,18 @@ class _MainHomePageState extends State<MainHomePage> {
                       child: Image.asset(
                         AssetsData.globe2,
                         fit: BoxFit.cover,
-                      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 6000.ms, begin: 0, end: 2)
+                      )
+                          .animate(onPlay: (controller) => controller.repeat())
+                          .rotate(duration: 6000.ms, begin: 0, end: 2)
                       // .then()
                       // .rotate(duration: 4000.ms, begin: 2, end: 0),
                       )
                   .animate()
                   .move(
-                      duration: 3000.ms, begin: Offset(0, -context.height), end: Offset.zero, curve: Curves.bounceOut),
+                      duration: 3000.ms,
+                      begin: Offset(0, -context.height),
+                      end: Offset.zero,
+                      curve: Curves.bounceOut),
             ),
           ),
         )
