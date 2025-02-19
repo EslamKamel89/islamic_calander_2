@@ -1,5 +1,16 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
+import 'package:islamic_calander_2/core/api_service/end_points.dart';
+import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
+import 'package:islamic_calander_2/core/models/api_response_model.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
+import 'package:islamic_calander_2/core/widgets/loading_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
@@ -18,7 +29,13 @@ class IslamicWisdomCard extends StatefulWidget {
 }
 
 class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
-  WisdomModel? wisdom;
+  ApiResponseModel<WisdomModel> wisdomApi = ApiResponseModel<WisdomModel>(response: ResponseEnum.initial);
+  @override
+  void initState() {
+    _request();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,15 +71,17 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
           children: [
             Container(
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
-              child: Text(
-                wisdom?.wisdomEn ?? '',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: wisdomApi.response == ResponseEnum.success
+                  ? Text(
+                      wisdomApi.data?.wisdomEn ?? '',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : const LoadingWidget(rowCount: 6, height: 20, space: 10, width: double.infinity),
             ),
             const SizedBox(height: 16),
             // The author of the wisdom.
@@ -84,5 +103,35 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
         ),
       ),
     );
+  }
+
+  Future _request() async {
+    final t = prt('wisdom - Islamic Wisdom Card');
+    final ApiConsumer api = serviceLocator<ApiConsumer>();
+    try {
+      setState(() {
+        wisdomApi = ApiResponseModel(response: ResponseEnum.loading);
+      });
+      final response = await api.get(
+        EndPoint.wisdomEndPoint,
+      );
+      setState(() {
+        wisdomApi = pr(
+            ApiResponseModel(
+              response: ResponseEnum.success,
+              data: WisdomModel.fromJson((jsonDecode(response) as List)[0]),
+            ),
+            t);
+      });
+    } catch (e) {
+      String errorMessage = e.toString();
+      if (e is DioException) {
+        errorMessage = jsonEncode(e.response?.data ?? 'Unknown error occured');
+      }
+      showSnackbar('Error', errorMessage, true);
+      setState(() {
+        wisdomApi = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+      });
+    }
   }
 }

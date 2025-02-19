@@ -40,13 +40,7 @@ class _PrayerCardState extends State<PrayerCard> {
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [
-                Colors.black,
-                Colors.black,
-                Colors.black87,
-                Colors.black54,
-                Color(0xFF0D3B66)
-              ],
+              colors: [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
               stops: [0.0, 0.5, 0.65, 0.8, 1.0],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -60,7 +54,7 @@ class _PrayerCardState extends State<PrayerCard> {
                 width: double.infinity,
                 // height: context.height * 0.3,
               ),
-              const Positioned(left: 0, child: MoonPhaseImage()),
+              Positioned(left: 0, child: Transform.translate(offset: Offset(0, -20.h), child: const MoonPhaseImage())),
               Container(
                 width: context.width,
                 padding: EdgeInsets.only(left: context.width * 0.4),
@@ -69,8 +63,8 @@ class _PrayerCardState extends State<PrayerCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 20.w,
                       // width: double.infinity,
                     ),
                     const Text(
@@ -107,14 +101,20 @@ class _PrayerCardState extends State<PrayerCard> {
                       ),
                     ),
 
-                    Transform.translate(
-                      offset: Offset(-40.w, 0),
-                      child: const CityWidget(),
-                    ),
-                    const SizedBox(height: 5),
+                    // Transform.translate(
+                    //   offset: Offset(-40.w, 0),
+                    //   child: const CityWidget(),
+                    // ),
+                    SizedBox(height: 90.h),
                     // const NewHijrWidget(),
                   ],
                 ),
+              ),
+              Positioned(
+                bottom: 15,
+                right: 10,
+                left: 10,
+                child: SizedBox(width: context.width, child: const CityWidget()),
               ),
             ],
           ),
