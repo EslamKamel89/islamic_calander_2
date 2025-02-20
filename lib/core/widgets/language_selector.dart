@@ -21,7 +21,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
     return Column(
       children: [
         const SizedBox(height: 10),
-        txt('Choose App Language', e: St.bold20),
+        txt('CHOOSE_LANGUAGE'.tr(), e: St.bold20),
         const Divider(),
         ...supportedLocale.map(
           (l) => LanguageCardWidget(
@@ -58,7 +58,7 @@ class LanguageCardWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: isSelected ? context.primaryColor : null,
-        title: txt(lang.languageCode == 'en' ? 'English' : 'Arabic',
+        title: txt(lang.languageCode == 'en' ? 'English' : 'العربية',
             maxLines: 20, e: St.bold18, c: isSelected ? Colors.white : null),
         onTap: onTap,
       ),

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
@@ -30,7 +32,7 @@ class _PrayerCalcOptionsState extends State<PrayerCalcOptions> {
     return Column(
       children: [
         const SizedBox(height: 10),
-        txt('Prayers Calculation Method', e: St.bold20),
+        txt('CALC_METHOD'.tr(), e: St.bold20),
         const Divider(),
         ...List.generate(IslamicOrganization.values.length, (index) {
           final prayerCalc = IslamicOrganization.values[index];
@@ -62,7 +64,7 @@ class CalcMethodWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
-        title: txt(prayerCalc.fullString,
+        title: txt(isLTR() ? prayerCalc.fullString : prayerCalc.arabicString,
             maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,
