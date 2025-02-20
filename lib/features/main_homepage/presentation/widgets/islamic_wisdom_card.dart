@@ -10,6 +10,7 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
+import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 import 'package:islamic_calander_2/core/widgets/loading_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
@@ -38,68 +39,76 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.all(16.0),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.white.withOpacity(0.2),
-            Colors.white.withOpacity(0.2),
-            Colors.white.withOpacity(0.2),
-            context.primaryColor.withOpacity(0.2),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        image: const DecorationImage(image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: const Color(0xffFFB800).withOpacity(0.5),
-          width: 1,
-        ),
-      ),
+    return GestureDetector(
+      onHorizontalDragStart: (_) {
+        _request();
+      },
+      onHorizontalDragEnd: (_) {
+        _request();
+      },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        width: double.infinity,
+        margin: const EdgeInsets.all(16.0),
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
-          // borderRadius: BorderRadius.circular(20.0),
+          gradient: LinearGradient(
+            colors: [
+              Colors.white.withOpacity(0.2),
+              Colors.white.withOpacity(0.2),
+              Colors.white.withOpacity(0.2),
+              context.primaryColor.withOpacity(0.2),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          image: const DecorationImage(image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(
+            color: const Color(0xffFFB800).withOpacity(0.5),
+            width: 1,
+          ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
-              child: wisdomApi.response == ResponseEnum.success
-                  ? Text(
-                      wisdomApi.data?.wisdomEn ?? '',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  : const LoadingWidget(rowCount: 6, height: 20, space: 10, width: double.infinity),
-            ),
-            const SizedBox(height: 16),
-            // The author of the wisdom.
-            // Container(
-            //   padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
-            //   child: Text(
-            //     '- $author',
-            //     textAlign: TextAlign.right,
-            //     style: const TextStyle(
-            //       fontFamily: 'Scheherazade',
-            //       fontSize: 16,
-            //       color: Colors.black,
-            //       fontStyle: FontStyle.italic,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
-          ],
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.8),
+            // borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+                child: wisdomApi.response == ResponseEnum.success
+                    ? Text(
+                        isLTR() ? (wisdomApi.data?.wisdomEn ?? '') : (wisdomApi.data?.wisdomAr ?? ''),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const LoadingWidget(rowCount: 4, height: 20, space: 10, width: double.infinity),
+              ),
+              const SizedBox(height: 16),
+              // The author of the wisdom.
+              // Container(
+              //   padding: const EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
+              //   child: Text(
+              //     '- $author',
+              //     textAlign: TextAlign.right,
+              //     style: const TextStyle(
+              //       fontFamily: 'Scheherazade',
+              //       fontSize: 16,
+              //       color: Colors.black,
+              //       fontStyle: FontStyle.italic,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );

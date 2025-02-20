@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
+import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
@@ -71,8 +73,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   void _selectedPrayerMethodNotifier() {
     selectedPrayersNotifier.addListener(() {
-      cubit.params =
-          cubit.params.copyWith(method: selectedPrayersNotifier.value);
+      cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
       if (mounted) {
         cubit.getPrayerTime();
       }
@@ -81,8 +82,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   Future _getNewHijri() async {
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(
-        selectedDate, DataProcessingOption.regular);
+    final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
     response.fold((_) {}, (model) {
       if (mounted) {
         setState(() {
@@ -93,8 +93,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getPrayerTime() async {
-    final positionInMemory =
-        serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.getPrayerTime() in  AppPrayersTimeBuilder widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.params = cubit.params.copyWith(
@@ -159,57 +158,43 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                   children: [
                     InkWell(
                         onTap: () async {
-                          selectedDate =
-                              selectedDate.subtract(const Duration(days: 1));
+                          selectedDate = selectedDate.subtract(const Duration(days: 1));
                           _getNewHijri();
-                          Position? position =
-                              await serviceLocator<GeoPosition>().position();
-                          if ([
-                            position,
-                            position?.latitude,
-                            position?.longitude
-                          ].contains(null)) {
+                          Position? position = await serviceLocator<GeoPosition>().position();
+                          if ([position, position?.latitude, position?.longitude].contains(null)) {
                             return;
                           }
                           cubit.params = cubit.params.copyWith(
-                              date: selectedDate,
-                              latitude: position!.latitude,
-                              longitude: position.longitude);
+                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
                           cubit.getPrayerTime();
                           moonImageCubit.dateTime = selectedDate;
                           moonImageCubit.moonImage();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
-                    Column(
-                      children: [
-                        txt(formateDateDetailed(selectedDate)),
-                        if (newHijriDate != null) txt(newHijriDate ?? ''),
-                      ],
-                    ),
+                    Builder(builder: (context) {
+                      context.locale;
+                      return Column(
+                        children: [
+                          txt(formateDateDetailed(selectedDate)),
+                          if (newHijriDate != null) txt(newHijriDate ?? ''),
+                        ],
+                      );
+                    }),
                     InkWell(
                         onTap: () async {
-                          selectedDate =
-                              selectedDate.add(const Duration(days: 1));
+                          selectedDate = selectedDate.add(const Duration(days: 1));
                           _getNewHijri();
-                          Position? position =
-                              await serviceLocator<GeoPosition>().position();
-                          if ([
-                            position,
-                            position?.latitude,
-                            position?.longitude
-                          ].contains(null)) {
+                          Position? position = await serviceLocator<GeoPosition>().position();
+                          if ([position, position?.latitude, position?.longitude].contains(null)) {
                             return;
                           }
                           cubit.params = cubit.params.copyWith(
-                              date: selectedDate,
-                              latitude: position!.latitude,
-                              longitude: position.longitude);
+                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
                           cubit.getPrayerTime();
                           moonImageCubit.dateTime = selectedDate;
                           moonImageCubit.moonImage();
                         },
-                        child:
-                            Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
+                        child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
                 ),
               ),
@@ -223,9 +208,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child: PrayersWidget(state.data)
-                      .animate()
-                      .fade(duration: 1000.ms, begin: 0, end: 1),
+                  child: PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -291,19 +274,14 @@ class PrayersWidget extends StatelessWidget {
 }
 
 class PrayTimeWidget extends StatelessWidget {
-  const PrayTimeWidget(
-      {super.key,
-      required this.pray,
-      required this.imagePath,
-      required this.time});
+  const PrayTimeWidget({super.key, required this.pray, required this.imagePath, required this.time});
   final String pray;
   final String? time;
   final String imagePath;
   // final String? currentTimeZone;
   @override
   Widget build(BuildContext context) {
-    // if (dateTime == null) return const SizedBox();
-    // DateTime? localTime = dateTime == null || currentTimeZone == null ? null : utcToLocal(dateTime!, currentTimeZone!);
+    context.locale;
     String? amOrpm;
     String? hourStr = time?.split(':').first;
     String? minStr = time?.split(':').last;
@@ -325,12 +303,11 @@ class PrayTimeWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          txt(pray, e: St.bold16),
+          txt(prayerNameTr(pray), e: St.bold16),
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm',
-              e: St.reg16),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg16),
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
@@ -49,32 +50,35 @@ class _CityWidgetState extends State<CityWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Lot.Lottie.asset(
-              AssetsData.map,
-              width: 40,
-              height: 50,
-              fit: BoxFit.cover,
+    return Directionality(
+      textDirection: ltr,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              child: Lot.Lottie.asset(
+                AssetsData.map,
+                width: 40,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
-          const SizedBox(width: 5),
-          Expanded(
-            child: locationInfoApi.response == ResponseEnum.success
-                ? AutoSizeText(
-                    // child: Text(
-                    _locationStr(locationInfoApi.data),
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
-                  )
-                : LoadingWidget(rowCount: 2, height: 15, space: 5, width: context.width - 50),
-          )
-          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
-        ],
+            // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+            const SizedBox(width: 5),
+            Expanded(
+              child: locationInfoApi.response == ResponseEnum.success
+                  ? AutoSizeText(
+                      // child: Text(
+                      _locationStr(locationInfoApi.data),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
+                    )
+                  : LoadingWidget(rowCount: 1, height: 15, space: 5, width: context.width - 50),
+            )
+            // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+          ],
+        ),
       ),
     );
   }

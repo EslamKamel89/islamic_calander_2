@@ -1,6 +1,7 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 
 String formateDateToArabic(DateTime dateTime) {
   initializeDateFormatting();
@@ -13,10 +14,11 @@ String formateDateToArabic(DateTime dateTime) {
 
 String formateDateDetailed(DateTime dateTime) {
   initializeDateFormatting();
-  Intl.defaultLocale = 'en';
+  Intl.defaultLocale = isLTR() ? 'en' : 'ar';
   // Intl.initializeDateFormatting
 
   String formattedDate = DateFormat("EEEE d MMM yyyy").format(dateTime);
+  Intl.defaultLocale = 'en';
   return formattedDate;
 }
 

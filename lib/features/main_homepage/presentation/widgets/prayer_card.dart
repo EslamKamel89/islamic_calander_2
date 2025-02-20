@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
+import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/moon_phase_image.dart';
 
@@ -39,11 +42,11 @@ class _PrayerCardState extends State<PrayerCard> {
         // constraints: BoxConstraints(minHeight: context.height / 4),
         child: Container(
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
-              stops: [0.0, 0.5, 0.65, 0.8, 1.0],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
+            gradient: LinearGradient(
+              colors: const [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
+              stops: const [0.0, 0.5, 0.65, 0.8, 1.0],
+              begin: isLTR() ? Alignment.centerLeft : Alignment.centerRight,
+              end: isLTR() ? Alignment.centerRight : Alignment.centerLeft,
             ),
             borderRadius: BorderRadius.circular(16),
           ),
@@ -54,10 +57,17 @@ class _PrayerCardState extends State<PrayerCard> {
                 width: double.infinity,
                 // height: context.height * 0.3,
               ),
-              Positioned(left: 0, child: Transform.translate(offset: Offset(0, -20.h), child: const MoonPhaseImage())),
+              Positioned.directional(
+                start: 0,
+                textDirection: isLTR() ? ltr : rtl,
+                child: Transform.translate(
+                  offset: Offset(0, -20.h),
+                  child: Transform.flip(flipX: !isLTR(), child: const MoonPhaseImage()),
+                ),
+              ),
               Container(
                 width: context.width,
-                padding: EdgeInsets.only(left: context.width * 0.4),
+                padding: EdgeInsetsDirectional.only(start: context.width * 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +77,9 @@ class _PrayerCardState extends State<PrayerCard> {
                       height: 20.w,
                       // width: double.infinity,
                     ),
-                    const Text(
-                      'Next Prayer',
-                      style: TextStyle(
+                    Text(
+                      'NEXT_PRAYER'.tr(),
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -84,9 +94,9 @@ class _PrayerCardState extends State<PrayerCard> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Time Remaining:',
-                      style: TextStyle(
+                    Text(
+                      'TimeRemaining'.tr(),
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.normal,

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/prayer_card.dart';
 
@@ -24,7 +26,7 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget> {
         //       .fade(duration: 500.ms, begin: 0, end: 0.5);
         // }
         return PrayerCard(
-          prayerName: state.nextPrayer ?? 'Calculating...',
+          prayerName: state.nextPrayer != null ? prayerNameTr(state.nextPrayer!) : 'CALC'.tr(),
           timeRemaining: state.timeRemaining ?? const Duration(seconds: 0),
         );
       },

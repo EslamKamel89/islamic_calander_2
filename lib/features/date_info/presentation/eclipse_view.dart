@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +38,7 @@ class _EclipseViewState extends State<EclipseView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: txt('Moon Phases', e: St.bold20)),
+      appBar: AppBar(title: txt('ECLIPSE'.tr(), e: St.bold20)),
       resizeToAvoidBottomInset: false,
       // drawer: const DefaultDrawer(),
       body: DefaultScreenPadding(
@@ -49,21 +50,17 @@ class _EclipseViewState extends State<EclipseView> {
             handleInputChange: (String year) {
               try {
                 int yearInt = int.parse(year);
-                int maxYear =
-                    context.read<DateConversionCubit>().state.lastDay.year;
-                int minYear =
-                    context.read<DateConversionCubit>().state.firstDay.year;
+                int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+                int minYear = context.read<DateConversionCubit>().state.firstDay.year;
                 pr(minYear, 'minYear');
                 pr(maxYear, 'maxYear');
                 pr(yearInt, 'enteredYear');
                 if (yearInt <= maxYear && yearInt >= minYear) {
-                  controller.getEclipseInfoMonth(
-                      yearInt, controller.state.selectedEclipse);
+                  controller.getEclipseInfoMonth(yearInt, controller.state.selectedEclipse);
                   controller.validate('');
                 } else {
                   pr('condition not met');
-                  controller
-                      .validate('Year range between $minYear and $maxYear');
+                  controller.validate('Year range between $minYear and $maxYear');
                 }
               } catch (e) {
                 controller.validate('You have to enter numeric values');
@@ -77,22 +74,17 @@ class _EclipseViewState extends State<EclipseView> {
                   ? const SizedBox()
                   : Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: txt(state.validationMessage,
-                          c: Colors.red, e: St.reg16));
+                      child: txt(state.validationMessage, c: Colors.red, e: St.reg16));
             },
           ),
           EclipseDropdownWidget(handleEclipseSelected: (EclipseEnum eclipse) {
-            int maxYear =
-                context.read<DateConversionCubit>().state.lastDay.year;
-            int minYear =
-                context.read<DateConversionCubit>().state.firstDay.year;
+            int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+            int minYear = context.read<DateConversionCubit>().state.firstDay.year;
             pr(minYear, 'minYear');
             pr(maxYear, 'maxYear');
             controller.state.selectedEclipse = eclipse;
-            if (controller.state.selectedYear <= maxYear &&
-                controller.state.selectedYear >= minYear) {
-              controller.getEclipseInfoMonth(controller.state.selectedYear,
-                  controller.state.selectedEclipse);
+            if (controller.state.selectedYear <= maxYear && controller.state.selectedYear >= minYear) {
+              controller.getEclipseInfoMonth(controller.state.selectedYear, controller.state.selectedEclipse);
               controller.validate('');
             } else {
               pr('condition not met');

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
@@ -72,13 +73,14 @@ class _MainHomePageState extends State<MainHomePage> {
                           // DateWidget(
                           //   animationDuration: animationDuration,
                           // ).animate().fade(duration: animationDuration, begin: 0, end: 1),
-                          const Stack(
+                          Stack(
                             children: [
-                              NextPrayerWidget(),
-                              Positioned(
+                              const NextPrayerWidget(),
+                              Positioned.directional(
                                 top: 10,
-                                right: 20,
-                                child: SettingsDropdown(),
+                                end: 20,
+                                textDirection: isLTR() ? TextDirection.ltr : TextDirection.rtl,
+                                child: const SettingsDropdown(),
                               )
                             ],
                           ),

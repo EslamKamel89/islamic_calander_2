@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +38,7 @@ class _MoonInfoViewState extends State<MoonInfoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: txt('Moon Phases', e: St.bold20)),
+      appBar: AppBar(title: txt("MOON_PHASE".tr(), e: St.bold20)),
       resizeToAvoidBottomInset: false,
       // drawer: const DefaultDrawer(),
       body: DefaultScreenPadding(
@@ -49,21 +50,17 @@ class _MoonInfoViewState extends State<MoonInfoView> {
             handleInputChange: (String year) {
               try {
                 int yearInt = int.parse(year);
-                int maxYear =
-                    context.read<DateConversionCubit>().state.lastDay.year;
-                int minYear =
-                    context.read<DateConversionCubit>().state.firstDay.year;
+                int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+                int minYear = context.read<DateConversionCubit>().state.firstDay.year;
                 pr(minYear, 'minYear');
                 pr(maxYear, 'maxYear');
                 pr(yearInt, 'enteredYear');
                 if (yearInt <= maxYear && yearInt >= minYear) {
-                  controller.getMoonPhase(
-                      yearInt, controller.state.selectedMoonPhase);
+                  controller.getMoonPhase(yearInt, controller.state.selectedMoonPhase);
                   controller.validate('');
                 } else {
                   pr('condition not met');
-                  controller
-                      .validate('Year range between $minYear and $maxYear');
+                  controller.validate('Year range between $minYear and $maxYear');
                 }
               } catch (e) {
                 controller.validate('You have to enter numeric values');
@@ -77,23 +74,17 @@ class _MoonInfoViewState extends State<MoonInfoView> {
                   ? const SizedBox()
                   : Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: txt(state.validationMessage,
-                          c: Colors.red, e: St.reg16));
+                      child: txt(state.validationMessage, c: Colors.red, e: St.reg16));
             },
           ),
-          MoonPhasesDropdownWidget(
-              handleMonthSelected: (MoonPhaseEnum moonPhase) {
-            int maxYear =
-                context.read<DateConversionCubit>().state.lastDay.year;
-            int minYear =
-                context.read<DateConversionCubit>().state.firstDay.year;
+          MoonPhasesDropdownWidget(handleMonthSelected: (MoonPhaseEnum moonPhase) {
+            int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
+            int minYear = context.read<DateConversionCubit>().state.firstDay.year;
             pr(minYear, 'minYear');
             pr(maxYear, 'maxYear');
             controller.state.selectedMoonPhase = moonPhase;
-            if (controller.state.selectedYear <= maxYear &&
-                controller.state.selectedYear >= minYear) {
-              controller.getMoonPhase(controller.state.selectedYear,
-                  controller.state.selectedMoonPhase);
+            if (controller.state.selectedYear <= maxYear && controller.state.selectedYear >= minYear) {
+              controller.getMoonPhase(controller.state.selectedYear, controller.state.selectedMoonPhase);
               controller.validate('');
             } else {
               pr('condition not met');

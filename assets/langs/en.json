@@ -1,5 +1,21 @@
 {
-    "hello": "Hello",
-    "welcome": "Welcome to our app!",
-    "language": "Language"
-  }
+  "NEXT_PRAYER": "Next Prayer",
+  "CALC": "Calculating...",
+  "TimeRemaining": "Time Remaining:",
+  "BACK": "Back",
+  "HOME": "Home",
+  "WORLD_PRAYERS": "Global Prayer Times",
+  "DATE_CONVERSION": "Date Conversion",
+  "MOON_PHASE": "Moon Phase",
+  "ECLIPSE": "Eclipse",
+  "FIND_QIBLA": "Find Qibla",
+  "MOSQUES": "Mosques",
+  "HALAL": "Halal Restaurants",
+  "WORLD_PRAYERS_2": "World Prayers",
+  "": "",
+  "": "",
+  "": "",
+  "": "",
+  "": "",
+  "------------------------------------": "--------------------------------------------"
+}

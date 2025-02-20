@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,7 @@ class _DateConversionViewState extends State<DateConversionView> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(title: txt('New Islamic Calendar', e: St.bold20)),
+        appBar: AppBar(title: txt('DATE_CONVERSION'.tr(), e: St.bold20)),
         resizeToAvoidBottomInset: false,
         // drawer: const DefaultDrawer(),
         body: Scrollbar(

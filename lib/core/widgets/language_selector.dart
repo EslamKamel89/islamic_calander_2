@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
-
-const t = 'language selector';
 
 class LanguageSelector extends StatefulWidget {
   const LanguageSelector({
@@ -65,4 +64,10 @@ class LanguageCardWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+bool isLTR() {
+  BuildContext? context = navigatorKey.currentContext;
+  if (context == null) return true;
+  return context.locale.languageCode != 'ar';
 }
