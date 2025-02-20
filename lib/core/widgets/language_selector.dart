@@ -1,23 +1,68 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/utils/styles/styles.dart';
 
-class LanguageSelector extends StatelessWidget {
+const t = 'language selector';
+
+class LanguageSelector extends StatefulWidget {
   const LanguageSelector({
     super.key,
   });
 
   @override
+  State<LanguageSelector> createState() => _LanguageSelectorState();
+}
+
+class _LanguageSelectorState extends State<LanguageSelector> {
+  List<Locale> supportedLocale = ['en', 'ar'].map((e) => Locale(e)).toList();
+
+  @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        // Toggle between English and Arabic
-        context.setLocale(context.locale.languageCode == 'en'
-            ? const Locale('ar')
-            : const Locale('en'));
-      },
-      child: Text(context.locale.languageCode == 'en'
-          ? 'Switch to Arabic'
-          : 'Switch to English'),
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        txt('Choose App Language', e: St.bold20),
+        const Divider(),
+        ...supportedLocale.map(
+          (l) => LanguageCardWidget(
+              lang: l,
+              selectedLang: context.locale,
+              onTap: () async {
+                await context.setLocale(l);
+                Navigator.of(context).pop();
+              },
+              isSelected: context.locale.languageCode == l.languageCode),
+        ),
+        const Divider(),
+      ],
+    );
+  }
+}
+
+class LanguageCardWidget extends StatelessWidget {
+  const LanguageCardWidget({
+    super.key,
+    required this.lang,
+    required this.selectedLang,
+    required this.onTap,
+    required this.isSelected,
+  });
+  final Locale selectedLang;
+  final Locale lang;
+  final Function() onTap;
+  final bool isSelected;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: isSelected ? context.primaryColor : null,
+      borderOnForeground: true,
+      child: ListTile(
+        tileColor: isSelected ? context.primaryColor : null,
+        title: txt(lang.languageCode == 'en' ? 'English' : 'Arabic',
+            maxLines: 20, e: St.bold18, c: isSelected ? Colors.white : null),
+        onTap: onTap,
+      ),
     );
   }
 }

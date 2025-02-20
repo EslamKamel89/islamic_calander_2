@@ -69,7 +69,7 @@ class _CityWidgetState extends State<CityWidget> {
                 ? AutoSizeText(
                     // child: Text(
                     _locationStr(locationInfoApi.data),
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   )
                 : LoadingWidget(rowCount: 2, height: 15, space: 5, width: context.width - 50),
           )
