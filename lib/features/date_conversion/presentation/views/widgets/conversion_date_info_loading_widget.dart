@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
@@ -20,7 +21,7 @@ class ConversionDateInfoLoadingWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          txt('Date Information', e: St.bold18, c: context.primaryColor),
+          txt('DATE_INFO'.tr(), e: St.bold18, c: context.primaryColor),
           const SizedBox(height: 20.0),
           Expanded(
             child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/enums/eclipse_enum.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 
 class EclipseDropdownWidget extends StatefulWidget {
   const EclipseDropdownWidget({
@@ -38,7 +39,7 @@ class EclipseDropdownWidgetState extends State<EclipseDropdownWidget> {
               return DropdownMenuItem(
                 value: eclipse,
                 child: Text(
-                  eclipse.toFullString(),
+                  isEnglish() ? eclipse.toFullString() : eclipse.toArabic(),
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black,

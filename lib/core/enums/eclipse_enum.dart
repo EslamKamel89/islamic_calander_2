@@ -53,4 +53,23 @@ extension EclipseEnumExtension on EclipseEnum {
         return 'Total Solar';
     }
   }
+
+  String toArabic() {
+    switch (this) {
+      case EclipseEnum.anullarSolar:
+        return 'حلقي شمسي';
+      case EclipseEnum.hybridSolar:
+        return 'هجين (حلقي/كلي) شمسي';
+      case EclipseEnum.partialLunar:
+        return 'جزئي (شبه ظل) قمري';
+      case EclipseEnum.partialSolar:
+        return 'جزئي شمسي';
+      case EclipseEnum.penumbralLunar:
+        return 'شبه ظلي قمري';
+      case EclipseEnum.totalUmbralLunar:
+        return 'كلي (شبه ظل) قمري';
+      case EclipseEnum.totalSolar:
+        return 'كلي شمسي';
+    }
+  }
 }

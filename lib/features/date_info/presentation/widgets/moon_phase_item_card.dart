@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
@@ -27,15 +28,11 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              context.primaryColor,
-              context.primaryColor.withOpacity(0.7)
-            ],
+            colors: [context.primaryColor, context.primaryColor.withOpacity(0.7)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius:
-              BorderRadius.circular(20), // Same as card shape for consistency
+          borderRadius: BorderRadius.circular(20), // Same as card shape for consistency
           boxShadow: [
             BoxShadow(
               color: context.secondaryHeaderColor.withOpacity(0.3),
@@ -81,12 +78,11 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
                 visible: isVisible,
                 child: Column(
                   children: [
-                    _buildDataItem('Moon Phase', widget.model.phase ?? ''),
-                    _buildDataItem('Hijri Date', widget.model.hjridate ?? ''),
+                    _buildDataItem('MOON_PHASE'.tr(), widget.model.phase ?? ''),
+                    _buildDataItem('HIJRI_DATE'.tr(), widget.model.hjridate ?? ''),
                     widget.model.ecllipse == '' || widget.model.ecllipse == null
                         ? const SizedBox()
-                        : _buildDataItem(
-                            'Moon Ecllipse', widget.model.ecllipse ?? ''),
+                        : _buildDataItem('MOON_ECLIPSE'.tr(), widget.model.ecllipse ?? ''),
                   ],
                 ),
               ),

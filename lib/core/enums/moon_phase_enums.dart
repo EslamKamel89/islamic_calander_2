@@ -31,4 +31,17 @@ extension MoonPhaseEnumExtension on MoonPhaseEnum {
         return 'New Moon';
     }
   }
+
+  String toArabic() {
+    switch (this) {
+      case MoonPhaseEnum.fullMoon:
+        return 'بدر';
+      case MoonPhaseEnum.lastMoon:
+        return 'آخر هلال';
+      case MoonPhaseEnum.firstMoon:
+        return 'أول هلال';
+      case MoonPhaseEnum.newMoon:
+        return 'هلال جديد';
+    }
+  }
 }

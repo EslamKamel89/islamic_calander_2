@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -13,8 +14,7 @@ class MoonPhasesDropdownWidget extends StatefulWidget {
   });
   final Function handleMonthSelected;
   @override
-  MoonPhasesDropdownWidgetState createState() =>
-      MoonPhasesDropdownWidgetState();
+  MoonPhasesDropdownWidgetState createState() => MoonPhasesDropdownWidgetState();
 }
 
 class MoonPhasesDropdownWidgetState extends State<MoonPhasesDropdownWidget> {
@@ -34,11 +34,10 @@ class MoonPhasesDropdownWidgetState extends State<MoonPhasesDropdownWidget> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(monthDrawerItem.icon,
-                        color: context.secondaryHeaderColor, size: 20.w),
+                    Icon(monthDrawerItem.icon, color: context.secondaryHeaderColor, size: 20.w),
                     const Sizer(),
                     Text(
-                      monthDrawerItem.moon.toFullString(),
+                      isEnglish() ? monthDrawerItem.moon.toFullString() : monthDrawerItem.moon.toArabic(),
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -82,7 +81,6 @@ class MoonDrawerItem {
 final List<MoonDrawerItem> moonPhases = [
   MoonDrawerItem(moon: MoonPhaseEnum.fullMoon, icon: MdiIcons.moonFull),
   MoonDrawerItem(moon: MoonPhaseEnum.lastMoon, icon: MdiIcons.moonLastQuarter),
-  MoonDrawerItem(
-      moon: MoonPhaseEnum.firstMoon, icon: MdiIcons.moonFirstQuarter),
+  MoonDrawerItem(moon: MoonPhaseEnum.firstMoon, icon: MdiIcons.moonFirstQuarter),
   MoonDrawerItem(moon: MoonPhaseEnum.newMoon, icon: MdiIcons.moonNew),
 ];

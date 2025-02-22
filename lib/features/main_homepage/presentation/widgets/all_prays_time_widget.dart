@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
@@ -52,7 +53,7 @@ class AppPrayersTimeBuilder extends StatefulWidget {
 
 class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   DateTime selectedDate = DateTime.now();
-  String? newHijriDate;
+  ApiResponseModel<String?> newHijriDate = ApiResponseModel(response: ResponseEnum.initial);
   late PrayerTimesApiCubit cubit;
   late MoonImageCubit moonImageCubit;
   @override
@@ -83,12 +84,22 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getNewHijri() async {
+    setState(() {
+      newHijriDate = newHijriDate.copyWith(response: ResponseEnum.loading, errorMessage: null);
+    });
     DateConversionRepo repo = serviceLocator();
     final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
-    response.fold((_) {}, (model) {
+    response.fold((_) {
+      setState(() {
+        newHijriDate = newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');
+      });
+    }, (model) {
       if (mounted) {
         setState(() {
-          newHijriDate = isEnglish() ? model.newHijriUpdated : model.newHijriUpdatedAr;
+          newHijriDate = ApiResponseModel(
+            response: ResponseEnum.success,
+            data: isEnglish() ? model.newHijriUpdated : model.newHijriUpdatedAr,
+          );
         });
       }
     });
@@ -183,7 +194,13 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                       return Column(
                         children: [
                           txt(formateDateDetailed(selectedDate)),
-                          if (newHijriDate != null) txt(newHijriDate ?? ''),
+                          newHijriDate.response == ResponseEnum.success
+                              ? txt(newHijriDate.data ?? '')
+                              : txt(newHijriDate.data ?? '')
+                                  .animate(onPlay: (c) => c.repeat())
+                                  .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
+                                  .then()
+                                  .fade(duration: 1000.ms, begin: 0.7, end: 0.2),
                         ],
                       );
                     }),

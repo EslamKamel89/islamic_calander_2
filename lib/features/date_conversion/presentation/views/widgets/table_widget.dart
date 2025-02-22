@@ -121,7 +121,7 @@ class _TableWidgetState extends State<TableWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    txt('Date Information', e: St.bold18, c: context.primaryColor),
+                    txt('DATE_INFO'.tr(), e: St.bold18, c: context.primaryColor),
                     const SizedBox(height: 20.0),
                     Expanded(
                       child: Column(
@@ -129,12 +129,12 @@ class _TableWidgetState extends State<TableWidget> {
                         children: [
                           _buildDateRow(
                             image: 'calendar_5.png',
-                            title: 'Georgian',
+                            title: 'GEORGIAN'.tr(),
                             date: formateDateDetailed((state.selectedDateConversionEntity?.selectedGeorgianDate)!),
                           ),
                           _buildDateRow(
                             image: 'calendar_7.png',
-                            title: 'Real Hijri',
+                            title: 'REAL_HIJRI'.tr(),
                             // date: state.selectedOption == DataProcessingOption.lunar
                             //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
                             //     : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
@@ -144,7 +144,7 @@ class _TableWidgetState extends State<TableWidget> {
                           ),
                           _buildDateRow(
                               image: 'calendar_3.png',
-                              title: 'Current Hijri',
+                              title: 'CURRENT_HIJRI'.tr(),
                               date: isEnglish()
                                   ? (state.selectedDateConversionEntity?.selectedOldHijriDate ?? '')
                                   : (state.selectedDateConversionEntity?.selectedOldHijriDateAr ?? '')),
