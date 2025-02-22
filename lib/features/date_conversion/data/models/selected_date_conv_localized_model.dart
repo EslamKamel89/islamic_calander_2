@@ -50,8 +50,8 @@ class SelectedDateConvLocalizedModel extends SelectedDateConversionEntity {
       searchedGeogorianAr: json['searched_geogorian_ar'] as String?,
       newHijri: json['new_hijri'] as String?,
       newHijriAr: json['new_hijri_ar'] as String?,
-      newHijriUp: json['new_hijri_up'] as String?,
-      newHijriUpAr: json['new_hijri_up_ar'] as String?,
+      newHijriUp: json['new_hijri_up'] as String?, //! real hijri
+      newHijriUpAr: json['new_hijri_up_ar'] as String?, //! real hijri arabic
       oldHijri: json['old_hijri'] as String?,
       oldHijriGeogorian: json['old_hijri_geogorian'] as String?,
       oldHijriAr: json['old_hijri_ar'] as String?,

@@ -74,12 +74,8 @@ class LocationInfoModel {
   ApiLocale? two;
   ApiLocale? three;
   ApiLocale? four;
-  LocationInfoModel({
-    this.one,
-    this.two,
-    this.three,
-    this.four,
-  });
+  ApiLocale? displayName;
+  LocationInfoModel({this.one, this.two, this.three, this.four, this.displayName});
 
   factory LocationInfoModel.fromMap(Map<String, dynamic> map) {
     return LocationInfoModel(
@@ -87,6 +83,7 @@ class LocationInfoModel {
       two: map['2'] != null ? ApiLocale.fromJson(map['2']) : null,
       three: map['3'] != null ? ApiLocale.fromJson(map['3']) : null,
       four: map['4'] != null ? ApiLocale.fromJson(map['4']) : null,
+      displayName: map['display_name'] != null ? ApiLocale.fromJson(map['display_name']) : null,
     );
   }
 
