@@ -6,7 +6,6 @@ import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/table_widget.dart';
-import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/wisdom_coursel.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/year_search_widget.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
@@ -49,8 +48,8 @@ class _DateConversionViewState extends State<DateConversionView> {
                 const DataSelector(),
                 // const Spacer(),
                 SizedBox(height: 20.h),
-                const WisdomCarousel(),
-                SizedBox(height: 20.h),
+                // const WisdomCarousel(),
+                // SizedBox(height: 20.h),
                 // const Spacer(),
               ],
             ),

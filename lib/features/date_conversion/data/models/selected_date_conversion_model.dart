@@ -22,26 +22,9 @@ class SelectedDateConversionModel extends SelectedDateConversionEntity {
       // selectedGeorgianDate: json['selectedGeorgianDate'] != null
       //     ? DateTime.fromMillisecondsSinceEpoch(json['selectedGeorgianDate'] as int)
       //     : null,
-      selectedOldHijriDate:
-          json['old_hijri'] != null ? json['old_hijri'] as String : null,
-      selectedNewHijriDate:
-          json['new_hijri'] != null ? json['new_hijri'] as String : null,
-      newHijriUpdated:
-          json['new_hijri_up'] != null ? json['new_hijri_up'] as String : null,
-    );
-  }
-  @override
-  SelectedDateConversionModel copyWith({
-    DateTime? selectedGeorgianDate,
-    String? selectedOldHijriDate,
-    String? selectedNewHijriDate,
-    String? newHijriUpdated,
-  }) {
-    return SelectedDateConversionModel(
-      selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
-      selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
-      selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
-      newHijriUpdated: newHijriUpdated ?? this.newHijriUpdated,
+      selectedOldHijriDate: json['old_hijri'] != null ? json['old_hijri'] as String : null, // current hijri
+      selectedNewHijriDate: json['new_hijri'] != null ? json['new_hijri'] as String : null,
+      newHijriUpdated: json['new_hijri_up'] != null ? json['new_hijri_up'] as String : null, // real hijri
     );
   }
 }

@@ -7,11 +7,11 @@ import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
-import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 import 'package:islamic_calander_2/core/widgets/loading_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
@@ -84,7 +84,7 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
                 padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
                 child: wisdomApi.response == ResponseEnum.success
                     ? Text(
-                        isLTR() ? (wisdomApi.data?.wisdomEn ?? '') : (wisdomApi.data?.wisdomAr ?? ''),
+                        isEnglish() ? (wisdomApi.data?.wisdomEn ?? '') : (wisdomApi.data?.wisdomAr ?? ''),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 20,

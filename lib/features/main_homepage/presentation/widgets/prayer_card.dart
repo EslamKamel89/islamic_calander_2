@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
-import 'package:islamic_calander_2/core/widgets/language_selector.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/moon_phase_image.dart';
 
@@ -45,8 +45,8 @@ class _PrayerCardState extends State<PrayerCard> {
             gradient: LinearGradient(
               colors: const [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
               stops: const [0.0, 0.5, 0.65, 0.8, 1.0],
-              begin: isLTR() ? Alignment.centerLeft : Alignment.centerRight,
-              end: isLTR() ? Alignment.centerRight : Alignment.centerLeft,
+              begin: isEnglish() ? Alignment.centerLeft : Alignment.centerRight,
+              end: isEnglish() ? Alignment.centerRight : Alignment.centerLeft,
             ),
             borderRadius: BorderRadius.circular(16),
           ),
@@ -59,10 +59,10 @@ class _PrayerCardState extends State<PrayerCard> {
               ),
               Positioned.directional(
                 start: 0,
-                textDirection: isLTR() ? ltr : rtl,
+                textDirection: isEnglish() ? ltr : rtl,
                 child: Transform.translate(
                   offset: Offset(0, -20.h),
-                  child: Transform.flip(flipX: !isLTR(), child: const MoonPhaseImage()),
+                  child: Transform.flip(flipX: !isEnglish(), child: const MoonPhaseImage()),
                 ),
               ),
               Container(

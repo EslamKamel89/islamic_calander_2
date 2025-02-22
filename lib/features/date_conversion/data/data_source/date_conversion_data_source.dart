@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
-import 'package:islamic_calander_2/features/date_conversion/data/models/selected_date_conversion_model.dart';
+import 'package:islamic_calander_2/features/date_conversion/data/models/selected_date_conv_localized_model.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 
 class HomeRepoDataSource {
@@ -13,7 +14,7 @@ class HomeRepoDataSource {
   HomeRepoDataSource({
     required this.api,
   });
-  Future<SelectedDateConversionModel> getDateConversion(
+  Future<SelectedDateConvLocalizedModel> getDateConversion(
       DateTime selectedDate, DataProcessingOption selectedOption) async {
     String year = DateFormat('yyyy').format(selectedDate);
     String month = DateFormat('MMM').format(selectedDate).toLowerCase();
@@ -26,9 +27,9 @@ class HomeRepoDataSource {
       'year': year,
       'month': month,
       'day': day,
+      'lang': isEnglish() ? 'en' : 'ar',
     });
-    SelectedDateConversionModel model =
-        pr(SelectedDateConversionModel.fromJson(jsonDecode(data)), t);
+    SelectedDateConvLocalizedModel model = pr(SelectedDateConvLocalizedModel.fromJson(jsonDecode(data)), t);
     return model;
   }
 }

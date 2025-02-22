@@ -19,21 +19,34 @@ class PrayersTimeModel {
       DateTime now = customNow();
       DateTime? fajrTime = fajr == null
           ? null
-          : now.copyWith(hour: int.parse(fajr!.split(':').first), minute: int.parse(fajr!.split(':').last), second: 0);
+          : now.copyWith(
+              hour: int.parse(fajr!.split(':').first),
+              minute: int.parse(fajr!.split(':').last),
+              second: 0);
       DateTime? dhuhrTime = dhuhr == null
           ? null
           : now.copyWith(
-              hour: int.parse(dhuhr!.split(':').first), minute: int.parse(dhuhr!.split(':').last), second: 0);
+              hour: int.parse(dhuhr!.split(':').first),
+              minute: int.parse(dhuhr!.split(':').last),
+              second: 0);
       DateTime? asrTime = asr == null
           ? null
-          : now.copyWith(hour: int.parse(asr!.split(':').first), minute: int.parse(asr!.split(':').last), second: 0);
+          : now.copyWith(
+              hour: int.parse(asr!.split(':').first),
+              minute: int.parse(asr!.split(':').last),
+              second: 0);
       DateTime? maghribTime = maghrib == null
           ? null
           : now.copyWith(
-              hour: int.parse(maghrib!.split(':').first), minute: int.parse(maghrib!.split(':').last), second: 0);
+              hour: int.parse(maghrib!.split(':').first),
+              minute: int.parse(maghrib!.split(':').last),
+              second: 0);
       DateTime? ishaTime = isha == null
           ? null
-          : now.copyWith(hour: int.parse(isha!.split(':').first), minute: int.parse(isha!.split(':').last), second: 0);
+          : now.copyWith(
+              hour: int.parse(isha!.split(':').first),
+              minute: int.parse(isha!.split(':').last),
+              second: 0);
       if (fajrTime != null && now.isBefore(fajrTime)) {
         return NextPrayerModel(nextPrayer: 'Fajr', nextPrayerTime: fajrTime);
       }
@@ -44,7 +57,8 @@ class PrayersTimeModel {
         return NextPrayerModel(nextPrayer: 'Asr', nextPrayerTime: asrTime);
       }
       if (now.isAfter(asrTime!) && now.isBefore(maghribTime!)) {
-        return NextPrayerModel(nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
+        return NextPrayerModel(
+            nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
       }
       if (now.isAfter(maghribTime!) && now.isBefore(ishaTime!)) {
         return NextPrayerModel(nextPrayer: 'Isha', nextPrayerTime: ishaTime);
@@ -132,5 +146,6 @@ class NextPrayerModel {
   });
 
   @override
-  String toString() => 'NextPrayerModel(nextPrayer: $nextPrayer, nextPrayerTime: $nextPrayerTime)';
+  String toString() =>
+      'NextPrayerModel(nextPrayer: $nextPrayer, nextPrayerTime: $nextPrayerTime)';
 }

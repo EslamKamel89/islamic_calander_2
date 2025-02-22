@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
@@ -36,11 +37,8 @@ class _YearSearchWidgetState extends State<YearSearchWidget> {
             width: 100.w,
             child: Center(
               child: Text(
-                'Go To Year',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: context.primaryColor),
+                'GO_TO_YEAR'.tr(),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.primaryColor),
               ),
             ),
           ),

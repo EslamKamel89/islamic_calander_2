@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
@@ -24,11 +25,8 @@ class DataSelectorState extends State<DataSelector> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Select type of data:',
-            style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: context.primaryColor),
+            'SELECT_DATA_TYPE'.tr(),
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.primaryColor),
           ),
           const SizedBox(height: 15.0),
           Row(
@@ -39,16 +37,13 @@ class DataSelectorState extends State<DataSelector> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Lunar',
+                        'LUNAR'.tr(),
                         style: TextStyle(
-                          color: controller.state.selectedOption ==
-                                  DataProcessingOption.lunar
+                          color: controller.state.selectedOption == DataProcessingOption.lunar
                               ? context.primaryColor
                               : null,
-                          fontWeight: controller.state.selectedOption ==
-                                  DataProcessingOption.lunar
-                              ? FontWeight.bold
-                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.lunar ? FontWeight.bold : null,
                         ),
                       ),
                     ],
@@ -71,16 +66,13 @@ class DataSelectorState extends State<DataSelector> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Regular',
+                        'REGULAR'.tr(),
                         style: TextStyle(
-                          color: controller.state.selectedOption ==
-                                  DataProcessingOption.regular
+                          color: controller.state.selectedOption == DataProcessingOption.regular
                               ? context.primaryColor
                               : null,
-                          fontWeight: controller.state.selectedOption ==
-                                  DataProcessingOption.regular
-                              ? FontWeight.bold
-                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.regular ? FontWeight.bold : null,
                         ),
                       ),
                     ],

@@ -53,7 +53,11 @@ class _PrayerCalcOptionsState extends State<PrayerCalcOptions> {
 }
 
 class CalcMethodWidget extends StatelessWidget {
-  const CalcMethodWidget({super.key, required this.selectedMethod, required this.prayerCalc, required this.onTap});
+  const CalcMethodWidget(
+      {super.key,
+      required this.selectedMethod,
+      required this.prayerCalc,
+      required this.onTap});
   final IslamicOrganization selectedMethod;
   final IslamicOrganization prayerCalc;
   final Function() onTap;
@@ -64,8 +68,11 @@ class CalcMethodWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
-        title: txt(isEnglish() ? prayerCalc.fullString : prayerCalc.arabicString,
-            maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
+        title: txt(
+            isEnglish() ? prayerCalc.fullString : prayerCalc.arabicString,
+            maxLines: 20,
+            e: St.bold18,
+            c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,
         //     maxLines: 20,

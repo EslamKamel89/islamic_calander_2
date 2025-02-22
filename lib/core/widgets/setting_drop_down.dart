@@ -20,7 +20,9 @@ class _SettingsDropdownState extends State<SettingsDropdown> {
         size: 36,
         // color: Theme.of(context).colorScheme.primary,
         color: Colors.white,
-      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 10000.ms, begin: 0, end: 2),
+      )
+          .animate(onPlay: (controller) => controller.repeat())
+          .rotate(duration: 10000.ms, begin: 0, end: 2),
       onPressed: () {
         _showModernDropdown(context);
       },

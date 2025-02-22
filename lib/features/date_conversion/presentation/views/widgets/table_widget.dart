@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
+import 'package:islamic_calander_2/core/heleprs/format_date.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/conversion_date_info_loading_widget.dart';
@@ -32,9 +34,9 @@ class _TableWidgetState extends State<TableWidget> {
               return current.buildWhen == 'UPDATE_TABLE_WIDGET';
             },
             builder: (context, state) {
-              DateTime selectedGeorgianDate =
-                  controller.state.selectedGeorgianDate ?? DateTime.now();
+              DateTime selectedGeorgianDate = controller.state.selectedGeorgianDate ?? DateTime.now();
               return TableCalendar(
+                locale: context.locale.languageCode,
                 firstDay: state.firstDay,
                 lastDay: state.lastDay,
                 // focusedDay: state.selectedYear == null ? selectedDay : DateTime(state.selectedYear!, 1, 1),
@@ -112,43 +114,40 @@ class _TableWidgetState extends State<TableWidget> {
                 padding: const EdgeInsets.all(16.0),
                 height: 280.h,
                 decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20.0)),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
                   color: context.secondaryHeaderColor.withOpacity(0.4),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    txt('Date Information',
-                        e: St.bold18, c: context.primaryColor),
+                    txt('Date Information', e: St.bold18, c: context.primaryColor),
                     const SizedBox(height: 20.0),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _buildDateRow(
-                              image: 'calendar_5.png',
-                              title: 'Georgian',
-                              date: DateFormat('d MMMM, yyyy').format((state
-                                  .selectedDateConversionEntity
-                                  ?.selectedGeorgianDate)!)),
+                            image: 'calendar_5.png',
+                            title: 'Georgian',
+                            date: formateDateDetailed((state.selectedDateConversionEntity?.selectedGeorgianDate)!),
+                          ),
                           _buildDateRow(
                             image: 'calendar_7.png',
                             title: 'Real Hijri',
                             // date: state.selectedOption == DataProcessingOption.lunar
                             //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
                             //     : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
-                            date: state.selectedDateConversionEntity
-                                    ?.newHijriUpdated ??
-                                '',
+                            date: isEnglish()
+                                ? (state.selectedDateConversionEntity?.newHijriUpdated ?? '')
+                                : (state.selectedDateConversionEntity?.newHijriUpdatedAr ?? ''),
                           ),
                           _buildDateRow(
                               image: 'calendar_3.png',
                               title: 'Current Hijri',
-                              date: state.selectedDateConversionEntity
-                                      ?.selectedOldHijriDate ??
-                                  ''),
+                              date: isEnglish()
+                                  ? (state.selectedDateConversionEntity?.selectedOldHijriDate ?? '')
+                                  : (state.selectedDateConversionEntity?.selectedOldHijriDateAr ?? '')),
 
                           // _buildDateRow(
                           //   image: 'calendar_9.png',
@@ -173,8 +172,7 @@ class _TableWidgetState extends State<TableWidget> {
     );
   }
 
-  Widget _buildDateRow(
-      {required String title, required String date, required image}) {
+  Widget _buildDateRow({required String title, required String date, required image}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(

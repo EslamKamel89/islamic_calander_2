@@ -3,32 +3,22 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 
 class SelectedDateConversionEntity {
   DateTime? selectedGeorgianDate;
+  // DateTime? selectedGeorgianDateAr;
   String? selectedOldHijriDate;
+  String? selectedOldHijriDateAr;
   String? selectedNewHijriDate;
+  String? selectedNewHijriDateAr;
   String? newHijriUpdated;
-  SelectedDateConversionEntity(
-      {this.selectedGeorgianDate,
-      this.selectedOldHijriDate,
-      this.selectedNewHijriDate,
-      this.newHijriUpdated});
-
-  @override
-  String toString() =>
-      'SelectedDateConversionEntity(selectedGeorgianDate: $selectedGeorgianDate, selectedOldHijriDate: $selectedOldHijriDate, selectedNewHijriDate: $selectedNewHijriDate , newHijriUpdated: $newHijriUpdated)';
-
-  SelectedDateConversionEntity copyWith({
-    DateTime? selectedGeorgianDate,
-    String? selectedOldHijriDate,
-    String? selectedNewHijriDate,
-    String? newHijriUpdated,
-  }) {
-    return SelectedDateConversionEntity(
-      selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
-      selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
-      selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
-      newHijriUpdated: newHijriUpdated ?? this.newHijriUpdated,
-    );
-  }
+  String? newHijriUpdatedAr;
+  SelectedDateConversionEntity({
+    this.selectedGeorgianDate,
+    this.selectedOldHijriDate,
+    this.selectedOldHijriDateAr,
+    this.selectedNewHijriDate,
+    this.selectedNewHijriDateAr,
+    this.newHijriUpdated,
+    this.newHijriUpdatedAr,
+  });
 
   String? newHijriDateProccessed() {
     final t = prt('newHijriDateProccessed  - SelectedDateConversionEntity');
@@ -38,8 +28,7 @@ class SelectedDateConversionEntity {
       }
       String oldDay = selectedOldHijriDate!.split(' ')[1].trim();
       String newDay = selectedNewHijriDate!.split(',')[1].trim();
-      String resultNewHijri =
-          selectedNewHijriDate!.replaceFirst(',$newDay,', ',$oldDay,');
+      String resultNewHijri = selectedNewHijriDate!.replaceFirst(',$newDay,', ',$oldDay,');
       // pr(oldDay, '$t - oldDay');
       // pr(newDay, '$t - newDay');
       pr(resultNewHijri, '$t - resultNewHijri');
@@ -51,8 +40,7 @@ class SelectedDateConversionEntity {
   }
 
   String? newHijriUpdatedDateProccessed() {
-    final t =
-        prt('newHijriUpdatedDateProccessed  - SelectedDateConversionEntity');
+    final t = prt('newHijriUpdatedDateProccessed  - SelectedDateConversionEntity');
     try {
       if (selectedOldHijriDate == null || selectedNewHijriDate == null) {
         return selectedNewHijriDate;
@@ -61,13 +49,37 @@ class SelectedDateConversionEntity {
       String newDay = newHijriUpdated!.split(',')[1].trim();
       int oldDayMinusOne = int.parse(oldDay);
       oldDayMinusOne = oldDayMinusOne == 1 ? 1 : oldDayMinusOne - 1;
-      String resultNewHijriUpdated =
-          newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
+      String resultNewHijriUpdated = newHijriUpdated!.replaceFirst(',$newDay,', ',$oldDayMinusOne,');
       pr(resultNewHijriUpdated, '$t - resultNewHijriUpdated');
       return resultNewHijriUpdated;
     } catch (e) {
       pr('Exeption in parsing: $e', t);
       return selectedNewHijriDate;
     }
+  }
+
+  @override
+  String toString() {
+    return 'SelectedDateConversionEntity(selectedGeorgianDate: $selectedGeorgianDate, selectedOldHijriDate: $selectedOldHijriDate, selectedOldHijriDateAr: $selectedOldHijriDateAr, selectedNewHijriDate: $selectedNewHijriDate, selectedNewHijriDateAr: $selectedNewHijriDateAr, newHijriUpdated: $newHijriUpdated, newHijriUpdatedAr: $newHijriUpdatedAr)';
+  }
+
+  SelectedDateConversionEntity copyWith({
+    DateTime? selectedGeorgianDate,
+    String? selectedOldHijriDate,
+    String? selectedOldHijriDateAr,
+    String? selectedNewHijriDate,
+    String? selectedNewHijriDateAr,
+    String? newHijriUpdated,
+    String? newHijriUpdatedAr,
+  }) {
+    return SelectedDateConversionEntity(
+      selectedGeorgianDate: selectedGeorgianDate ?? this.selectedGeorgianDate,
+      selectedOldHijriDate: selectedOldHijriDate ?? this.selectedOldHijriDate,
+      selectedOldHijriDateAr: selectedOldHijriDateAr ?? this.selectedOldHijriDateAr,
+      selectedNewHijriDate: selectedNewHijriDate ?? this.selectedNewHijriDate,
+      selectedNewHijriDateAr: selectedNewHijriDateAr ?? this.selectedNewHijriDateAr,
+      newHijriUpdated: newHijriUpdated ?? this.newHijriUpdated,
+      newHijriUpdatedAr: newHijriUpdatedAr ?? this.newHijriUpdatedAr,
+    );
   }
 }

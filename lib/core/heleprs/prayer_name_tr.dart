@@ -1,4 +1,4 @@
-import 'package:islamic_calander_2/core/widgets/language_selector.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 
 String prayerNameTr(String prayer) {
   prayer = prayer.toLowerCase().trim();
@@ -15,5 +15,5 @@ String prayerNameTr(String prayer) {
     'firstthird': ['Firstthird', 'الثلث الأول'],
     'lastthird': ['Lastthird', 'الثلث الأخير'],
   };
-  return isLTR() ? (translations[prayer]?[0] ?? '') : (translations[prayer]?[1] ?? '');
+  return isEnglish() ? (translations[prayer]?[0] ?? '') : (translations[prayer]?[1] ?? '');
 }

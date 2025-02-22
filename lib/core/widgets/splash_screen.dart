@@ -20,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     cachePrayerMehtod();
     Future.delayed(const Duration(milliseconds: 3900), () {
-      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
     });
   }
 
@@ -38,7 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 Icons.brightness_3, // Crescent moon icon
                 size: 100,
                 color: lightClr.goldColor, // Gold color
-              ).animate().moveX(duration: const Duration(seconds: 2), begin: -600, end: 0),
+              ).animate().moveX(
+                  duration: const Duration(seconds: 2), begin: -600, end: 0),
               const SizedBox(height: 20),
 
               const AnimatedTextWidget(
@@ -106,13 +108,15 @@ class AnimatedTextWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: List.generate(text.length, (index) {
             if (index < visibleCharacters) {
-              final animationProgress = (progress - index / text.length).clamp(0.0, 1.0);
+              final animationProgress =
+                  (progress - index / text.length).clamp(0.0, 1.0);
               return Text(
                 text[index],
                 style: textStyle?.copyWith(
                       color: textStyle?.color?.withOpacity(animationProgress),
                     ) ??
-                    TextStyle(color: Colors.black.withOpacity(animationProgress)),
+                    TextStyle(
+                        color: Colors.black.withOpacity(animationProgress)),
               ).animate().fadeIn(duration: letterAnimationDuration).scale(
                     duration: letterAnimationDuration,
                     curve: Curves.easeInOutBack,

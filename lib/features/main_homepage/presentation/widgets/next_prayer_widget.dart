@@ -26,7 +26,9 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget> {
         //       .fade(duration: 500.ms, begin: 0, end: 0.5);
         // }
         return PrayerCard(
-          prayerName: state.nextPrayer != null ? prayerNameTr(state.nextPrayer!) : 'CALC'.tr(),
+          prayerName: state.nextPrayer != null
+              ? prayerNameTr(state.nextPrayer!)
+              : 'CALC'.tr(),
           timeRemaining: state.timeRemaining ?? const Duration(seconds: 0),
         );
       },

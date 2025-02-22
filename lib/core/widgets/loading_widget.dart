@@ -3,7 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget(
-      {super.key, required this.rowCount, required this.height, required this.space, required this.width});
+      {super.key,
+      required this.rowCount,
+      required this.height,
+      required this.space,
+      required this.width});
   final int rowCount;
   final double height;
   final double width;
@@ -20,7 +24,8 @@ class LoadingWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: Colors.grey,
           ),
-        ).animate(onPlay: (c) => c.repeat()).fade(delay: (100 * index).ms, duration: 500.ms, begin: 0.5, end: 1);
+        ).animate(onPlay: (c) => c.repeat()).fade(
+            delay: (100 * index).ms, duration: 500.ms, begin: 0.5, end: 1);
       }),
     );
   }

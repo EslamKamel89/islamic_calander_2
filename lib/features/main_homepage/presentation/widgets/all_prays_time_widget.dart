@@ -8,6 +8,7 @@ import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
@@ -87,7 +88,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     response.fold((_) {}, (model) {
       if (mounted) {
         setState(() {
-          newHijriDate = model.newHijriUpdated;
+          newHijriDate = isEnglish() ? model.newHijriUpdated : model.newHijriUpdatedAr;
         });
       }
     });
