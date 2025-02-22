@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
-import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
@@ -50,35 +51,33 @@ class _CityWidgetState extends State<CityWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: ltr,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              child: Lot.Lottie.asset(
-                AssetsData.map,
-                width: 40,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
+    context.locale;
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            child: Lot.Lottie.asset(
+              AssetsData.map,
+              width: 40,
+              height: 50,
+              fit: BoxFit.cover,
             ),
-            // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
-            const SizedBox(width: 5),
-            Expanded(
-              child: locationInfoApi.response == ResponseEnum.success
-                  ? AutoSizeText(
-                      // child: Text(
-                      _locationStr(locationInfoApi.data),
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                    )
-                  : LoadingWidget(rowCount: 1, height: 15, space: 5, width: context.width - 50),
-            )
-            // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
-          ],
-        ),
+          ),
+          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+          const SizedBox(width: 5),
+          Expanded(
+            child: locationInfoApi.response == ResponseEnum.success
+                ? AutoSizeText(
+                    // child: Text(
+                    _locationStr(locationInfoApi.data),
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  )
+                : LoadingWidget(rowCount: 1, height: 15, space: 5, width: context.width - 50),
+          )
+          // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
+        ],
       ),
     );
   }
@@ -114,11 +113,15 @@ class _CityWidgetState extends State<CityWidget> {
 
   String _locationStr(LocationInfoModel? model) {
     if (model == null) return '';
+    String? one = isEnglish() ? model.one?.en : model.one?.ar;
+    String? two = isEnglish() ? model.two?.en : model.two?.ar;
+    String? three = isEnglish() ? model.three?.en : model.three?.ar;
+    String? four = isEnglish() ? model.four?.en : model.four?.ar;
     String result = '';
-    if (model.one != null) result = '$result${model.one} ';
-    if (model.two != null) result = '$result${model.two} ';
-    if (model.three != null) result = '$result${model.three} ';
-    if (model.four != null) result = '$result${model.four} ';
+    if (one != null) result = '$result$one ';
+    if (two != null) result = '$result$two ';
+    if (three != null) result = '$result$three ';
+    if (four != null) result = '$result$four ';
     return result;
   }
 }

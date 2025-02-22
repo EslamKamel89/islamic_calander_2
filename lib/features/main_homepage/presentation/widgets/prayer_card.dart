@@ -115,7 +115,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     //   offset: Offset(-40.w, 0),
                     //   child: const CityWidget(),
                     // ),
-                    SizedBox(height: 90.h),
+                    SizedBox(height: 70.h),
                     // const NewHijrWidget(),
                   ],
                 ),

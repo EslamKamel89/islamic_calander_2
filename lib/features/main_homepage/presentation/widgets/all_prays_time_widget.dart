@@ -19,6 +19,7 @@ import 'package:islamic_calander_2/features/main_homepage/controllers/params.dar
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_time_api/prayers_time_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
@@ -138,6 +139,20 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     // } while (cubit.state.data == null);
   }
 
+  Future _handleDateChange() async {
+    _getNewHijri();
+    Position? position = await serviceLocator<GeoPosition>().position();
+    if ([position, position?.latitude, position?.longitude].contains(null)) {
+      return;
+    }
+    cubit.params =
+        cubit.params.copyWith(date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+    cubit.getPrayerTime();
+    moonImageCubit.dateTime = selectedDate;
+    moonImageCubit.moonImage();
+    await islamicWisdomCard.state.request(date: selectedDate);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -159,16 +174,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.subtract(const Duration(days: 1));
-                          _getNewHijri();
-                          Position? position = await serviceLocator<GeoPosition>().position();
-                          if ([position, position?.latitude, position?.longitude].contains(null)) {
-                            return;
-                          }
-                          cubit.params = cubit.params.copyWith(
-                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
-                          cubit.getPrayerTime();
-                          moonImageCubit.dateTime = selectedDate;
-                          moonImageCubit.moonImage();
+                          await _handleDateChange();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
                     Builder(builder: (context) {
@@ -183,16 +189,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.add(const Duration(days: 1));
-                          _getNewHijri();
-                          Position? position = await serviceLocator<GeoPosition>().position();
-                          if ([position, position?.latitude, position?.longitude].contains(null)) {
-                            return;
-                          }
-                          cubit.params = cubit.params.copyWith(
-                              date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
-                          cubit.getPrayerTime();
-                          moonImageCubit.dateTime = selectedDate;
-                          moonImageCubit.moonImage();
+                          await _handleDateChange();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],

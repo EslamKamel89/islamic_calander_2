@@ -64,7 +64,7 @@ class CalcMethodWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
-        title: txt(isLTR() ? prayerCalc.fullString : prayerCalc.arabicString,
+        title: txt(isEnglish() ? prayerCalc.fullString : prayerCalc.arabicString,
             maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,

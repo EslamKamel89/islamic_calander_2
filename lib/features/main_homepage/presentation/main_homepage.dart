@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
-import 'package:islamic_calander_2/core/widgets/language_selector.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
@@ -76,19 +78,22 @@ class _MainHomePageState extends State<MainHomePage> {
                           Stack(
                             children: [
                               const NextPrayerWidget(),
-                              Positioned.directional(
-                                top: 10,
-                                end: 20,
-                                textDirection: isLTR() ? TextDirection.ltr : TextDirection.rtl,
-                                child: const SettingsDropdown(),
-                              )
+                              Builder(builder: (context) {
+                                context.locale;
+                                return Positioned.directional(
+                                  top: 10,
+                                  end: 20,
+                                  textDirection: isEnglish() ? ltr : rtl,
+                                  child: const SettingsDropdown(),
+                                );
+                              })
                             ],
                           ),
                           SizedBox(height: 10.h),
                           const AllPraysTimeWidget(),
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),
-                          const IslamicWisdomCard(),
+                          islamicWisdomCard,
                           const SizedBox(height: 100),
                         ],
                       ),

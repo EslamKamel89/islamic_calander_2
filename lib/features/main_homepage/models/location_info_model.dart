@@ -70,10 +70,10 @@
 // }
 
 class LocationInfoModel {
-  String? one;
-  String? two;
-  String? three;
-  String? four;
+  ApiLocale? one;
+  ApiLocale? two;
+  ApiLocale? three;
+  ApiLocale? four;
   LocationInfoModel({
     this.one,
     this.two,
@@ -83,15 +83,34 @@ class LocationInfoModel {
 
   factory LocationInfoModel.fromMap(Map<String, dynamic> map) {
     return LocationInfoModel(
-      one: map['1'] != null ? map['1'] as String : null,
-      two: map['2'] != null ? map['2'] as String : null,
-      three: map['3'] != null ? map['3'] as String : null,
-      four: map['4'] != null ? map['4'] as String : null,
+      one: map['1'] != null ? ApiLocale.fromJson(map['1']) : null,
+      two: map['2'] != null ? ApiLocale.fromJson(map['2']) : null,
+      three: map['3'] != null ? ApiLocale.fromJson(map['3']) : null,
+      four: map['4'] != null ? ApiLocale.fromJson(map['4']) : null,
     );
   }
 
   @override
   String toString() {
     return 'LocationInfoModel2(one: $one, two: $two, three: $three, four: $four)';
+  }
+}
+
+class ApiLocale {
+  String? ar;
+  String? en;
+  ApiLocale({
+    this.ar,
+    this.en,
+  });
+
+  @override
+  String toString() => 'ApiLocale(ar: $ar, en: $en)';
+
+  factory ApiLocale.fromJson(Map<String, dynamic> json) {
+    return ApiLocale(
+      ar: json['ar'] != null ? json['ar'] as String : null,
+      en: json['en'] != null ? json['en'] as String : null,
+    );
   }
 }
