@@ -21,9 +21,10 @@ import 'package:islamic_calander_2/features/main_homepage/controllers/params.dar
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_time_api/prayers_time_api_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
-import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
+
+ValueNotifier<DateTime> selectedDateNotifier = ValueNotifier(DateTime.now());
 
 class AllPraysTimeWidget extends StatefulWidget {
   const AllPraysTimeWidget({
@@ -62,25 +63,18 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     moonImageCubit = context.read<MoonImageCubit>();
     _getPrayerTime();
     _getNewHijri();
-    _selectedPrayerMethodNotifier();
-    _checkUserCountryNotifier();
+    selectedPrayersNotifier.addListener(_selectedPrayerMethodListener);
+
+    /// i used this function to determine the prayer time calculation method based on position if there are no cached calculation method
+    positionNotifier.addListener(checkUserCountry);
     super.initState();
   }
 
-  /// i used this function to determine the prayer time calculation method based on position if there are no cached calculation method
-  void _checkUserCountryNotifier() {
-    positionNotifier.addListener(() async {
-      await checkUserCountry();
-    });
-  }
-
-  void _selectedPrayerMethodNotifier() {
-    selectedPrayersNotifier.addListener(() {
-      cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
-      if (mounted) {
-        cubit.getPrayerTime();
-      }
-    });
+  void _selectedPrayerMethodListener() {
+    cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
+    if (mounted) {
+      cubit.getPrayerTime();
+    }
   }
 
   Future _getNewHijri() async {
@@ -131,24 +125,6 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
       );
       await cubit.getPrayerTime();
     });
-    // do {
-    //   Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
-    //   if ([position, position?.latitude, position?.longitude].contains(null)) {
-    //     await Future.delayed(const Duration(seconds: 1));
-    //     continue;
-    //   }
-
-    //   // pr(position.longitude, t);
-    //   cubit.params = cubit.params.copyWith(
-    //     latitude: position!.latitude,
-    //     longitude: position.longitude,
-    //     method: IslamicOrganization.muslimWorldLeague,
-    //     latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
-    //     date: selectedDate,
-    //   );
-    //   await cubit.getPrayerTime();
-    //   await Future.delayed(const Duration(seconds: 1));
-    // } while (cubit.state.data == null);
   }
 
   Future _handleDateChange() async {
@@ -162,11 +138,13 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     cubit.getPrayerTime();
     moonImageCubit.dateTime = selectedDate;
     moonImageCubit.moonImage();
-    await islamicWisdomCard.state.request(date: selectedDate);
+    selectedDateNotifier.value = selectedDate;
   }
 
   @override
   void dispose() {
+    positionNotifier.removeListener(checkUserCountry);
+    selectedPrayersNotifier.removeListener(_selectedPrayerMethodListener);
     super.dispose();
   }
 

@@ -14,22 +14,20 @@ import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/loading_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
-
-final islamicWisdomCard = IslamicWisdomCard();
 
 class IslamicWisdomCard extends StatefulWidget {
   // final String wisdom;
   // final String author;
 
-  IslamicWisdomCard({
+  const IslamicWisdomCard({
     super.key,
     // required this.wisdom,
     // required this.author,
   });
-  final state = _IslamicWisdomCardState();
   @override
-  State<IslamicWisdomCard> createState() => state;
+  State<IslamicWisdomCard> createState() => _IslamicWisdomCardState();
 }
 
 class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
@@ -37,7 +35,19 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
   @override
   void initState() {
     request();
+    selectedDateNotifier.addListener(_listener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    selectedDateNotifier.removeListener(_listener);
+
+    super.dispose();
+  }
+
+  _listener() {
+    request(date: selectedDateNotifier.value);
   }
 
   @override
