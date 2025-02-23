@@ -17,14 +17,14 @@ class MoonImageController {
   ApiConsumer api = serviceLocator();
 
   Future<ApiResponseModel<String?>> moonImage(
-      {required Position position, required DateTime dateTime}) async {
+      {required Position position, required DateTime dateTime, bool showInfo = false}) async {
     final t = prt('moonImage - MoonImageController');
     try {
       final temp = api.dio.options.headers;
       api.dio.options.headers = EndPoint.authorizationHeader();
       final response = await api.post(
         EndPoint.moonPhaseEndPoint,
-        data: _requestData(position, dateTime),
+        data: _requestData(position, dateTime, showInfo),
       );
       api.dio.options.headers = temp;
       return pr(
@@ -42,22 +42,19 @@ class MoonImageController {
       if (context != null) {
         showSnackbar('Error', errorMessage, true);
       }
-      return pr(
-          ApiResponseModel(
-              errorMessage: errorMessage, response: ResponseEnum.failure),
-          t);
+      return pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
     }
   }
 
-  Map<String, dynamic> _requestData(Position position, DateTime dateTime) {
+  Map<String, dynamic> _requestData(Position position, DateTime dateTime, bool showInfo) {
     return {
       "format": "png",
       "style": {
         "moonStyle": "default",
-        "backgroundStyle": "solid",
+        "backgroundStyle": showInfo ? "stars" : "solid",
         "backgroundColor": "transparent",
-        "headingColor": "transparent",
-        "textColor": "transparent"
+        "headingColor": showInfo ? "white" : "transparent",
+        "textColor": showInfo ? "white" : "transparent"
       },
       "observer": {
         "latitude": position.latitude,

@@ -112,7 +112,7 @@ class _TableWidgetState extends State<TableWidget> {
             } else if (state.getSelectedDateInfoState == ResponseEnum.success) {
               return Container(
                 padding: const EdgeInsets.all(16.0),
-                height: 280.h,
+                height: 250.h,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
                   color: context.secondaryHeaderColor.withOpacity(0.4),
@@ -133,21 +133,27 @@ class _TableWidgetState extends State<TableWidget> {
                             date: formateDateDetailed((state.selectedDateConversionEntity?.selectedGeorgianDate)!),
                           ),
                           _buildDateRow(
-                            image: 'calendar_7.png',
-                            title: 'REAL_HIJRI'.tr(),
-                            // date: state.selectedOption == DataProcessingOption.lunar
-                            //     ? state.selectedDateConversionEntity?.newHijriUpdatedDateProccessed() ?? ''
-                            //     : state.selectedDateConversionEntity?.newHijriUpdated ?? '',
-                            date: isEnglish()
-                                ? (state.selectedDateConversionEntity?.newHijriUpdated ?? '')
-                                : (state.selectedDateConversionEntity?.newHijriUpdatedAr ?? ''),
-                          ),
+                              image: 'calendar_7.png',
+                              title: 'REAL_HIJRI'.tr(),
+                              // date: isEnglish()
+                              //     ? (state.selectedDateConversionEntity?.newHijriUpdated ?? '')
+                              //     : (state.selectedDateConversionEntity?.newHijriUpdatedAr ?? ''),
+                              date: _localize(
+                                state.selectedDateConversionEntity?.newHijriUpdated,
+                                state.selectedDateConversionEntity?.newHijriUpdatedAr,
+                                state.selectedDateConversionEntity?.selectedGeorgianDate,
+                              )),
                           _buildDateRow(
                               image: 'calendar_3.png',
                               title: 'CURRENT_HIJRI'.tr(),
-                              date: isEnglish()
-                                  ? (state.selectedDateConversionEntity?.selectedOldHijriDate ?? '')
-                                  : (state.selectedDateConversionEntity?.selectedOldHijriDateAr ?? '')),
+                              // date: isEnglish()
+                              //     ? (state.selectedDateConversionEntity?.selectedOldHijriDate ?? '')
+                              //     : (state.selectedDateConversionEntity?.selectedOldHijriDateAr ?? ''),
+                              date: _localize(
+                                state.selectedDateConversionEntity?.selectedOldHijriDate,
+                                state.selectedDateConversionEntity?.selectedOldHijriDateAr,
+                                state.selectedDateConversionEntity?.selectedGeorgianDate,
+                              )),
 
                           // _buildDateRow(
                           //   image: 'calendar_9.png',
@@ -172,10 +178,21 @@ class _TableWidgetState extends State<TableWidget> {
     );
   }
 
+  String _localize(String? valueEn, String? valueAr, DateTime? selectedDate) {
+    if (isEnglish() && valueEn != null && selectedDate != null) {
+      return '$valueEn ${selectedDate.year >= 622 ? '(H)' : '(BH)'}';
+    }
+    if (!isEnglish() && valueAr != null && selectedDate != null) {
+      return '$valueAr ${selectedDate.year >= 622 ? '(هجريا)' : '(قبل الهجرة)'}';
+    }
+    return '';
+  }
+
   Widget _buildDateRow({required String title, required String date, required image}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
             'assets/images/$image',
@@ -183,8 +200,8 @@ class _TableWidgetState extends State<TableWidget> {
             height: 20.w,
           ),
           const Sizer(),
-          txt('$title: ', e: St.semi18, c: context.primaryColor),
-          txt(date, e: St.reg18),
+          txt('$title: ', e: St.semi16, c: context.primaryColor),
+          Expanded(child: txt(date, e: St.reg14, maxLines: 2)),
         ],
       ),
     );

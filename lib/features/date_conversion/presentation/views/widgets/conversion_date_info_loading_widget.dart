@@ -12,7 +12,7 @@ class ConversionDateInfoLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      height: 280.h,
+      height: 250.h,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
         color: context.secondaryHeaderColor.withOpacity(0.4),

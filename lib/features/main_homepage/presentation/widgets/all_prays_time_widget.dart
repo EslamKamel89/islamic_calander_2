@@ -12,6 +12,7 @@ import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:islamic_calander_2/core/models/api_locale.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
@@ -54,7 +55,7 @@ class AppPrayersTimeBuilder extends StatefulWidget {
 
 class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   DateTime selectedDate = DateTime.now();
-  ApiResponseModel<String?> newHijriDate = ApiResponseModel(response: ResponseEnum.initial);
+  ApiResponseModel<ApiLocale?> newHijriDate = ApiResponseModel(response: ResponseEnum.initial);
   late PrayerTimesApiCubit cubit;
   late MoonImageCubit moonImageCubit;
   @override
@@ -92,7 +93,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         setState(() {
           newHijriDate = ApiResponseModel(
             response: ResponseEnum.success,
-            data: isEnglish() ? model.newHijriUpdated : model.newHijriUpdatedAr,
+            data: ApiLocale(ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
           );
         });
       }
@@ -164,6 +165,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.subtract(const Duration(days: 1));
+                          // selectedDate = DateTime(620);
                           await _handleDateChange();
                         },
                         child: Icon(Icons.arrow_back_ios_rounded, size: 30.w)),
@@ -173,8 +175,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                         children: [
                           txt(formateDateDetailed(selectedDate)),
                           newHijriDate.response == ResponseEnum.success
-                              ? txt(newHijriDate.data ?? '')
-                              : txt(newHijriDate.data ?? '')
+                              ? txt(_localize(newHijriDate.data))
+                              : txt(_localize(newHijriDate.data))
                                   .animate(onPlay: (c) => c.repeat())
                                   .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
                                   .then()
@@ -185,6 +187,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     InkWell(
                         onTap: () async {
                           selectedDate = selectedDate.add(const Duration(days: 1));
+                          // selectedDate = DateTime(625);
                           await _handleDateChange();
                         },
                         child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
@@ -209,6 +212,16 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         );
       },
     );
+  }
+
+  String _localize(ApiLocale? value) {
+    if (isEnglish() && value != null && value.en != null) {
+      return '${value.en!} ${selectedDate.year >= 622 ? '(H)' : '(BH)'}';
+    }
+    if (!isEnglish() && value != null && value.ar != null) {
+      return '${value.ar!} ${selectedDate.year >= 622 ? '(هجريا)' : '(قبل الهجرة)'}';
+    }
+    return '';
   }
 }
 

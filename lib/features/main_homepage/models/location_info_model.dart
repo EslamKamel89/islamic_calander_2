@@ -69,6 +69,8 @@
 //       };
 // }
 
+import 'package:islamic_calander_2/core/models/api_locale.dart';
+
 class LocationInfoModel {
   ApiLocale? one;
   ApiLocale? two;
@@ -90,24 +92,5 @@ class LocationInfoModel {
   @override
   String toString() {
     return 'LocationInfoModel2(one: $one, two: $two, three: $three, four: $four)';
-  }
-}
-
-class ApiLocale {
-  String? ar;
-  String? en;
-  ApiLocale({
-    this.ar,
-    this.en,
-  });
-
-  @override
-  String toString() => 'ApiLocale(ar: $ar, en: $en)';
-
-  factory ApiLocale.fromJson(Map<String, dynamic> json) {
-    return ApiLocale(
-      ar: json['ar'] != null ? json['ar'] as String : null,
-      en: json['en'] != null ? json['en'] as String : null,
-    );
   }
 }

@@ -9,6 +9,7 @@ import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/moon_image_detailed_modal.dart';
 
 class MoonPhaseImage extends StatefulWidget {
   const MoonPhaseImage({super.key});
@@ -27,8 +28,7 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
   }
 
   Future _getMoonImage() async {
-    final positionInMemory =
-        serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.moonImage() in  MoonPhaseImage widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.position = positionInMemory;
@@ -43,21 +43,6 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
       cubit.dateTime = cubit.dateTime ?? DateTime.now();
       await cubit.moonImage();
     });
-    // do {
-    //   Position? position = serviceLocator<GeoPosition>().getPositionInMemory();
-    //   if ([position, position?.latitude, position?.longitude].contains(null)) {
-    //     await Future.delayed(const Duration(seconds: 1));
-    //     continue;
-    //   }
-
-    //   // pr(position.longitude, t);
-    //   cubit.position = position;
-    //   cubit.dateTime = cubit.dateTime ?? DateTime.now();
-
-    //   await cubit.moonImage();
-    //   await Future.delayed(const Duration(seconds: 1));
-    //   break;
-    // } while (cubit.state.data == null);
   }
 
   @override
@@ -70,8 +55,7 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
             constraints: BoxConstraints(minHeight: context.height / 4),
             child: SizedBox(
                 // width: context.width * 0.7,
-                child: [ResponseEnum.loading, ResponseEnum.initial]
-                        .contains(state.response)
+                child: [ResponseEnum.loading, ResponseEnum.initial].contains(state.response)
                     ? LayoutBuilder(builder: (context, constraints) {
                         return Container(
                             margin: EdgeInsets.only(left: context.width / 5),
@@ -80,17 +64,24 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
                               color: Colors.white,
                             )));
                       })
-                    : state.response == ResponseEnum.success &&
-                            state.data != null
+                    : state.response == ResponseEnum.success && state.data != null
                         ? SizedBox(
                             width: context.width * 0.7,
-                            child: CachedNetworkImage(
-                              imageUrl: state.data!,
+                            child: InkWell(
+                              onTap: () {
+                                final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+                                if ([positionInMemory, cubit.dateTime].contains(null)) return;
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return MoonImageDetailedModal(position: positionInMemory!, date: cubit.dateTime!);
+                                    });
+                              },
+                              child: CachedNetworkImage(
+                                imageUrl: state.data!,
+                              ),
                             ),
-                          ).animate().scale(
-                            duration: 1000.ms,
-                            begin: const Offset(0, 0),
-                            end: const Offset(1, 1))
+                          ).animate().scale(duration: 1000.ms, begin: const Offset(0, 0), end: const Offset(1, 1))
                         : const SizedBox()),
           ),
         );
