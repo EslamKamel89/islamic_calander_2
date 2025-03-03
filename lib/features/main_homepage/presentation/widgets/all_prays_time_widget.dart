@@ -17,6 +17,7 @@ import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
+import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
@@ -83,7 +84,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
       newHijriDate = newHijriDate.copyWith(response: ResponseEnum.loading, errorMessage: null);
     });
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(selectedDate, DataProcessingOption.regular);
+    final response = await repo.getDateConversion(
+        selectedDate, context.read<DateConversionCubit>().state.selectedOption ?? DataProcessingOption.regular);
     response.fold((_) {
       setState(() {
         newHijriDate = newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');

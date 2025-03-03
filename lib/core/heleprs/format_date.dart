@@ -57,9 +57,9 @@ String formatGregorianDateToArabic(String gergorianDate) {
     if (gergorianDate.contains('-')) {
       List<String> date = gergorianDate.split('-');
       if (date.length != 3) return gergorianDate;
-      date = date.reversed.toList();
+      // date = date.reversed.toList();
       date[1] = monthMapping[date[1].toLowerCase()] ?? date[1];
-      return date.join('-');
+      return date.join(' - ');
     } else {
       DateTime parsedDate = DateFormat("MMMM d, yyyy", "en_US").parse(gergorianDate);
       return DateFormat.yMMMMd('ar').format(parsedDate);
