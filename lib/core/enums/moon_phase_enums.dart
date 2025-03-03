@@ -32,6 +32,19 @@ extension MoonPhaseEnumExtension on MoonPhaseEnum {
     }
   }
 
+  String toFullString2() {
+    switch (this) {
+      case MoonPhaseEnum.fullMoon:
+        return 'Full Moon';
+      case MoonPhaseEnum.lastMoon:
+        return 'Last Quarter';
+      case MoonPhaseEnum.firstMoon:
+        return 'First Quarter';
+      case MoonPhaseEnum.newMoon:
+        return 'New Moon';
+    }
+  }
+
   String toArabic() {
     switch (this) {
       case MoonPhaseEnum.fullMoon:

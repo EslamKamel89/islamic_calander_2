@@ -57,7 +57,7 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.model.friendlydate ?? '',
+                      widget.model.getFriendlyDate(),
                       // "Main title",
                       style: TextStyle(
                         fontSize: 18.sp,
@@ -78,11 +78,11 @@ class _MoonInfoItemCardState extends State<MoonInfoItemCard> {
                 visible: isVisible,
                 child: Column(
                   children: [
-                    _buildDataItem('MOON_PHASE'.tr(), widget.model.phase ?? ''),
-                    _buildDataItem('HIJRI_DATE'.tr(), widget.model.hjridate ?? ''),
+                    _buildDataItem('MOON_PHASE'.tr(), widget.model.getPahse()),
+                    _buildDataItem('HIJRI_DATE'.tr(), widget.model.getHjriDate()),
                     widget.model.ecllipse == '' || widget.model.ecllipse == null
                         ? const SizedBox()
-                        : _buildDataItem('MOON_ECLIPSE'.tr(), widget.model.ecllipse ?? ''),
+                        : _buildDataItem('MOON_ECLIPSE'.tr(), widget.model.getEclipse()),
                   ],
                 ),
               ),

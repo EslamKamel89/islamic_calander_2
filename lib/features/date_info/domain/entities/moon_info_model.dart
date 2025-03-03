@@ -1,3 +1,8 @@
+import 'package:islamic_calander_2/core/enums/eclipse_enum.dart';
+import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
+import 'package:islamic_calander_2/core/heleprs/format_date.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
+
 class MoonInfoModel {
   String? id;
   String? datetime;
@@ -37,4 +42,33 @@ class MoonInfoModel {
         'hjridate': hjridate,
         'ecllipse': ecllipse,
       };
+  String getPahse() {
+    try {
+      if (isEnglish() || phase == null) return phase ?? '';
+      final phases = MoonPhaseEnum.values
+          .where((e) => e.toFullString2().trim().toLowerCase().contains(phase!.trim().toLowerCase()));
+      if (phases.isEmpty) return phase ?? '';
+      return phases.first.toArabic();
+    } on Exception catch (_) {
+      return phase ?? '';
+    }
+  }
+
+  String getFriendlyDate() {
+    if (isEnglish() || friendlydate == null) return friendlydate ?? '';
+    return formatGregorianDateToArabic(friendlydate!);
+  }
+
+  String getHjriDate() {
+    if (isEnglish()) return hjridate ?? '';
+    return localizeHijriDate(hjridate);
+  }
+
+  String getEclipse() {
+    if (isEnglish()) return ecllipse ?? '';
+    return EclipseEnum.values
+        .where((e) => e.toFullString().trim().toLowerCase().contains(ecllipse!.trim().toLowerCase()))
+        .first
+        .toArabic();
+  }
 }
