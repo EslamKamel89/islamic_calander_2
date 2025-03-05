@@ -1,4 +1,4 @@
-package com.example.islamic_calander_2
+package com.gaztec.islamic_calander
 
 import io.flutter.embedding.android.FlutterActivity
 
