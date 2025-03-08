@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
@@ -19,6 +20,10 @@ class PrayersController {
   Future<ApiResponseModel<PrayersTimeModel>> prayerTime(
       PrayerTimeParams params) async {
     final t = prt('prayerTime - PrayersControllers');
+    if (params.method == IslamicOrganization.auto) {
+      params.method = (await getPrayerCalcMethodByPosition()) ??
+          IslamicOrganization.muslimWorldLeague;
+    }
     try {
       final response = await api.get(
         EndPoint.prayerTimesEndPoint(params.date ?? DateTime.now()),
