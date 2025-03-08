@@ -43,8 +43,18 @@ class _PrayerCalcOptionsState extends State<PrayerCalcOptions> {
         const SizedBox(height: 10),
         txt('CALC_METHOD'.tr(), e: St.bold20),
         const Divider(),
+        AutoCalcMethodWidget(
+          selectedMethod: selectedPrayersNotifier.value,
+          onTap: () {
+            selectedPrayersMethod = IslamicOrganization.auto;
+            selectedPrayersNotifier.value = IslamicOrganization.auto;
+            setState(() {});
+            Navigator.of(context).pop();
+          },
+        ),
         ...List.generate(IslamicOrganization.values.length, (index) {
           final prayerCalc = IslamicOrganization.values[index];
+          if (prayerCalc == IslamicOrganization.auto) return const SizedBox();
           return CalcMethodWidget(
             selectedMethod: selectedPrayersNotifier.value,
             prayerCalc: prayerCalc,
@@ -62,7 +72,11 @@ class _PrayerCalcOptionsState extends State<PrayerCalcOptions> {
 }
 
 class CalcMethodWidget extends StatelessWidget {
-  const CalcMethodWidget({super.key, required this.selectedMethod, required this.prayerCalc, required this.onTap});
+  const CalcMethodWidget(
+      {super.key,
+      required this.selectedMethod,
+      required this.prayerCalc,
+      required this.onTap});
   final IslamicOrganization selectedMethod;
   final IslamicOrganization prayerCalc;
   final Function() onTap;
@@ -73,12 +87,62 @@ class CalcMethodWidget extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         tileColor: selectedMethod == prayerCalc ? context.primaryColor : null,
-        title: txt(isEnglish() ? prayerCalc.fullString : prayerCalc.arabicString,
-            maxLines: 20, e: St.bold18, c: selectedMethod == prayerCalc ? Colors.white : null),
+        title: txt(
+            isEnglish() ? prayerCalc.fullString : prayerCalc.arabicString,
+            maxLines: 20,
+            e: St.bold18,
+            c: selectedMethod == prayerCalc ? Colors.white : null),
         // subtitle: txt(prayerCalc.description(),
         //     e: St.reg14,
         //     maxLines: 20,
         //     c: selectedMethod == prayerCalc ? Colors.white : null),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+class AutoCalcMethodWidget extends StatelessWidget {
+  const AutoCalcMethodWidget(
+      {super.key, required this.selectedMethod, required this.onTap});
+  final IslamicOrganization selectedMethod;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: selectedMethod == IslamicOrganization.auto
+          ? context.primaryColor
+          : null,
+      borderOnForeground: true,
+      child: ListTile(
+        tileColor: selectedMethod == IslamicOrganization.auto
+            ? context.primaryColor
+            : null,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // txt('Automatic Detection',
+            //     c: selectedMethod == IslamicOrganization.auto
+            //         ? Colors.white
+            //         : null),
+            txt(
+                isEnglish()
+                    ? IslamicOrganization.auto.fullString
+                    : IslamicOrganization.auto.arabicString,
+                maxLines: 20,
+                e: St.bold18,
+                c: selectedMethod == IslamicOrganization.auto
+                    ? Colors.white
+                    : null),
+          ],
+        ),
+        // subtitle: txt(prayerCalc.description(),
+        //     e: St.reg14,
+        //     maxLines: 20,
+        //     c: selectedMethod == prayerCalc ? Colors.white : null),
+        subtitle: txt('Automatic Detection By\nCurrent Location',
+            c: selectedMethod == IslamicOrganization.auto ? Colors.white : null,
+            e: St.reg18),
         onTap: onTap,
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/enums/prayer_calc_method.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/widgets/language_selector.dart';
 import 'package:islamic_calander_2/core/widgets/prayer_calc_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsDropdown extends StatefulWidget {
   const SettingsDropdown({super.key});
@@ -52,9 +54,16 @@ class OptionsWidgetState extends State<OptionsWidget> {
     return Container(
       padding: const EdgeInsets.all(16),
       child: ListView(
-        children: const [
-          LanguageSelector(),
-          PrayerCalcOptions(),
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              serviceLocator<SharedPreferences>().clear();
+            },
+            child: const Text('Clear Memory'),
+          ),
+          const SizedBox(height: 20),
+          const LanguageSelector(),
+          const PrayerCalcOptions(),
         ],
       ),
     );

@@ -46,6 +46,7 @@ class PrayerTimeParams {
 
 enum IslamicOrganization {
   // jafariShiaIthnaAshari(0, 'Jafari / Shia Ithna-Ashari'),
+  auto(1, 'auto', "اوتو"),
   universityIslamicSciencesKarachi(1, 'University of Islamic Sciences, Karachi',
       "جامعة العلوم الإسلامية، كراتشي"),
   islamicSocietyNorthAmerica(2, 'Islamic Society of North America',
