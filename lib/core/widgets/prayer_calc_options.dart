@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
-import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
@@ -117,17 +116,24 @@ class AutoCalcMethodWidget extends StatelessWidget {
           return Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                // padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 0),
                 child: Card(
                   color: selectedMethod == IslamicOrganization.auto
                       ? context.primaryColor
-                      : context.secondaryHeaderColor.withOpacity(0.2),
+                      // : context.secondaryHeaderColor.withOpacity(0.2),
+                      : null,
                   borderOnForeground: true,
                   child: ListTile(
                     tileColor: selectedMethod == IslamicOrganization.auto
                         ? context.primaryColor
                         : null,
-                    title: Column(
+                    title: txt(isEnglish() ? 'Automatic' : "تلقائي",
+                        e: St.bold18,
+                        c: selectedMethod == IslamicOrganization.auto
+                            ? Colors.white
+                            : null),
+                    subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         snapShot.connectionState != ConnectionState.done
@@ -136,7 +142,7 @@ class AutoCalcMethodWidget extends StatelessWidget {
                                     ? 'Calculating.... '
                                     : 'يتم حساب' '...',
                                 maxLines: 20,
-                                e: St.bold18,
+                                e: St.reg16,
                                 c: selectedMethod == IslamicOrganization.auto
                                     ? Colors.white
                                     : null)
@@ -144,14 +150,12 @@ class AutoCalcMethodWidget extends StatelessWidget {
                                 isEnglish()
                                     ? (snapShot.data?.fullString ??
                                         IslamicOrganization
-                                            .universityIslamicSciencesKarachi
-                                            .fullString)
+                                            .muslimWorldLeague.fullString)
                                     : (snapShot.data?.arabicString ??
                                         IslamicOrganization
-                                            .universityIslamicSciencesKarachi
-                                            .arabicString),
+                                            .muslimWorldLeague.arabicString),
                                 maxLines: 20,
-                                e: St.bold18,
+                                e: St.reg16,
                                 c: selectedMethod == IslamicOrganization.auto
                                     ? Colors.white
                                     : null),
@@ -170,23 +174,23 @@ class AutoCalcMethodWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned.directional(
-                textDirection: isEnglish() ? ltr : rtl,
-                top: 0,
-                end: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: context.secondaryHeaderColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: txt('Auto Detected By Location',
-                      c: Colors.white,
-                      e: St.bold14,
-                      textAlign: TextAlign.center),
-                ),
-              ),
+              // Positioned.directional(
+              //   textDirection: isEnglish() ? ltr : rtl,
+              //   top: 0,
+              //   end: 0,
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: context.secondaryHeaderColor,
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              //     child: txt('Auto Detected By Location',
+              //         c: Colors.white,
+              //         e: St.bold14,
+              //         textAlign: TextAlign.center),
+              //   ),
+              // ),
             ],
           );
         });

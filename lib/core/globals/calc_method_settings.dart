@@ -132,7 +132,6 @@ Future<IslamicOrganization?> getPrayerCalcMethodByPosition() async {
       'united states',
       'united arab emirates',
       'egypt',
-      // 'saudi arabia',
       'kuwait',
       'qatar',
       'france',
