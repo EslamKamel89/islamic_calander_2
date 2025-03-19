@@ -12,8 +12,7 @@ class MainpageBottomSheetWidget extends StatefulWidget {
   });
 
   @override
-  State<MainpageBottomSheetWidget> createState() =>
-      _MainpageBottomSheetWidgetState();
+  State<MainpageBottomSheetWidget> createState() => _MainpageBottomSheetWidgetState();
 }
 
 class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
@@ -34,8 +33,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: "DATE_CONVERSION".tr(),
                     image: AssetsData.dateConversionIcon,
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.dateConversionView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.dateConversionView);
                     },
                   ),
                 ),
@@ -44,8 +42,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'MOON_PHASE'.tr(),
                     image: AssetsData.moonIcon,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.moonPhaseView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.moonPhaseView);
                     },
                   ),
                 ),
@@ -54,8 +51,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'ECLIPSE'.tr(),
                     image: AssetsData.moonEclipseIcon,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.eclipseView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.eclipseView);
                     },
                   ),
                 ),
@@ -64,8 +60,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'FIND_QIBLA'.tr(),
                     image: AssetsData.compass,
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.qiblaFinderView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
                     },
                   ),
                 ),
@@ -78,7 +73,9 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'MOSQUES'.tr(),
                     image: AssetsData.mosque,
                     onTap: () async {
-                      const url = "geo:0,0?q=mosque";
+                      // const url = "geo:0,0?q=mosque";
+                      const url =
+                          'https://www.google.com/maps/search/mosques+near+me/@31.0437726,31.3662496,15z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDMxNy4wIKXMDSoASAFQAw%3D%3D';
                       await launchUrl(Uri.parse(url));
                     },
                   ),
@@ -88,7 +85,9 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'HALAL'.tr(),
                     image: AssetsData.hallalResturant,
                     onTap: () async {
-                      const url = "geo:0,0?q=halal+restraurant";
+                      // const url = "geo:0,0?q=halal+restraurant";
+                      const url =
+                          'https://www.google.com/maps/search/halal+restraurant+near+me/@31.0437726,31.3662496,15z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDMxNy4wIKXMDSoASAFQAw%3D%3D';
                       await launchUrl(Uri.parse(url));
                     },
                   ),
@@ -98,8 +97,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'WORLD_PRAYERS_2'.tr(),
                     image: AssetsData.globe,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.worldPrayersView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
                     },
                   ),
                 ),

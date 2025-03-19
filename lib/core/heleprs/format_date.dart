@@ -1,5 +1,6 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:islamic_calander_2/core/heleprs/convert_numbers_to_arabic.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 
@@ -59,10 +60,10 @@ String formatGregorianDateToArabic(String gergorianDate) {
       if (date.length != 3) return gergorianDate;
       // date = date.reversed.toList();
       date[1] = monthMapping[date[1].toLowerCase()] ?? date[1];
-      return date.join(' - ');
+      return convertNumberToArabic(date.join(' - '));
     } else {
       DateTime parsedDate = DateFormat("MMMM d, yyyy", "en_US").parse(gergorianDate);
-      return DateFormat.yMMMMd('ar').format(parsedDate);
+      return convertNumberToArabic(DateFormat.yMMMMd('ar').format(parsedDate));
     }
   } on Exception catch (_) {
     return gergorianDate;
@@ -118,5 +119,5 @@ String localizeHijriDate(String? inputDate) {
   }
   String localizedDate = "$arabicDay $dayNumber $arabicMonth $year";
 
-  return localizedDate;
+  return convertNumberToArabic(localizedDate);
 }
