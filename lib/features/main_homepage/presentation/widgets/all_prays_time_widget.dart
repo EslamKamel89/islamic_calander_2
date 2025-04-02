@@ -114,7 +114,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
       cubit.params = cubit.params.copyWith(
         latitude: positionInMemory.latitude,
         longitude: positionInMemory.longitude,
-        method: IslamicOrganization.muslimWorldLeague,
+        method: selectedPrayersNotifier.value,
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         date: selectedDate,
       );
@@ -127,7 +127,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
       cubit.params = cubit.params.copyWith(
         latitude: positionNotifier.value!.latitude,
         longitude: positionNotifier.value!.longitude,
-        method: IslamicOrganization.muslimWorldLeague,
+        method: selectedPrayersNotifier.value,
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         date: selectedDate,
       );
