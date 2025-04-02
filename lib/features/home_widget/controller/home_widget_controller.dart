@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:home_widget/home_widget.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
@@ -9,23 +10,31 @@ import 'package:islamic_calander_2/features/main_homepage/controllers/prayers_co
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
 
 class HomeWidgetController {
-  static const String t = 'delete-debug';
+  static const String t = 'HomeWidgetController';
   static const String appGroupId = 'group.islamicwidget';
   static const String androidWidgetName = 'IslamicWidget';
   static const String iosWidgetName = 'IslamicWidget';
-  static void sendDataToHomeWidget(PrayersTimeModel? model) {
-    if (model == null) return;
+
+  static void syncHomeWidgetState(HomeWidgetState state) {
     HomeWidget.setAppGroupId(appGroupId);
 
     HomeWidget.saveWidgetData(
       'data',
-      pr(
+      state.prayers,
+    );
+
+    HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
+  }
+
+  static void sendDataToHomeWidget(PrayersTimeModel? model) {
+    if (model == null) return;
+    homeWidgetState = homeWidgetState.copyWith(
+      prayers: pr(
         "${_formatDateTime(model.fajr)},${_formatDateTime(model.sunrise)},${_formatDateTime(model.dhuhr)},${_formatDateTime(model.asr)},${_formatDateTime(model.maghrib)},${_formatDateTime(model.isha)}",
         t,
       ),
     );
-
-    HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
+    syncHomeWidgetState(homeWidgetState);
   }
 
   static void getPrayerTimes() {
@@ -64,4 +73,24 @@ class HomeWidgetController {
             : hour;
     return '${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm';
   }
+}
+
+var homeWidgetState = HomeWidgetState();
+
+class HomeWidgetState {
+  final String? prayers;
+  HomeWidgetState({
+    this.prayers,
+  });
+
+  HomeWidgetState copyWith({
+    String? prayers,
+  }) {
+    return HomeWidgetState(
+      prayers: prayers ?? this.prayers,
+    );
+  }
+
+  @override
+  String toString() => 'HomeWidgetState(prayers: $prayers)';
 }
