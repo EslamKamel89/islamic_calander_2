@@ -21,7 +21,7 @@ class PrayerTimesApiCubit extends Cubit<ApiResponseModel<PrayersTimeModel>> {
     final res = pr(await controller.prayerTime(params), t);
     emit(res);
     if (isSameDate(params.date, DateTime.now())) {
-      HomeWidgetController.sendDataToHomeWidget(res.data);
+      HomeWidgetController.updateHomeWidgetPrayersTime(res.data);
     }
   }
 }

@@ -11,13 +11,22 @@ import SwiftUI
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         let placeholderJSON = "00:00,00:00,00:00,00:00,00:00,00:00"
-        return SimpleEntry(date: Date(), data: placeholderJSON  )
+        return SimpleEntry(
+            date: Date(),
+            data: placeholderJSON ,
+            greogrianDate : "" ,
+            currentHijri :"" ,
+            newHijri: ""
+        )
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
           let userDefaults = UserDefaults(suiteName: "group.islamicwidget")
           let data = userDefaults?.string(forKey: "data") ?? ""
-          let entry = SimpleEntry(date: Date(), data: data)
+          let gerogrianDate = userDefaults?.string(forKey: "gerogrianDate") ?? ""
+          let currentHijri = userDefaults?.string(forKey: "currentHijri") ?? ""
+          let newHijri = userDefaults?.string(forKey: "newHijri") ?? ""
+        let entry = SimpleEntry(date: Date(), data: data , greogrianDate: gerogrianDate , currentHijri: currentHijri , newHijri: newHijri) ;
           completion(entry)
       }
 
@@ -32,6 +41,9 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let data: String
+    let greogrianDate:String
+    let currentHijri : String
+    let newHijri : String
 }
 
 struct PrayerView: View {
@@ -115,15 +127,50 @@ struct IslamicWidgetEntryView : View {
             case .systemLarge:
                 // For large size, display all prayers in a grid layout.
                 let columns = [GridItem(.flexible()), GridItem(.flexible())]
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(prayers) { prayer in
-                        PrayerView(
-                            prayer: prayer,
-                            imageSize: CGSize(width: 50, height: 45)
-                        )
+                VStack(spacing:4){
+                    HStack(spacing: 5) {
+                       Text("Today: ")
+                           .font(.subheadline)
+//                           .foregroundColor(.gray)
+                           .minimumScaleFactor(0.8)
+                       Text(entry.greogrianDate)
+                           .font(.caption2)
+//                           .foregroundColor(.gray)
+                           .minimumScaleFactor(0.8)
+                   }
+                                   // Hijri section
+                    HStack(spacing: 5) {
+                        Text("Current Hijri: ")
+                            .font(.subheadline)
+ //                           .foregroundColor(.gray)
+                            .minimumScaleFactor(0.8)
+                        Text(entry.currentHijri)
+                            .font(.caption2)
+ //                           .foregroundColor(.gray)
+                            .minimumScaleFactor(0.8)
                     }
+                   HStack(spacing: 5) {
+                       Text("Real Hijri: ")
+                           .font(.subheadline)
+//                           .foregroundColor(.gray)
+                           .minimumScaleFactor(0.8)
+                       Text(entry.newHijri)
+                           .font(.caption2)
+//                           .foregroundColor(.gray)
+                           .minimumScaleFactor(0.8)
+                   }
+                    
+                    LazyVGrid(columns: columns, spacing: 8) {
+                        ForEach(prayers) { prayer in
+                            PrayerView(
+                                prayer: prayer,
+                                
+                                imageSize: CGSize(width: 50, height: 40)
+                            )
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
             default:
                 // Fallback: a horizontal scroll view.
                 ScrollView(.horizontal, showsIndicators: false) {

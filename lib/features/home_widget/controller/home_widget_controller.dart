@@ -2,6 +2,7 @@
 import 'package:home_widget/home_widget.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
@@ -17,22 +18,40 @@ class HomeWidgetController {
 
   static void syncHomeWidgetState(HomeWidgetState state) {
     HomeWidget.setAppGroupId(appGroupId);
-
+    pr(state, t);
     HomeWidget.saveWidgetData(
       'data',
       state.prayers,
     );
-
+    HomeWidget.saveWidgetData(
+      'gerogrianDate',
+      state.greogrianDate?.trim() ?? '',
+    );
+    HomeWidget.saveWidgetData(
+      'currentHijri',
+      state.currentHijri?.trim() ?? '',
+    );
+    HomeWidget.saveWidgetData(
+      'newHijri',
+      // 'hello world',
+      state.newHijri?.trim().replaceAll('I', '') ?? '',
+    );
     HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
   }
 
-  static void sendDataToHomeWidget(PrayersTimeModel? model) {
+  static void updateHomeWidgetPrayersTime(PrayersTimeModel? model) {
     if (model == null) return;
     homeWidgetState = homeWidgetState.copyWith(
-      prayers: pr(
-        "${_formatDateTime(model.fajr)},${_formatDateTime(model.sunrise)},${_formatDateTime(model.dhuhr)},${_formatDateTime(model.asr)},${_formatDateTime(model.maghrib)},${_formatDateTime(model.isha)}",
-        t,
-      ),
+        prayers:
+            "${_formatDateTime(model.fajr)},${_formatDateTime(model.sunrise)},${_formatDateTime(model.dhuhr)},${_formatDateTime(model.asr)},${_formatDateTime(model.maghrib)},${_formatDateTime(model.isha)}");
+    syncHomeWidgetState(homeWidgetState);
+  }
+
+  static void updateHomeWidgetHijriDate(String? currnentHijri, String? newHijri) {
+    homeWidgetState = homeWidgetState.copyWith(
+      greogrianDate: formateDateEgnlish(DateTime.now()),
+      currentHijri: currnentHijri,
+      newHijri: newHijri,
     );
     syncHomeWidgetState(homeWidgetState);
   }
@@ -52,7 +71,7 @@ class HomeWidgetController {
       if (prayersResponse.response != ResponseEnum.success) return;
       // pr(prayersResponse.data, t);
 
-      sendDataToHomeWidget(prayersResponse.data);
+      updateHomeWidgetPrayersTime(prayersResponse.data);
     });
   }
 
@@ -71,7 +90,7 @@ class HomeWidgetController {
         : hour > 12
             ? hour - 12
             : hour;
-    return '${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm';
+    return '${hour.toString().padLeft(2, '0')}:$minStr $amOrpm';
   }
 }
 
@@ -79,18 +98,32 @@ var homeWidgetState = HomeWidgetState();
 
 class HomeWidgetState {
   final String? prayers;
+  final String? greogrianDate;
+  final String? currentHijri;
+  final String? newHijri;
   HomeWidgetState({
     this.prayers,
+    this.greogrianDate,
+    this.currentHijri,
+    this.newHijri,
   });
 
   HomeWidgetState copyWith({
     String? prayers,
+    String? greogrianDate,
+    String? currentHijri,
+    String? newHijri,
   }) {
     return HomeWidgetState(
       prayers: prayers ?? this.prayers,
+      greogrianDate: greogrianDate ?? this.greogrianDate,
+      currentHijri: currentHijri ?? this.currentHijri,
+      newHijri: newHijri ?? this.newHijri,
     );
   }
 
   @override
-  String toString() => 'HomeWidgetState(prayers: $prayers)';
+  String toString() {
+    return 'HomeWidgetState(prayers: $prayers, greogrianDate: $greogrianDate, currentHijri: $currentHijri, newHijri: $newHijri)';
+  }
 }

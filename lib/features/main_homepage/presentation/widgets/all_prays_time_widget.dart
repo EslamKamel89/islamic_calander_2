@@ -10,6 +10,7 @@ import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
+import 'package:islamic_calander_2/core/heleprs/is_the_same_date.dart';
 import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_locale.dart';
@@ -19,6 +20,7 @@ import 'package:islamic_calander_2/core/widgets/custom_fading_widget.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
+import 'package:islamic_calander_2/features/home_widget/controller/home_widget_controller.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/prayers_time_api/prayers_time_api_cubit.dart';
@@ -98,6 +100,9 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
             data: ApiLocale(ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
           );
         });
+        if (isSameDate(selectedDate, DateTime.now())) {
+          HomeWidgetController.updateHomeWidgetHijriDate(model.selectedOldHijriDate, model.newHijriUpdated);
+        }
       }
     });
   }
