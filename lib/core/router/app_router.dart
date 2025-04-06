@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/router/middleware.dart';
 import 'package:islamic_calander_2/core/widgets/splash_screen.dart';
+import 'package:islamic_calander_2/features/about/presentation/views/about_view.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/date_conversion_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/date_month_view.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/date_year_view.dart';
@@ -63,6 +64,11 @@ class AppRouter {
           builder: (context) => const WorldPrayersView(),
           settings: routeSettings,
         );
+      case AppRoutesNames.aboutView:
+        return CustomPageRoute(
+          builder: (context) => const AboutProvider(),
+          settings: routeSettings,
+        );
       default:
         return null;
     }
@@ -70,8 +76,7 @@ class AppRouter {
 }
 
 class CustomPageRoute<T> extends MaterialPageRoute<T> {
-  CustomPageRoute(
-      {required super.builder, required RouteSettings super.settings});
+  CustomPageRoute({required super.builder, required RouteSettings super.settings});
   @override
   Widget buildTransitions(
     BuildContext context,

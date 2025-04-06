@@ -101,7 +101,15 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     },
                   ),
                 ),
-                const Expanded(child: SizedBox())
+                Expanded(
+                  child: GridItem(
+                    title: 'ABOUT'.tr(),
+                    image: AssetsData.about,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(AppRoutesNames.aboutView);
+                    },
+                  ),
+                )
               ],
             ),
           ],
