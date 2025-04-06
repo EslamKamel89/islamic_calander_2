@@ -1,0 +1,2 @@
+D:/windows/my_projects/calander-final/fix/islamic_calander_2/android/app/.cxx/Debug/2mh6ge49/x86_64/CMakeFiles/edit_cache.dir
+D:/windows/my_projects/calander-final/fix/islamic_calander_2/android/app/.cxx/Debug/2mh6ge49/x86_64/CMakeFiles/rebuild_cache.dir
