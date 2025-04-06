@@ -5,6 +5,7 @@ import 'package:islamic_calander_2/core/api_service/dio_consumer.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
 import 'package:islamic_calander_2/core/router/app_router.dart';
 import 'package:islamic_calander_2/core/router/middleware.dart';
+import 'package:islamic_calander_2/features/about/controllers/about_controller.dart';
 import 'package:islamic_calander_2/features/date_conversion/data/data_source/date_conversion_data_source.dart';
 import 'package:islamic_calander_2/features/date_conversion/data/repos/date_conversion_repo_impl.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
@@ -19,25 +20,23 @@ final GetIt serviceLocator = GetIt.instance;
 
 Future initServiceLocator() async {
   serviceLocator.registerLazySingleton<Dio>(() => Dio());
-  serviceLocator.registerLazySingleton<ApiConsumer>(
-      () => DioConsumer(dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<ApiConsumer>(() => DioConsumer(dio: serviceLocator()));
   final prefs = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton<SharedPreferences>(() => prefs);
   serviceLocator.registerLazySingleton<AppMiddleWare>(
       () => AppMiddleWare(sharedPreferences: serviceLocator()));
-  serviceLocator.registerLazySingleton<AppRouter>(
-      () => AppRouter(appMiddleWare: serviceLocator()));
+  serviceLocator.registerLazySingleton<AppRouter>(() => AppRouter(appMiddleWare: serviceLocator()));
   serviceLocator.registerSingleton(GeoPosition());
-  serviceLocator.registerLazySingleton<HomeRepoDataSource>(
-      () => HomeRepoDataSource(api: serviceLocator()));
+  serviceLocator
+      .registerLazySingleton<HomeRepoDataSource>(() => HomeRepoDataSource(api: serviceLocator()));
   serviceLocator.registerLazySingleton<DateConversionRepo>(
       () => DateConversionRepoImpl(homeRepoDataSource: serviceLocator()));
   serviceLocator.registerLazySingleton<DateInfoRemoteDataSource>(
       () => DateInfoRemoteDataSource(api: serviceLocator()));
   serviceLocator.registerLazySingleton<DateInfoRepo>(
       () => DateInfoRepoImpl(dateInfoRemoteDataSource: serviceLocator()));
-  serviceLocator
-      .registerLazySingleton<PrayersController>(() => PrayersController());
-  serviceLocator
-      .registerLazySingleton<MoonImageController>(() => MoonImageController());
+  serviceLocator.registerLazySingleton<PrayersController>(() => PrayersController());
+  serviceLocator.registerLazySingleton<MoonImageController>(() => MoonImageController());
+
+  serviceLocator.registerLazySingleton<AboutController>(() => AboutController());
 }
