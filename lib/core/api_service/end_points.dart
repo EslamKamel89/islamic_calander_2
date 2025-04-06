@@ -22,7 +22,7 @@ class EndPoint {
         'Authorization':
             'Basic ${base64Encode(utf8.encode('$applicationID:$applicationSecretKey'))}'
       };
-  static const String about = "$baseUrl/about.php";
+  static const String about = "$baseUrl/moon/api/about.php";
   // {
   //   'Authorization':
   //       'Basic NjE5OWM1MmItYTIxMi00ZjFhLWJlMDEtYWVlZTUzZWJkMDRhOmU4NDQ1MTY4ZjkxOWRmZWUxNGJiMjAxZDU0YmZhNzc2NTJjZGIwMWYwNThkNDI3ZGMzNjkyODBkNGIwYmRjZmYyZDI1MWM4NzJiM2M0OTFjMjFmNWNlZTA4MzZkNDAzNWNmNjAxMDMyMzk2OTA4MDNlNWRjNjkxY2E2NTQzMjJjZDk4ZTk4MTNmNTdjOWE1YTRlMDc5ZDljM2YyZmU5ZWI5OGJkYzRiNDJkZjMzNzg2ODMxZjllMjFjNWExZDY2YTU3ZTc2OGIyNTZhNDhkODI2Yzc0ODM3ZjNiYTJjM2My'

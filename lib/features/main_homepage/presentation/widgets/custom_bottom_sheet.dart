@@ -12,8 +12,7 @@ class MainpageBottomSheetWidget extends StatefulWidget {
   });
 
   @override
-  State<MainpageBottomSheetWidget> createState() =>
-      _MainpageBottomSheetWidgetState();
+  State<MainpageBottomSheetWidget> createState() => _MainpageBottomSheetWidgetState();
 }
 
 class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
@@ -34,8 +33,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: "DATE_CONVERSION".tr(),
                     image: AssetsData.dateConversionIcon,
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.dateConversionView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.dateConversionView);
                     },
                   ),
                 ),
@@ -44,8 +42,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'MOON_PHASE'.tr(),
                     image: AssetsData.moonIcon,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.moonPhaseView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.moonPhaseView);
                     },
                   ),
                 ),
@@ -54,8 +51,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'ECLIPSE'.tr(),
                     image: AssetsData.moonEclipseIcon,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.eclipseView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.eclipseView);
                     },
                   ),
                 ),
@@ -64,8 +60,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'FIND_QIBLA'.tr(),
                     image: AssetsData.compass,
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.qiblaFinderView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
                     },
                   ),
                 ),
@@ -102,8 +97,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'WORLD_PRAYERS_2'.tr(),
                     image: AssetsData.globe,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.worldPrayersView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
                     },
                   ),
                 ),
@@ -112,8 +106,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     title: 'ABOUT'.tr(),
                     image: AssetsData.about,
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(AppRoutesNames.worldPrayersView);
+                      Navigator.of(context).pushNamed(AppRoutesNames.aboutView);
                     },
                   ),
                 )
