@@ -58,7 +58,8 @@ class AppPrayersTimeBuilder extends StatefulWidget {
 
 class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   DateTime selectedDate = DateTime.now();
-  ApiResponseModel<ApiLocale?> newHijriDate = ApiResponseModel(response: ResponseEnum.initial);
+  ApiResponseModel<ApiLocale?> newHijriDate =
+      ApiResponseModel(response: ResponseEnum.initial);
   late PrayerTimesApiCubit cubit;
   late MoonImageCubit moonImageCubit;
   @override
@@ -83,32 +84,39 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   Future _getNewHijri() async {
     setState(() {
-      newHijriDate = newHijriDate.copyWith(response: ResponseEnum.loading, errorMessage: null);
+      newHijriDate = newHijriDate.copyWith(
+          response: ResponseEnum.loading, errorMessage: null);
     });
     DateConversionRepo repo = serviceLocator();
     final response = await repo.getDateConversion(
-        selectedDate, context.read<DateConversionCubit>().state.selectedOption ?? DataProcessingOption.regular);
+        selectedDate,
+        context.read<DateConversionCubit>().state.selectedOption ??
+            DataProcessingOption.regular);
     response.fold((_) {
       setState(() {
-        newHijriDate = newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');
+        newHijriDate = newHijriDate.copyWith(
+            response: ResponseEnum.failure, errorMessage: 'Error Occured');
       });
     }, (model) {
       if (mounted) {
         setState(() {
           newHijriDate = ApiResponseModel(
             response: ResponseEnum.success,
-            data: ApiLocale(ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
+            data: ApiLocale(
+                ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
           );
         });
         if (isSameDate(selectedDate, DateTime.now())) {
-          HomeWidgetController.updateHomeWidgetHijriDate(model.selectedOldHijriDate, model.newHijriUpdated);
+          HomeWidgetController.updateHomeWidgetHijriDate(
+              model.selectedOldHijriDate, model.newHijriUpdated);
         }
       }
     });
   }
 
   Future _getPrayerTime() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.getPrayerTime() in  AppPrayersTimeBuilder widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.params = cubit.params.copyWith(
@@ -141,8 +149,10 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     if ([position, position?.latitude, position?.longitude].contains(null)) {
       return;
     }
-    cubit.params =
-        cubit.params.copyWith(date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+    cubit.params = cubit.params.copyWith(
+        date: selectedDate,
+        latitude: position!.latitude,
+        longitude: position.longitude);
     cubit.getPrayerTime();
     moonImageCubit.dateTime = selectedDate;
     moonImageCubit.moonImage();
@@ -171,7 +181,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                   children: [
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.subtract(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.subtract(const Duration(days: 1));
                           // selectedDate = DateTime(620);
                           await _handleDateChange();
                         },
@@ -187,17 +198,20 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                                   .animate(onPlay: (c) => c.repeat())
                                   .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
                                   .then()
-                                  .fade(duration: 1000.ms, begin: 0.7, end: 0.2),
+                                  .fade(
+                                      duration: 1000.ms, begin: 0.7, end: 0.2),
                         ],
                       );
                     }),
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.add(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.add(const Duration(days: 1));
                           // selectedDate = DateTime(625);
                           await _handleDateChange();
                         },
-                        child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
+                        child:
+                            Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
                 ),
               ),
@@ -211,7 +225,9 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child: PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+                  child: PrayersWidget(state.data)
+                      .animate()
+                      .fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -287,7 +303,11 @@ class PrayersWidget extends StatelessWidget {
 }
 
 class PrayTimeWidget extends StatelessWidget {
-  const PrayTimeWidget({super.key, required this.pray, required this.imagePath, required this.time});
+  const PrayTimeWidget(
+      {super.key,
+      required this.pray,
+      required this.imagePath,
+      required this.time});
   final String pray;
   final String? time;
   final String imagePath;
@@ -320,7 +340,8 @@ class PrayTimeWidget extends StatelessWidget {
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg16),
+          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm',
+              e: St.reg16),
         ],
       ),
     );

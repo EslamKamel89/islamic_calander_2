@@ -62,7 +62,8 @@ String formatGregorianDateToArabic(String gergorianDate) {
       date[1] = monthMapping[date[1].toLowerCase()] ?? date[1];
       return convertNumberToArabic(date.join(' - '));
     } else {
-      DateTime parsedDate = DateFormat("MMMM d, yyyy", "en_US").parse(gergorianDate);
+      DateTime parsedDate =
+          DateFormat("MMMM d, yyyy", "en_US").parse(gergorianDate);
       return convertNumberToArabic(DateFormat.yMMMMd('ar').format(parsedDate));
     }
   } on Exception catch (_) {

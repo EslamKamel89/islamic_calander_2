@@ -21,7 +21,11 @@ class _HomeWidgetViewState extends State<HomeWidgetView> {
         appBar: AppBar(title: Text('Home Widget')),
         body: SingleChildScrollView(
           child: Column(
-            children: [Padding(padding: EdgeInsets.symmetric(horizontal: 15), child: HomeWidgetPrayersTime())],
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: HomeWidgetPrayersTime())
+            ],
           ),
         ),
       ),
@@ -127,7 +131,8 @@ class HomeWidgetPrayersTime extends StatelessWidget {
 }
 
 class SinglePrayer extends StatelessWidget {
-  const SinglePrayer({super.key, required this.prayerName, required this.prayerTime});
+  const SinglePrayer(
+      {super.key, required this.prayerName, required this.prayerTime});
   final String prayerName;
   final String prayerTime;
   @override

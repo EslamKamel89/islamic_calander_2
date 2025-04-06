@@ -29,7 +29,8 @@ class HomeRepoDataSource {
       'day': day,
       'lang': isEnglish() ? 'en' : 'ar',
     });
-    SelectedDateConvLocalizedModel model = pr(SelectedDateConvLocalizedModel.fromJson(jsonDecode(data)), t);
+    SelectedDateConvLocalizedModel model =
+        pr(SelectedDateConvLocalizedModel.fromJson(jsonDecode(data)), t);
     return model;
   }
 }

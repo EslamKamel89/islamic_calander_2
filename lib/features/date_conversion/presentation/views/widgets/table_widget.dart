@@ -34,7 +34,8 @@ class _TableWidgetState extends State<TableWidget> {
               return current.buildWhen == 'UPDATE_TABLE_WIDGET';
             },
             builder: (context, state) {
-              DateTime selectedGeorgianDate = controller.state.selectedGeorgianDate ?? DateTime.now();
+              DateTime selectedGeorgianDate =
+                  controller.state.selectedGeorgianDate ?? DateTime.now();
               return TableCalendar(
                 locale: context.locale.languageCode,
                 firstDay: state.firstDay,
@@ -114,14 +115,16 @@ class _TableWidgetState extends State<TableWidget> {
                 padding: const EdgeInsets.all(16.0),
                 height: 250.h,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(20.0)),
                   color: context.secondaryHeaderColor.withOpacity(0.4),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    txt('DATE_INFO'.tr(), e: St.bold18, c: context.primaryColor),
+                    txt('DATE_INFO'.tr(),
+                        e: St.bold18, c: context.primaryColor),
                     const SizedBox(height: 20.0),
                     Expanded(
                       child: Column(
@@ -130,7 +133,9 @@ class _TableWidgetState extends State<TableWidget> {
                           _buildDateRow(
                             image: 'calendar_5.png',
                             title: 'GEORGIAN'.tr(),
-                            date: formateDateDetailed((state.selectedDateConversionEntity?.selectedGeorgianDate)!),
+                            date: formateDateDetailed((state
+                                .selectedDateConversionEntity
+                                ?.selectedGeorgianDate)!),
                           ),
                           _buildDateRow(
                               image: 'calendar_7.png',
@@ -139,9 +144,12 @@ class _TableWidgetState extends State<TableWidget> {
                               //     ? (state.selectedDateConversionEntity?.newHijriUpdated ?? '')
                               //     : (state.selectedDateConversionEntity?.newHijriUpdatedAr ?? ''),
                               date: _localize(
-                                state.selectedDateConversionEntity?.newHijriUpdated,
-                                state.selectedDateConversionEntity?.newHijriUpdatedAr,
-                                state.selectedDateConversionEntity?.selectedGeorgianDate,
+                                state.selectedDateConversionEntity
+                                    ?.newHijriUpdated,
+                                state.selectedDateConversionEntity
+                                    ?.newHijriUpdatedAr,
+                                state.selectedDateConversionEntity
+                                    ?.selectedGeorgianDate,
                               )),
                           _buildDateRow(
                               image: 'calendar_3.png',
@@ -150,9 +158,12 @@ class _TableWidgetState extends State<TableWidget> {
                               //     ? (state.selectedDateConversionEntity?.selectedOldHijriDate ?? '')
                               //     : (state.selectedDateConversionEntity?.selectedOldHijriDateAr ?? ''),
                               date: _localize(
-                                state.selectedDateConversionEntity?.selectedOldHijriDate,
-                                state.selectedDateConversionEntity?.selectedOldHijriDateAr,
-                                state.selectedDateConversionEntity?.selectedGeorgianDate,
+                                state.selectedDateConversionEntity
+                                    ?.selectedOldHijriDate,
+                                state.selectedDateConversionEntity
+                                    ?.selectedOldHijriDateAr,
+                                state.selectedDateConversionEntity
+                                    ?.selectedGeorgianDate,
                               )),
 
                           // _buildDateRow(
@@ -188,7 +199,8 @@ class _TableWidgetState extends State<TableWidget> {
     return '';
   }
 
-  Widget _buildDateRow({required String title, required String date, required image}) {
+  Widget _buildDateRow(
+      {required String title, required String date, required image}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(

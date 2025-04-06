@@ -15,5 +15,7 @@ String prayerNameTr(String prayer) {
     'firstthird': ['Firstthird', 'الثلث الأول'],
     'lastthird': ['Lastthird', 'الثلث الأخير'],
   };
-  return isEnglish() ? (translations[prayer]?[0] ?? '') : (translations[prayer]?[1] ?? '');
+  return isEnglish()
+      ? (translations[prayer]?[0] ?? '')
+      : (translations[prayer]?[1] ?? '');
 }

@@ -8,7 +8,8 @@ import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/moon_image_controller.dart';
 
 class MoonImageDetailedModal extends StatefulWidget {
-  const MoonImageDetailedModal({super.key, required this.position, required this.date});
+  const MoonImageDetailedModal(
+      {super.key, required this.position, required this.date});
   final Position position;
   final DateTime date;
   @override
@@ -16,7 +17,8 @@ class MoonImageDetailedModal extends StatefulWidget {
 }
 
 class _MoonImageDetailedModalState extends State<MoonImageDetailedModal> {
-  ApiResponseModel<String?> moonImage = ApiResponseModel(response: ResponseEnum.initial);
+  ApiResponseModel<String?> moonImage =
+      ApiResponseModel(response: ResponseEnum.initial);
   @override
   void initState() {
     _request();
@@ -36,25 +38,33 @@ class _MoonImageDetailedModalState extends State<MoonImageDetailedModal> {
         // padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 20.h),
         width: 500,
         height: 230,
-        child: moonImage.response == ResponseEnum.success && moonImage.data != null
-            ? Image.network(
-                moonImage.data ?? '',
-                fit: BoxFit.fill,
-              )
-            : const Center(child: CircularProgressIndicator()),
+        child:
+            moonImage.response == ResponseEnum.success && moonImage.data != null
+                ? Image.network(
+                    moonImage.data ?? '',
+                    fit: BoxFit.fill,
+                  )
+                : const Center(child: CircularProgressIndicator()),
       ),
     );
   }
 
   Future _request() async {
     final t = prt('_request - MoonImageDetailedModal');
-    final MoonImageController controller = serviceLocator<MoonImageController>();
+    final MoonImageController controller =
+        serviceLocator<MoonImageController>();
     if (mounted) {
       setState(() {
-        moonImage = pr(moonImage.copyWith(errorMessage: null, response: ResponseEnum.loading), t);
+        moonImage = pr(
+            moonImage.copyWith(
+                errorMessage: null, response: ResponseEnum.loading),
+            t);
       });
     }
-    moonImage = pr(await controller.moonImage(position: widget.position, dateTime: widget.date, showInfo: true), t);
+    moonImage = pr(
+        await controller.moonImage(
+            position: widget.position, dateTime: widget.date, showInfo: true),
+        t);
     if (mounted) {
       setState(() {});
     }

@@ -29,7 +29,8 @@ class CityWidget extends StatefulWidget {
 
 class _CityWidgetState extends State<CityWidget> {
   String? deviceLocation;
-  ApiResponseModel<LocationInfoModel> locationInfoApi = ApiResponseModel<LocationInfoModel>(
+  ApiResponseModel<LocationInfoModel> locationInfoApi =
+      ApiResponseModel<LocationInfoModel>(
     response: ResponseEnum.initial,
   );
   @override
@@ -39,7 +40,8 @@ class _CityWidgetState extends State<CityWidget> {
   }
 
   Future _getLocationData() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       await _request(positionInMemory);
       return;
@@ -74,7 +76,8 @@ class _CityWidgetState extends State<CityWidget> {
                       decoration: const BoxDecoration(
                         color: Colors.transparent,
                       ),
-                      margin: EdgeInsets.symmetric(vertical: 15.w, horizontal: 20.h),
+                      margin: EdgeInsets.symmetric(
+                          vertical: 15.w, horizontal: 20.h),
                       child: Row(
                         children: [
                           lotte,
@@ -82,8 +85,10 @@ class _CityWidgetState extends State<CityWidget> {
                           Expanded(
                             child: Text(
                               isEnglish()
-                                  ? (locationInfoApi.data?.displayName?.en ?? '')
-                                  : (locationInfoApi.data?.displayName?.ar ?? ''),
+                                  ? (locationInfoApi.data?.displayName?.en ??
+                                      '')
+                                  : (locationInfoApi.data?.displayName?.ar ??
+                                      ''),
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -113,7 +118,11 @@ class _CityWidgetState extends State<CityWidget> {
                       _locationStr(locationInfoApi.data),
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     )
-                  : LoadingWidget(rowCount: 1, height: 15, space: 5, width: context.width - 50),
+                  : LoadingWidget(
+                      rowCount: 1,
+                      height: 15,
+                      space: 5,
+                      width: context.width - 50),
             )
             // .animate().moveX(duration: 1000.ms, begin: 200, end: 0),
           ],
@@ -124,7 +133,8 @@ class _CityWidgetState extends State<CityWidget> {
 
   Future _request(Position position) async {
     final t = prt('_fetchLocationData - CityWidget');
-    String url = "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+    String url =
+        "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
     final api = serviceLocator<ApiConsumer>();
     try {
       setState(() {
@@ -146,7 +156,10 @@ class _CityWidgetState extends State<CityWidget> {
       }
       showSnackbar('Error', errorMessage, true);
       setState(() {
-        locationInfoApi = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+        locationInfoApi = pr(
+            ApiResponseModel(
+                errorMessage: errorMessage, response: ResponseEnum.failure),
+            t);
       });
     }
   }

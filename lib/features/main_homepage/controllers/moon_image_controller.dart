@@ -17,7 +17,9 @@ class MoonImageController {
   ApiConsumer api = serviceLocator();
 
   Future<ApiResponseModel<String?>> moonImage(
-      {required Position position, required DateTime dateTime, bool showInfo = false}) async {
+      {required Position position,
+      required DateTime dateTime,
+      bool showInfo = false}) async {
     final t = prt('moonImage - MoonImageController');
     try {
       final temp = api.dio.options.headers;
@@ -42,11 +44,15 @@ class MoonImageController {
       if (context != null) {
         showSnackbar('Error', errorMessage, true);
       }
-      return pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+      return pr(
+          ApiResponseModel(
+              errorMessage: errorMessage, response: ResponseEnum.failure),
+          t);
     }
   }
 
-  Map<String, dynamic> _requestData(Position position, DateTime dateTime, bool showInfo) {
+  Map<String, dynamic> _requestData(
+      Position position, DateTime dateTime, bool showInfo) {
     return {
       "format": "png",
       "style": {

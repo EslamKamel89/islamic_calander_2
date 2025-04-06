@@ -14,7 +14,8 @@ class MoonPhasesDropdownWidget extends StatefulWidget {
   });
   final Function handleMonthSelected;
   @override
-  MoonPhasesDropdownWidgetState createState() => MoonPhasesDropdownWidgetState();
+  MoonPhasesDropdownWidgetState createState() =>
+      MoonPhasesDropdownWidgetState();
 }
 
 class MoonPhasesDropdownWidgetState extends State<MoonPhasesDropdownWidget> {
@@ -34,10 +35,13 @@ class MoonPhasesDropdownWidgetState extends State<MoonPhasesDropdownWidget> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(monthDrawerItem.icon, color: context.secondaryHeaderColor, size: 20.w),
+                    Icon(monthDrawerItem.icon,
+                        color: context.secondaryHeaderColor, size: 20.w),
                     const Sizer(),
                     Text(
-                      isEnglish() ? monthDrawerItem.moon.toFullString() : monthDrawerItem.moon.toArabic(),
+                      isEnglish()
+                          ? monthDrawerItem.moon.toFullString()
+                          : monthDrawerItem.moon.toArabic(),
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -81,6 +85,7 @@ class MoonDrawerItem {
 final List<MoonDrawerItem> moonPhases = [
   MoonDrawerItem(moon: MoonPhaseEnum.fullMoon, icon: MdiIcons.moonFull),
   MoonDrawerItem(moon: MoonPhaseEnum.lastMoon, icon: MdiIcons.moonLastQuarter),
-  MoonDrawerItem(moon: MoonPhaseEnum.firstMoon, icon: MdiIcons.moonFirstQuarter),
+  MoonDrawerItem(
+      moon: MoonPhaseEnum.firstMoon, icon: MdiIcons.moonFirstQuarter),
   MoonDrawerItem(moon: MoonPhaseEnum.newMoon, icon: MdiIcons.moonNew),
 ];

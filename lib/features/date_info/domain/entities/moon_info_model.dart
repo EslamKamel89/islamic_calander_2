@@ -45,8 +45,11 @@ class MoonInfoModel {
   String getPahse() {
     try {
       if (isEnglish() || phase == null) return phase ?? '';
-      final phases = MoonPhaseEnum.values
-          .where((e) => e.toFullString2().trim().toLowerCase().contains(phase!.trim().toLowerCase()));
+      final phases = MoonPhaseEnum.values.where((e) => e
+          .toFullString2()
+          .trim()
+          .toLowerCase()
+          .contains(phase!.trim().toLowerCase()));
       if (phases.isEmpty) return phase ?? '';
       return phases.first.toArabic();
     } on Exception catch (_) {
@@ -67,7 +70,11 @@ class MoonInfoModel {
   String getEclipse() {
     if (isEnglish()) return ecllipse ?? '';
     return EclipseEnum.values
-        .where((e) => e.toFullString().trim().toLowerCase().contains(ecllipse!.trim().toLowerCase()))
+        .where((e) => e
+            .toFullString()
+            .trim()
+            .toLowerCase()
+            .contains(ecllipse!.trim().toLowerCase()))
         .first
         .toArabic();
   }

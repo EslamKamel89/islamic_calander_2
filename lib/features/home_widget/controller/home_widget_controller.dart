@@ -36,7 +36,8 @@ class HomeWidgetController {
       // 'hello world',
       state.newHijri?.trim().replaceAll('I', '') ?? '',
     );
-    HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
+    HomeWidget.updateWidget(
+        iOSName: iosWidgetName, androidName: androidWidgetName);
   }
 
   static void updateHomeWidgetPrayersTime(PrayersTimeModel? model) {
@@ -47,7 +48,8 @@ class HomeWidgetController {
     syncHomeWidgetState(homeWidgetState);
   }
 
-  static void updateHomeWidgetHijriDate(String? currnentHijri, String? newHijri) {
+  static void updateHomeWidgetHijriDate(
+      String? currnentHijri, String? newHijri) {
     homeWidgetState = homeWidgetState.copyWith(
       greogrianDate: formateDateEgnlish(DateTime.now()),
       currentHijri: currnentHijri,
@@ -67,7 +69,8 @@ class HomeWidgetController {
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         date: DateTime.now(),
       );
-      final prayersResponse = await serviceLocator<PrayersController>().prayerTime(params);
+      final prayersResponse =
+          await serviceLocator<PrayersController>().prayerTime(params);
       if (prayersResponse.response != ResponseEnum.success) return;
       // pr(prayersResponse.data, t);
 

@@ -43,7 +43,13 @@ class _PrayerCardState extends State<PrayerCard> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: const [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
+              colors: const [
+                Colors.black,
+                Colors.black,
+                Colors.black87,
+                Colors.black54,
+                Color(0xFF0D3B66)
+              ],
               stops: const [0.0, 0.5, 0.65, 0.8, 1.0],
               begin: isEnglish() ? Alignment.centerLeft : Alignment.centerRight,
               end: isEnglish() ? Alignment.centerRight : Alignment.centerLeft,
@@ -62,7 +68,8 @@ class _PrayerCardState extends State<PrayerCard> {
                 textDirection: isEnglish() ? ltr : rtl,
                 child: Transform.translate(
                   offset: Offset(0, -20.h),
-                  child: Transform.flip(flipX: !isEnglish(), child: const MoonPhaseImage()),
+                  child: Transform.flip(
+                      flipX: !isEnglish(), child: const MoonPhaseImage()),
                 ),
               ),
               Container(
@@ -124,7 +131,8 @@ class _PrayerCardState extends State<PrayerCard> {
                 bottom: 15,
                 right: 10,
                 left: 10,
-                child: SizedBox(width: context.width, child: const CityWidget()),
+                child:
+                    SizedBox(width: context.width, child: const CityWidget()),
               ),
             ],
           ),

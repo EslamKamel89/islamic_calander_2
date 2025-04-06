@@ -28,7 +28,8 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
   }
 
   Future _getMoonImage() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.moonImage() in  MoonPhaseImage widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.position = positionInMemory;
@@ -55,7 +56,8 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
             constraints: BoxConstraints(minHeight: context.height / 4),
             child: SizedBox(
                 // width: context.width * 0.7,
-                child: [ResponseEnum.loading, ResponseEnum.initial].contains(state.response)
+                child: [ResponseEnum.loading, ResponseEnum.initial]
+                        .contains(state.response)
                     ? LayoutBuilder(builder: (context, constraints) {
                         return Container(
                             margin: EdgeInsets.only(left: context.width / 5),
@@ -64,24 +66,33 @@ class _MoonPhaseImageState extends State<MoonPhaseImage> {
                               color: Colors.white,
                             )));
                       })
-                    : state.response == ResponseEnum.success && state.data != null
+                    : state.response == ResponseEnum.success &&
+                            state.data != null
                         ? SizedBox(
                             width: context.width * 0.7,
                             child: InkWell(
                               onTap: () {
-                                final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
-                                if ([positionInMemory, cubit.dateTime].contains(null)) return;
+                                final positionInMemory =
+                                    serviceLocator<GeoPosition>()
+                                        .getPositionInMemory();
+                                if ([positionInMemory, cubit.dateTime]
+                                    .contains(null)) return;
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return MoonImageDetailedModal(position: positionInMemory!, date: cubit.dateTime!);
+                                      return MoonImageDetailedModal(
+                                          position: positionInMemory!,
+                                          date: cubit.dateTime!);
                                     });
                               },
                               child: CachedNetworkImage(
                                 imageUrl: state.data!,
                               ),
                             ),
-                          ).animate().scale(duration: 1000.ms, begin: const Offset(0, 0), end: const Offset(1, 1))
+                          ).animate().scale(
+                            duration: 1000.ms,
+                            begin: const Offset(0, 0),
+                            end: const Offset(1, 1))
                         : const SizedBox()),
           ),
         );

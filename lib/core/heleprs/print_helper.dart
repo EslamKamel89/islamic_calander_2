@@ -8,7 +8,8 @@ T prt<T>(
   T title,
 ) {
   if (kDebugMode) {
-    String message = '${_toYellow("< eslam dev - ${title.toString()} >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ")} ';
+    String message =
+        '${_toYellow("< eslam dev - ${title.toString()} >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ")} ';
     print(message);
   }
   return title;
@@ -16,7 +17,8 @@ T prt<T>(
 
 T pr<T>(T variable, [String? title]) {
   if (kDebugMode) {
-    String message = '${_toRed("< eslam dev ${title == null ? "" : " - $title"}>")} '
+    String message =
+        '${_toRed("< eslam dev ${title == null ? "" : " - $title"}>")} '
         '${_toGreen(variable.toString())}';
     print(message);
   }
