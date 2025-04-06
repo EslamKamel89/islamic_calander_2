@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class GridItem extends StatelessWidget {
   const GridItem({
@@ -35,7 +34,7 @@ class GridItem extends StatelessWidget {
             Text(
               '$title\n',
               style:
-                  GoogleFonts.amiri(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               maxLines: 2,
             ),

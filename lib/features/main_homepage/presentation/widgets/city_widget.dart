@@ -124,7 +124,8 @@ class _CityWidgetState extends State<CityWidget> {
 
   Future _request(Position position) async {
     final t = prt('_fetchLocationData - CityWidget');
-    String url = "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+    String url =
+        "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
     final api = serviceLocator<ApiConsumer>();
     try {
       setState(() {
@@ -146,7 +147,8 @@ class _CityWidgetState extends State<CityWidget> {
       }
       showSnackbar('Error', errorMessage, true);
       setState(() {
-        locationInfoApi = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+        locationInfoApi =
+            pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
       });
     }
   }

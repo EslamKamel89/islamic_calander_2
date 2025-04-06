@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
@@ -86,7 +85,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       'NEXT_PRAYER'.tr(),
-                      style: GoogleFonts.amiri(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -94,7 +93,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       widget.prayerName,
-                      style: GoogleFonts.amiri(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -103,7 +102,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     const SizedBox(height: 8),
                     Text(
                       'TimeRemaining'.tr(),
-                      style: GoogleFonts.amiri(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -111,7 +110,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       timeRemainingText,
-                      style: GoogleFonts.amiri(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

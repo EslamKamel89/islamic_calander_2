@@ -101,7 +101,7 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
                             ? (wisdomApi.data?.wisdomEn ?? '')
                             : (wisdomApi.data?.wisdomAr ?? ''),
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.amiri(
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,

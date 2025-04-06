@@ -23,9 +23,7 @@ class HomepageHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             txt('New Islamic Calendar',
-                    e: St.bold18,
-                    googleFontCallback: GoogleFonts.cinzel,
-                    c: context.primaryColor)
+                    e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
                 .animate()
                 .moveX(duration: animationDuration, begin: -500, end: 0)
                 .scale(
@@ -33,10 +31,7 @@ class HomepageHeader extends StatelessWidget {
                     begin: const Offset(0, 0),
                     end: const Offset(1, 1)),
             SizedBox(height: 10.w),
-            txt('التقويم الهجري',
-                    e: St.bold18,
-                    googleFontCallback: GoogleFonts.amiri,
-                    c: context.primaryColor)
+            txt('التقويم الهجري', e: St.bold18, c: context.primaryColor)
                 .animate()
                 .moveX(duration: animationDuration, begin: 500, end: 0)
                 .scale(
@@ -50,9 +45,7 @@ class HomepageHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           txt('Hijri Calendar',
-                  e: St.bold18,
-                  googleFontCallback: GoogleFonts.cinzel,
-                  c: context.primaryColor)
+                  e: St.bold18, googleFontCallback: GoogleFonts.cinzel, c: context.primaryColor)
               .animate()
               .moveX(duration: animationDuration, begin: -500, end: 0)
               .scale(
@@ -60,10 +53,7 @@ class HomepageHeader extends StatelessWidget {
                   begin: const Offset(0, 0),
                   end: const Offset(1, 1)),
           SizedBox(width: 15.w),
-          txt('التقويم الهجري',
-                  e: St.bold18,
-                  googleFontCallback: GoogleFonts.amiri,
-                  c: context.primaryColor)
+          txt('التقويم الهجري', e: St.bold18, c: context.primaryColor)
               .animate()
               .moveX(duration: animationDuration, begin: 500, end: 0)
               .scale(

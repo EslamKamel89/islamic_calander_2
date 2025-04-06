@@ -4,7 +4,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
@@ -185,10 +184,12 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                         children: [
                           txt(formateDateDetailed(selectedDate)),
                           newHijriDate.response == ResponseEnum.success
-                              ? txt(_localize(newHijriDate.data),
-                                  googleFontCallback: isEnglish() ? null : GoogleFonts.amiri)
-                              : txt(_localize(newHijriDate.data),
-                                      googleFontCallback: isEnglish() ? null : GoogleFonts.amiri)
+                              ? txt(
+                                  _localize(newHijriDate.data),
+                                )
+                              : txt(
+                                  _localize(newHijriDate.data),
+                                )
                                   .animate(onPlay: (c) => c.repeat())
                                   .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
                                   .then()
@@ -323,8 +324,10 @@ class PrayTimeWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          txt(prayerNameTr(pray),
-              e: St.bold16, googleFontCallback: isEnglish() ? null : GoogleFonts.amiri),
+          txt(
+            prayerNameTr(pray),
+            e: St.bold16,
+          ),
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
