@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/features/about/cubits/about_cubit.dart';
 import 'package:islamic_calander_2/features/about/models/about_model.dart';
@@ -79,7 +80,8 @@ class _AboutViewState extends State<AboutView> {
                     );
                   }
                   return SingleChildScrollView(
-                      child: Column(children: [Html(data: state.data?.ar ?? '')]));
+                      child: Column(
+                          children: [Html(data: isEnglish() ? state.data?.en : state.data?.ar)]));
                 },
               ))),
     );
