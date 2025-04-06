@@ -85,8 +85,8 @@ class _AboutViewState extends State<AboutView> {
                       data: isEnglish() ? state.data?.en : state.data?.ar,
                       style: {
                         '#': Style(
-                          fontFamily: "Amiri",
-                        )
+                            // fontFamily: "Amiri",
+                            textAlign: TextAlign.justify)
                       },
                     )
                   ]));
