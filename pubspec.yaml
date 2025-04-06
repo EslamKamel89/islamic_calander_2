@@ -42,6 +42,7 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_bloc: ^8.1.6
   flutter_compass: ^0.8.1
+  flutter_html: ^3.0.0
   flutter_launcher_icons: ^0.14.1
   flutter_map: ^7.0.2
   flutter_screenutil: ^5.9.3
