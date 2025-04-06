@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
@@ -43,7 +44,13 @@ class _PrayerCardState extends State<PrayerCard> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: const [Colors.black, Colors.black, Colors.black87, Colors.black54, Color(0xFF0D3B66)],
+              colors: const [
+                Colors.black,
+                Colors.black,
+                Colors.black87,
+                Colors.black54,
+                Color(0xFF0D3B66)
+              ],
               stops: const [0.0, 0.5, 0.65, 0.8, 1.0],
               begin: isEnglish() ? Alignment.centerLeft : Alignment.centerRight,
               end: isEnglish() ? Alignment.centerRight : Alignment.centerLeft,
@@ -79,7 +86,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       'NEXT_PRAYER'.tr(),
-                      style: const TextStyle(
+                      style: GoogleFonts.amiri(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -87,7 +94,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       widget.prayerName,
-                      style: const TextStyle(
+                      style: GoogleFonts.amiri(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -96,7 +103,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     const SizedBox(height: 8),
                     Text(
                       'TimeRemaining'.tr(),
-                      style: const TextStyle(
+                      style: GoogleFonts.amiri(
                         color: Colors.white70,
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -104,7 +111,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     ),
                     Text(
                       timeRemainingText,
-                      style: const TextStyle(
+                      style: GoogleFonts.amiri(
                         color: Colors.white70,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

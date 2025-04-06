@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
@@ -31,7 +32,8 @@ class IslamicWisdomCard extends StatefulWidget {
 }
 
 class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
-  ApiResponseModel<WisdomModel> wisdomApi = ApiResponseModel<WisdomModel>(response: ResponseEnum.initial);
+  ApiResponseModel<WisdomModel> wisdomApi =
+      ApiResponseModel<WisdomModel>(response: ResponseEnum.initial);
   @override
   void initState() {
     request();
@@ -74,7 +76,8 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          image: const DecorationImage(image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
+          image: const DecorationImage(
+              image: AssetImage(AssetsData.islamicPattern2), fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
             color: const Color(0xffFFB800).withOpacity(0.5),
@@ -94,15 +97,18 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
                 padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
                 child: wisdomApi.response == ResponseEnum.success
                     ? Text(
-                        isEnglish() ? (wisdomApi.data?.wisdomEn ?? '') : (wisdomApi.data?.wisdomAr ?? ''),
+                        isEnglish()
+                            ? (wisdomApi.data?.wisdomEn ?? '')
+                            : (wisdomApi.data?.wisdomAr ?? ''),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: GoogleFonts.amiri(
                           fontSize: 20,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       )
-                    : const LoadingWidget(rowCount: 4, height: 20, space: 10, width: double.infinity),
+                    : const LoadingWidget(
+                        rowCount: 4, height: 20, space: 10, width: double.infinity),
               ),
               const SizedBox(height: 16),
               // The author of the wisdom.
@@ -156,7 +162,8 @@ class _IslamicWisdomCardState extends State<IslamicWisdomCard> {
       showSnackbar('Error', errorMessage, true);
       if (mounted) {
         setState(() {
-          wisdomApi = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+          wisdomApi =
+              pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
         });
       }
     }

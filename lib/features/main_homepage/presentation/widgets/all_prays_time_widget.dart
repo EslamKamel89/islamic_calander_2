@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
@@ -86,11 +87,12 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
       newHijriDate = newHijriDate.copyWith(response: ResponseEnum.loading, errorMessage: null);
     });
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(
-        selectedDate, context.read<DateConversionCubit>().state.selectedOption ?? DataProcessingOption.regular);
+    final response = await repo.getDateConversion(selectedDate,
+        context.read<DateConversionCubit>().state.selectedOption ?? DataProcessingOption.regular);
     response.fold((_) {
       setState(() {
-        newHijriDate = newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');
+        newHijriDate =
+            newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');
       });
     }, (model) {
       if (mounted) {
@@ -101,7 +103,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
           );
         });
         if (isSameDate(selectedDate, DateTime.now())) {
-          HomeWidgetController.updateHomeWidgetHijriDate(model.selectedOldHijriDate, model.newHijriUpdated);
+          HomeWidgetController.updateHomeWidgetHijriDate(
+              model.selectedOldHijriDate, model.newHijriUpdated);
         }
       }
     });
@@ -141,8 +144,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     if ([position, position?.latitude, position?.longitude].contains(null)) {
       return;
     }
-    cubit.params =
-        cubit.params.copyWith(date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+    cubit.params = cubit.params
+        .copyWith(date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
     cubit.getPrayerTime();
     moonImageCubit.dateTime = selectedDate;
     moonImageCubit.moonImage();
@@ -182,8 +185,10 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                         children: [
                           txt(formateDateDetailed(selectedDate)),
                           newHijriDate.response == ResponseEnum.success
-                              ? txt(_localize(newHijriDate.data))
-                              : txt(_localize(newHijriDate.data))
+                              ? txt(_localize(newHijriDate.data),
+                                  googleFontCallback: isEnglish() ? null : GoogleFonts.amiri)
+                              : txt(_localize(newHijriDate.data),
+                                      googleFontCallback: isEnglish() ? null : GoogleFonts.amiri)
                                   .animate(onPlay: (c) => c.repeat())
                                   .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
                                   .then()
@@ -211,7 +216,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child: PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+                  child:
+                      PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -287,7 +293,8 @@ class PrayersWidget extends StatelessWidget {
 }
 
 class PrayTimeWidget extends StatelessWidget {
-  const PrayTimeWidget({super.key, required this.pray, required this.imagePath, required this.time});
+  const PrayTimeWidget(
+      {super.key, required this.pray, required this.imagePath, required this.time});
   final String pray;
   final String? time;
   final String imagePath;
@@ -316,11 +323,15 @@ class PrayTimeWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          txt(prayerNameTr(pray), e: St.bold16),
+          txt(prayerNameTr(pray),
+              e: St.bold16, googleFontCallback: isEnglish() ? null : GoogleFonts.amiri),
           const SizedBox(height: 5),
           _buildImage(),
           const SizedBox(height: 5),
-          txt('${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm', e: St.reg16),
+          txt(
+            '${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm',
+            e: St.reg16,
+          ),
         ],
       ),
     );
