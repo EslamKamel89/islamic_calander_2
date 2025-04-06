@@ -113,11 +113,28 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+    # - family: Mcs
+    #   fonts:
+    #     - asset: assets/fonts/UthmanicWarsh.ttf
+    # #        - asset: fonts/Schyler-Italic.ttf
+    # #          style: italic
+    # - family: Almarai
+    #   fonts:
+    #     - asset: assets/fonts/Almarai_Regular.ttf
+    #       style: normal
+    # - family: uthmanic
+    #   fonts:
+    #     - asset: assets/fonts/uthmanic.otf
+    #       style: normal
+    # - family: uthmanic2
+    #   fonts:
+    #     - asset: assets/fonts/uthmanic2.otf
+    #       style: normal
+
+    # - family: Amiri
+    #   fonts:
+    #     - asset: assets/fonts/amiri/Amiri-Regular.ttf
+    #       style: normal
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
