@@ -126,7 +126,7 @@ struct IslamicWidgetEntryView : View {
                 }
             case .systemLarge:
                 // For large size, display all prayers in a grid layout.
-                let columns = [GridItem(.flexible()), GridItem(.flexible())]
+                let columns = [GridItem(.flexible()),GridItem(.flexible()), GridItem(.flexible())]
                 VStack(spacing:4){
                     HStack(spacing: 5) {
                        Text("Today: ")

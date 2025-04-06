@@ -90,7 +90,7 @@ class HomeWidgetController {
         : hour > 12
             ? hour - 12
             : hour;
-    return '${hour.toString().padLeft(2, '0')}:$minStr $amOrpm';
+    return '${hour.toString().padLeft(2, '0')}:$minStr\n$amOrpm\n';
   }
 }
 
