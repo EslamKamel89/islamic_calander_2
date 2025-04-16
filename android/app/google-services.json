@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "480833341936",
+    "project_id": "islamic-calendar-f7df8",
+    "storage_bucket": "islamic-calendar-f7df8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480833341936:android:84c95df0196305eeaf7535",
+        "android_client_info": {
+          "package_name": "com.gaztec.islamic_calander"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCthiLb8J1OrhQiVmL6cddc4v5dyTTxWcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
