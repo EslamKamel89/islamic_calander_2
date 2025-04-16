@@ -24,7 +24,10 @@ class EndPoint {
       };
   static const String about = "$baseUrl/moon/api/about.php";
   // {
-  //   'Authorization':
+  //   'Authorization':;
   //       'Basic NjE5OWM1MmItYTIxMi00ZjFhLWJlMDEtYWVlZTUzZWJkMDRhOmU4NDQ1MTY4ZjkxOWRmZWUxNGJiMjAxZDU0YmZhNzc2NTJjZGIwMWYwNThkNDI3ZGMzNjkyODBkNGIwYmRjZmYyZDI1MWM4NzJiM2M0OTFjMjFmNWNlZTA4MzZkNDAzNWNmNjAxMDMyMzk2OTA4MDNlNWRjNjkxY2E2NTQzMjJjZDk4ZTk4MTNmNTdjOWE1YTRlMDc5ZDljM2YyZmU5ZWI5OGJkYzRiNDJkZjMzNzg2ODMxZjllMjFjNWExZDY2YTU3ZTc2OGIyNTZhNDhkODI2Yzc0ODM3ZjNiYTJjM2My'
   // };
+  static String temperature(double long, double lat,
+          {String apiKey = "d1a7c6d85590b428aafce532ad10a624", bool isMetric = true}) =>
+      "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$apiKey&units=${isMetric ? 'metric' : 'imperial'}";
 }

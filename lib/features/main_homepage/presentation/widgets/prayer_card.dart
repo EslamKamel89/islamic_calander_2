@@ -5,6 +5,7 @@ import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/city_widget.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/current_temperature.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/moon_phase_image.dart';
 
 class PrayerCard extends StatefulWidget {
@@ -121,7 +122,7 @@ class _PrayerCardState extends State<PrayerCard> {
                     //   offset: Offset(-40.w, 0),
                     //   child: const CityWidget(),
                     // ),
-                    SizedBox(height: 70.h),
+                    SizedBox(height: 120.h),
                     // const NewHijrWidget(),
                   ],
                 ),
@@ -130,7 +131,15 @@ class _PrayerCardState extends State<PrayerCard> {
                 bottom: 15,
                 right: 10,
                 left: 10,
-                child: SizedBox(width: context.width, child: const CityWidget()),
+                child: SizedBox(
+                    width: context.width,
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CityWidget(),
+                        CurrentTemperatureWidget(),
+                      ],
+                    )),
               ),
             ],
           ),

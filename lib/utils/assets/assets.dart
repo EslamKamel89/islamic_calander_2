@@ -37,4 +37,10 @@ class AssetsData {
   static const String islamicPattern2 = "${_relativePath}pattern.png";
   static const String map = "${_relativePath}map_lottie.json";
   static const String about = "${_relativePath}about.png";
+  static const String sunny = "${_relativePath}sunny.json";
+  static const String foggie = "${_relativePath}foggie.json";
+  static const String rainny = "${_relativePath}rainny.json";
+  static const String snowy = "${_relativePath}snowy.json";
+  static const String cloudy = "${_relativePath}cloudy.json";
+  static const String stormy = "${_relativePath}strommy.json";
 }
