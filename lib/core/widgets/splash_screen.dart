@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
+import 'package:islamic_calander_2/core/heleprs/firebase_helper.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/themes/themedata.dart';
 
@@ -18,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    FirebaseHelper.handleFirebaseNotification();
     // HomeWidgetController.getPrayerTimes();
     cachePrayerMehtod();
     Future.delayed(const Duration(milliseconds: 3900), () {

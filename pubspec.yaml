@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adhan_dart: ^1.1.2
+  another_flushbar: ^1.12.30
   auto_size_text: ^3.0.0
   cached_network_image: ^3.4.1
   carousel_slider: ^5.0.0
