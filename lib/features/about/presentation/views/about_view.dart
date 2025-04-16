@@ -81,7 +81,17 @@ class _AboutViewState extends State<AboutView> {
                   }
                   return SingleChildScrollView(
                       child: Column(
-                          children: [Html(data: isEnglish() ? state.data?.en : state.data?.ar)]));
+                    children: [
+                      Html(
+                        data: isEnglish() ? state.data?.en : state.data?.ar,
+                        style: {
+                          '#': Style(
+                            fontFamily: "Amiri",
+                          )
+                        },
+                      )
+                    ],
+                  ));
                 },
               ))),
     );
