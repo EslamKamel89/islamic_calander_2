@@ -49,14 +49,16 @@ abstract class FirebaseHelper {
       alert: true,
       badge: true,
       sound: true,
+      // provisional: false ,
+      // announcement: false,
+      // carPlay: false ,
+      // criticalAlert: false ,
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       pr('User granted permission', t);
     } else {
       pr('User declined or has not accepted permission', t);
-      BuildContext? context = navigatorKey.currentContext;
-      if (context == null) return;
       showSnackbar('Warning', "You didn't give the app notification permission", true);
     }
   }
@@ -72,35 +74,10 @@ abstract class FirebaseHelper {
     //   return;
     // }
   }
+
+  static Future<String?> fcmToken() async {
+    final token = await FirebaseMessaging.instance.getToken();
+    pr(token, 'fcmToken');
+    return token;
+  }
 }
-
-// class Application extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() => _Application();
-// }
-
-// class _Application extends State<Application> {
-//   // It is assumed that all messages contain a data field with the key 'type'
-
-//   void _handleMessage(RemoteMessage message) {
-//     if (message.data['type'] == 'chat') {
-//       Navigator.pushNamed(context, '/chat',
-//         arguments: ChatArguments(message),
-//       );
-//     }
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     // Run code required to handle interacted messages in an async function
-//     // as initState() must not be async
-//     setupInteractedMessage();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text("...");
-//   }
-// }

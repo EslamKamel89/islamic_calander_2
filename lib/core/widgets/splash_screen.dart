@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     FirebaseHelper.handleFirebaseNotification();
+    FirebaseHelper.fcmToken();
     // HomeWidgetController.getPrayerTimes();
     cachePrayerMehtod();
     Future.delayed(const Duration(milliseconds: 3900), () {
