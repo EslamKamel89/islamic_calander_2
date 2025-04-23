@@ -70,11 +70,9 @@ class _AboutViewState extends State<AboutView> {
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
                                   width: double.infinity,
                                   height: 25,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey, borderRadius: BorderRadius.circular(5)))
+                                  decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(5)))
                               .animate(onPlay: (c) => c.repeat())
-                              .fade(
-                                  delay: (100 + i * 5).ms, duration: 1000.ms, begin: 0.5, end: 0.8);
+                              .fade(delay: (100 + i * 5).ms, duration: 1000.ms, begin: 0.5, end: 0.8);
                         }),
                       ),
                     );
@@ -83,11 +81,7 @@ class _AboutViewState extends State<AboutView> {
                       child: Column(children: [
                     Html(
                       data: isEnglish() ? state.data?.en : state.data?.ar,
-                      style: {
-                        '#': Style(
-                            // fontFamily: "Amiri",
-                            textAlign: TextAlign.justify)
-                      },
+                      style: {'#': Style(fontFamily: isEnglish() ? null : "Amiri", textAlign: TextAlign.justify)},
                     )
                   ]));
                 },
