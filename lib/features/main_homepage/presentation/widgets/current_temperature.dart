@@ -10,6 +10,7 @@ import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
@@ -78,8 +79,7 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
       }
       showSnackbar('Error', errorMessage, true);
       setState(() {
-        currentTemp =
-            pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+        currentTemp = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
       });
     }
   }
@@ -109,9 +109,9 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      txt(currentTemp.data?.main?.temp?.toString() ?? '',
-                          c: Colors.white, e: St.reg18),
-                      Icon(MdiIcons.temperatureCelsius, color: Colors.white)
+                      if (!isEnglish()) Icon(MdiIcons.temperatureCelsius, color: Colors.white),
+                      txt(currentTemp.data?.main?.temp?.toString() ?? '', c: Colors.white, e: St.reg18),
+                      if (isEnglish()) Icon(MdiIcons.temperatureCelsius, color: Colors.white)
                     ],
                   )
                 : LoadingWidget(rowCount: 1, height: 15, space: 5, width: context.width - 50),
