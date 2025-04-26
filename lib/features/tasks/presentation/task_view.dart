@@ -70,8 +70,7 @@ class _TasksViewState extends State<TasksView> {
                       IconButton(
                         icon: const Icon(Icons.add),
                         onPressed: () async {
-                          final newTask =
-                              await Navigator.of(context).pushNamed(AppRoutesNames.addTaskView);
+                          final newTask = await Navigator.of(context).pushNamed(AppRoutesNames.addTaskView);
                           if (newTask != null) {
                             controller.addTask(newTask as TaskModel);
                           }
@@ -79,6 +78,7 @@ class _TasksViewState extends State<TasksView> {
                       ),
                     ],
                   ),
+                  const Sizer(),
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.filteredTasks?.length ?? 0,
