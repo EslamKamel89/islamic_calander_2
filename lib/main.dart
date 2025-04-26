@@ -15,6 +15,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/cubits/eclips
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_phase/moon_phase_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
+import 'package:islamic_calander_2/features/tasks/cubits/tasks/tasks_cubit.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
@@ -50,8 +51,7 @@ class MyApp extends StatelessWidget {
             create: (_) => ThemeCubit(),
           ),
           BlocProvider(
-            create: (context) =>
-                DateConversionCubit(dateConversionRepo: serviceLocator()),
+            create: (context) => DateConversionCubit(dateConversionRepo: serviceLocator()),
           ),
           BlocProvider(
             create: (context) => DateYearCubit(dateInfoRepo: serviceLocator()),
@@ -72,6 +72,9 @@ class MyApp extends StatelessWidget {
           // BlocProvider(create: (context) => PrayersTimesByDateCubit()..getPrayersTimesByDate(DateTime.now())),
           BlocProvider(
             create: (context) => MoonImageCubit(),
+          ),
+          BlocProvider(
+            create: (context) => TasksCubit()..initalizeTasks(),
           ),
         ],
         child: Builder(builder: (context) {

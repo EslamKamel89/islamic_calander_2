@@ -44,4 +44,5 @@ class AssetsData {
   static const String cloudy = "${_relativePath}cloudy.json";
   static const String stormy = "${_relativePath}strommy.json";
   static const String task = "${_relativePath}task.png";
+  static const String temp = "${_relativePath}temp1.json";
 }

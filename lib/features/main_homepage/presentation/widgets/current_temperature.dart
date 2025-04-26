@@ -79,7 +79,8 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
       }
       showSnackbar('Error', errorMessage, true);
       setState(() {
-        currentTemp = pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
+        currentTemp =
+            pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
       });
     }
   }
@@ -89,16 +90,17 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
     context.locale;
     final lotte = Lot.Lottie.asset(
       _getLottie(),
-      width: 40,
+      // width: 40,
       height: 50,
-      fit: BoxFit.cover,
+      fit: BoxFit.fitHeight,
     );
 
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          if (isEnglish()) const SizedBox(width: 10),
           SizedBox(
             child: lotte,
           ),
@@ -110,7 +112,8 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (!isEnglish()) Icon(MdiIcons.temperatureCelsius, color: Colors.white),
-                      txt(currentTemp.data?.main?.temp?.toString() ?? '', c: Colors.white, e: St.reg18),
+                      txt(currentTemp.data?.main?.temp?.toString() ?? '',
+                          c: Colors.white, e: St.reg18),
                       if (isEnglish()) Icon(MdiIcons.temperatureCelsius, color: Colors.white)
                     ],
                   )
@@ -123,6 +126,7 @@ class _CurrentTemperatureWidgetState extends State<CurrentTemperatureWidget> {
   }
 
   String _getLottie() {
+    return AssetsData.temp;
     final weatherEnum = currentTemp.data?.weather?[0].classifyWeather() ?? WeatherEnum.sunny;
     // return AssetsData.sunny;
     // return AssetsData.stormy;

@@ -10,6 +10,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/eclipse_view.
 import 'package:islamic_calander_2/features/date_info/presentation/moon_info_view.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/main_homepage.dart';
 import 'package:islamic_calander_2/features/qibla/presenation/qibla_finder_view.dart';
+import 'package:islamic_calander_2/features/tasks/presentation/add_task_view.dart';
 import 'package:islamic_calander_2/features/tasks/presentation/task_view.dart';
 import 'package:islamic_calander_2/features/world_prayers/presentation/views/world_prayers_view.dart';
 
@@ -73,6 +74,11 @@ class AppRouter {
       case AppRoutesNames.tasksView:
         return CustomPageRoute(
           builder: (context) => const TasksView(),
+          settings: routeSettings,
+        );
+      case AppRoutesNames.addTaskView:
+        return CustomPageRoute(
+          builder: (context) => const AddTaskView(),
           settings: routeSettings,
         );
       default:

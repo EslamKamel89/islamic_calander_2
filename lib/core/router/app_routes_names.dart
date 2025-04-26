@@ -10,4 +10,5 @@ class AppRoutesNames {
   static const String worldPrayersView = 'worldPrayersView';
   static const String aboutView = 'aboutView';
   static const String tasksView = 'tasksView';
+  static const String addTaskView = 'addTaskView';
 }
