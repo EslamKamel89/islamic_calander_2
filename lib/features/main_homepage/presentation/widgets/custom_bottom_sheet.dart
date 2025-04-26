@@ -103,71 +103,32 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                 ),
                 Expanded(
                   child: GridItem(
+                    title: "Tasks",
+                    image: AssetsData.task,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(AppRoutesNames.tasksView);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: GridItem(
                     title: 'ABOUT'.tr(),
                     image: AssetsData.about,
                     onTap: () async {
                       Navigator.of(context).pushNamed(AppRoutesNames.aboutView);
                     },
                   ),
-                )
+                ),
+                const Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
               ],
             ),
           ],
-        )
-        // StaggeredGrid.count(
-        //   // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //   //   crossAxisCount: 3,
-        //   //   mainAxisSpacing: 8,
-        //   //   crossAxisSpacing: 8,
-        //   //   // childAspectRatio: 1, // Width/height ratio (1 = square)
-        //   //   mainAxisExtent: 170.h,
-        //   // ),
-        //   crossAxisCount: 3,
-
-        //   mainAxisSpacing: 3,
-        //   crossAxisSpacing: 4,
-        //   children: [
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Find Qibla',
-        //         image: AssetsData.compass,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Mosques',
-        //         image: AssetsData.mosque,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        //     StaggeredGridTile.count(
-        //       crossAxisCellCount: 1,
-        //       mainAxisCellCount: 1.25,
-        //       child: GridItem(
-        //         title: 'Halal Restruants',
-        //         image: AssetsData.hallalResturant,
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(AppRoutesNames.qiblaFinderView);
-        //         },
-        //       ),
-        //     ),
-        // const StaggeredGridTile.count(
-        //   crossAxisCellCount: 3,
-        //   mainAxisCellCount: 2,
-        //   child: NextPrayerWidget(),
-        //   // child: NextPrayerWidget(),
-        //     // ),
-        //   ],
-        // ),
-        );
+        ));
   }
 }

@@ -9,4 +9,5 @@ class AppRoutesNames {
   static const String qiblaFinderView = 'qiblaFinderView';
   static const String worldPrayersView = 'worldPrayersView';
   static const String aboutView = 'aboutView';
+  static const String tasksView = 'tasksView';
 }
