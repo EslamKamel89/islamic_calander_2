@@ -81,6 +81,7 @@ class _AboutViewState extends State<AboutView> {
                   }
                   return SingleChildScrollView(
                       child: Column(children: [
+                    // txt((isEnglish() ? state.data?.en : state.data?.ar) ?? 'no data'),
                     Html(
                       data: isEnglish() ? state.data?.en : state.data?.ar,
                       style: {
@@ -88,7 +89,7 @@ class _AboutViewState extends State<AboutView> {
                             // fontFamily: "Amiri",
                             textAlign: TextAlign.justify)
                       },
-                    )
+                    ),
                   ]));
                 },
               ))),
