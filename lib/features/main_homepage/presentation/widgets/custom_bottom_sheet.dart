@@ -103,7 +103,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                 ),
                 Expanded(
                   child: GridItem(
-                    title: "Tasks",
+                    title: "TASKS".tr(),
                     image: AssetsData.task,
                     onTap: () async {
                       Navigator.of(context).pushNamed(AppRoutesNames.tasksView);

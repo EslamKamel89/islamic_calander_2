@@ -1,11 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:islamic_calander_2/core/globals/globals_var.dart';
+import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/tasks/cubits/tasks/tasks_cubit.dart';
 import 'package:islamic_calander_2/features/tasks/models/task_model.dart';
+import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class TasksView extends StatefulWidget {
   const TasksView({super.key});
@@ -38,58 +39,58 @@ class _TasksViewState extends State<TasksView> {
   Widget build(BuildContext context) {
     return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
-        return Directionality(
-          textDirection: ltr,
-          child: Scaffold(
-            appBar: AppBar(
-              // backgroundColor: Colors.white.withOpacity(0.3),
-              title: const Text(
-                "Tasks",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+        return Scaffold(
+          appBar: AppBar(
+            // backgroundColor: Colors.white.withOpacity(0.3),
+            title: Text(
+              "TASKS".tr(),
+              style: const TextStyle(
+                color: Colors.white,
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  const Sizer(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: searchController,
-                          decoration: const InputDecoration(
-                            hintText: 'Search tasks...',
-                            border: InputBorder.none,
-                            icon: Icon(Icons.search),
-                          ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              children: [
+                const Sizer(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          hintText: 'SEARCH_TASKS'.tr(),
+                          border: InputBorder.none,
+                          icon: const Icon(Icons.search),
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () async {
-                          final newTask = await Navigator.of(context).pushNamed(AppRoutesNames.addTaskView);
-                          if (newTask != null) {
-                            controller.addTask(newTask as TaskModel);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  const Sizer(),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: state.filteredTasks?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        final task = state.filteredTasks?[index];
-                        return _buildTaskCard(task);
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () async {
+                        final newTask =
+                            await Navigator.of(context).pushNamed(AppRoutesNames.addTaskView);
+                        if (newTask != null) {
+                          controller.addTask(newTask as TaskModel);
+                        }
                       },
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                const Sizer(),
+                Expanded(
+                  child: state.filteredTasks?.isEmpty == true
+                      ? Center(child: txt('NO_TASKS_FOUND'.tr()))
+                      : ListView.builder(
+                          itemCount: state.filteredTasks?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            final task = state.filteredTasks?[index];
+                            return _buildTaskCard(task);
+                          },
+                        ),
+                ),
+              ],
             ),
           ),
         );
@@ -105,7 +106,7 @@ class _TasksViewState extends State<TasksView> {
         title: Text(task.title ?? ''),
         subtitle: task.date != null
             ? Text(
-                DateFormat('MMM dd, yyyy').format(task.date!),
+                DateFormat('MMM dd, yyyy', isEnglish() ? 'en' : 'ar').format(task.date!),
               )
             : null,
         children: [
@@ -114,12 +115,12 @@ class _TasksViewState extends State<TasksView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Subject: ${task.subject}'),
+                Text('${'SUBJECT'.tr()}: ${task.subject}'),
                 const SizedBox(height: 8),
-                Text('Content: ${task.content}'),
+                Text('${"CONTENT".tr()}: ${task.content}'),
                 const SizedBox(height: 16),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () => controller.deleteTask(task.id),
