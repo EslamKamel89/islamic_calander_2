@@ -7,6 +7,7 @@ import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/next_prayer_widget.dart';
@@ -44,7 +45,8 @@ class _MainHomePageState extends State<MainHomePage> {
         Container(width: context.width, height: context.height, color: Colors.white),
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
+            image: DecorationImage(
+                image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
           ),
           width: context.width,
           height: context.height,
@@ -58,6 +60,7 @@ class _MainHomePageState extends State<MainHomePage> {
             //   actions: const [SettingsDropdown()],
             // ),
             // drawer: const DefaultDrawer(opacity: 0.7),
+            bottomNavigationBar: const CustomBottomNavBar(),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -93,7 +96,7 @@ class _MainHomePageState extends State<MainHomePage> {
                           const AllPraysTimeWidget(),
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),
-                          IslamicWisdomCard(),
+                          const IslamicWisdomCard(),
                           const SizedBox(height: 100),
                         ],
                       ),
@@ -104,52 +107,60 @@ class _MainHomePageState extends State<MainHomePage> {
             ),
           ),
         ),
-        Positioned(
-          bottom: 30.h,
-          right: 10,
-          left: 10,
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                showCustomBottomSheet();
-              },
-              child: Container(
-                      width: 50.w,
-                      height: 50.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50.w),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      child: Image.asset(
-                        AssetsData.globe2,
-                        fit: BoxFit.cover,
-                      ).animate(onPlay: (controller) => controller.repeat()).rotate(duration: 6000.ms, begin: 0, end: 2)
-                      // .then()
-                      // .rotate(duration: 4000.ms, begin: 2, end: 0),
-                      )
-                  .animate()
-                  .move(
-                      duration: 3000.ms, begin: Offset(0, -context.height), end: Offset.zero, curve: Curves.bounceOut),
+        if (false)
+          Positioned(
+            bottom: 100.h,
+            right: 10,
+            left: 10,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  showCustomBottomSheet();
+                },
+                child: Container(
+                        width: 50.w,
+                        height: 50.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.w),
+                        ),
+                        clipBehavior: Clip.hardEdge,
+                        child: Image.asset(
+                          AssetsData.globe2,
+                          fit: BoxFit.cover,
+                        )
+                            .animate(onPlay: (controller) => controller.repeat())
+                            .rotate(duration: 6000.ms, begin: 0, end: 2)
+                        // .then()
+                        // .rotate(duration: 4000.ms, begin: 2, end: 0),
+                        )
+                    .animate()
+                    .move(
+                        duration: 3000.ms,
+                        begin: Offset(0, -context.height),
+                        end: Offset.zero,
+                        curve: Curves.bounceOut),
+              ),
             ),
-          ),
-        )
+          )
       ],
     );
   }
+}
 
-  void showCustomBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return BottomSheet(
-          backgroundColor: Colors.transparent,
-          onClosing: () {},
-          builder: (context) {
-            return const MainpageBottomSheetWidget();
-          },
-        );
-      },
-    );
-  }
+void showCustomBottomSheet() {
+  final context = navigatorKey.currentContext;
+  if (context == null) return;
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return BottomSheet(
+        backgroundColor: Colors.transparent,
+        onClosing: () {},
+        builder: (context) {
+          return const MainpageBottomSheetWidget();
+        },
+      );
+    },
+  );
 }

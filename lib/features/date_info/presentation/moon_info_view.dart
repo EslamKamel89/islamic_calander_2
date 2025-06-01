@@ -12,6 +12,7 @@ import 'package:islamic_calander_2/features/date_conversion/presentation/views/w
 import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_phase/moon_phase_cubit.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/moon_phase_item_card.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/moon_phases_dropdown_widget.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class MoonInfoView extends StatefulWidget {
@@ -41,6 +42,7 @@ class _MoonInfoViewState extends State<MoonInfoView> {
       appBar: AppBar(title: txt("MOON_PHASE".tr(), e: St.bold20)),
       resizeToAvoidBottomInset: false,
       // drawer: const DefaultDrawer(),
+      bottomNavigationBar: const CustomBottomNavBar(),
       body: DefaultScreenPadding(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,8 +85,10 @@ class _MoonInfoViewState extends State<MoonInfoView> {
             pr(minYear, 'minYear');
             pr(maxYear, 'maxYear');
             controller.state.selectedMoonPhase = moonPhase;
-            if (controller.state.selectedYear <= maxYear && controller.state.selectedYear >= minYear) {
-              controller.getMoonPhase(controller.state.selectedYear, controller.state.selectedMoonPhase);
+            if (controller.state.selectedYear <= maxYear &&
+                controller.state.selectedYear >= minYear) {
+              controller.getMoonPhase(
+                  controller.state.selectedYear, controller.state.selectedMoonPhase);
               controller.validate('');
             } else {
               pr('condition not met');

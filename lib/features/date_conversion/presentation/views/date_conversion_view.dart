@@ -7,6 +7,7 @@ import 'package:islamic_calander_2/features/date_conversion/presentation/cubits/
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/data_selector.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/table_widget.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/year_search_widget.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class DateConversionView extends StatefulWidget {
@@ -33,6 +34,7 @@ class _DateConversionViewState extends State<DateConversionView> {
         appBar: AppBar(title: txt('DATE_CONVERSION'.tr(), e: St.bold20)),
         resizeToAvoidBottomInset: false,
         // drawer: const DefaultDrawer(),
+        bottomNavigationBar: const CustomBottomNavBar(),
         body: Scrollbar(
           thickness: 10,
           child: SingleChildScrollView(

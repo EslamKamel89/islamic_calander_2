@@ -13,10 +13,11 @@ import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_mo
 class HomeWidgetController {
   static const String t = 'HomeWidgetController';
   static const String appGroupId = 'group.islamicwidget';
-  static const String androidWidgetName = 'IslamicWidget';
+  // static const String androidWidgetName = 'IslamicWidget';
   static const String iosWidgetName = 'IslamicWidget';
 
   static void syncHomeWidgetState(HomeWidgetState state) {
+    return;
     HomeWidget.setAppGroupId(appGroupId);
     pr(state, t);
     HomeWidget.saveWidgetData(
@@ -38,7 +39,10 @@ class HomeWidgetController {
     );
     HomeWidget.saveWidgetData('nextPrayer', state.nextPrayer);
     HomeWidget.saveWidgetData('nextPrayerTime', state.nextPrayerTime);
-    HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
+    HomeWidget.updateWidget(
+      iOSName: iosWidgetName,
+      //  androidName: androidWidgetName
+    );
   }
 
   static void updateHomeWidgetPrayersTime(PrayersTimeModel? model) {
