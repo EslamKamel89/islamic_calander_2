@@ -61,12 +61,12 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AnimatedScale(
-                        duration: const Duration(milliseconds: 200),
-                        scale: isActive ? 1.2 : 1.0,
+                        duration: const Duration(milliseconds: 900),
+                        scale: isActive ? 1.4 : 1.0,
                         child: Image.asset(
                           _getIconForIndex(index),
-                          width: isActive ? 35 : 30,
-                          height: isActive ? 35 : 30,
+                          width: 30,
+                          height: 30,
                           // color: isActive ? Colors.deepPurpleAccent : Colors.grey,
                         ),
                       ),
