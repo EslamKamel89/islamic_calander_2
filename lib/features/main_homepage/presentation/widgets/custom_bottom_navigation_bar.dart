@@ -16,12 +16,14 @@ int _selectedIndex = 0;
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index != 3) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
     final route = _getRouteNameForIndex(index);
     if (route != "MORE") {
-      Navigator.of(context).pushNamed(_getRouteNameForIndex(index));
+      Navigator.of(context).pushNamedAndRemoveUntil(_getRouteNameForIndex(index), (_) => false);
     } else {
       showCustomBottomSheet();
     }
@@ -29,6 +31,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
@@ -124,7 +127,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   String _getLabelForIndex(int index) {
     switch (index) {
       case 0:
-        return "Home";
+        return "HOME".tr();
       case 1:
         return "DATE_CONVERSION".tr();
       case 2:
@@ -132,7 +135,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       // case 2:
       //   return 'ECLIPSE'.tr();
       case 3:
-        return 'More';
+        return 'MORE'.tr();
       default:
         return '';
     }

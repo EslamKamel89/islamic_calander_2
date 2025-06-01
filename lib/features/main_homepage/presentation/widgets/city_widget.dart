@@ -132,6 +132,7 @@ class _CityWidgetState extends State<CityWidget> {
         locationInfoApi = ApiResponseModel(response: ResponseEnum.loading);
       });
       final response = await api.get(url);
+      if (!mounted) return;
       setState(() {
         locationInfoApi = pr(
             ApiResponseModel(
