@@ -36,6 +36,8 @@ class HomeWidgetController {
       // 'hello world',
       state.newHijri?.trim().replaceAll('I', '') ?? '',
     );
+    HomeWidget.saveWidgetData('nextPrayer', state.nextPrayer);
+    HomeWidget.saveWidgetData('nextPrayerTime', state.nextPrayerTime);
     HomeWidget.updateWidget(iOSName: iosWidgetName, androidName: androidWidgetName);
   }
 
@@ -44,6 +46,11 @@ class HomeWidgetController {
     homeWidgetState = homeWidgetState.copyWith(
         prayers:
             "${_formatDateTime(model.fajr)},${_formatDateTime(model.sunrise)},${_formatDateTime(model.dhuhr)},${_formatDateTime(model.asr)},${_formatDateTime(model.maghrib)},${_formatDateTime(model.isha)}");
+    syncHomeWidgetState(homeWidgetState);
+  }
+
+  static void updateNextPrayer(String? nextPrayer, String? timeLeft) {
+    homeWidgetState = homeWidgetState.copyWith(nextPrayer: nextPrayer, nextPrayerTime: timeLeft);
     syncHomeWidgetState(homeWidgetState);
   }
 
@@ -58,7 +65,7 @@ class HomeWidgetController {
 
   static void getPrayerTimes() {
     positionNotifier.addListener(() async {
-      pr('listener in HomeWidgetController is called because position is changed: ${positionNotifier.value}');
+      // pr('listener in HomeWidgetController is called because position is changed: ${positionNotifier.value}');
       if (positionNotifier.value == null) return;
       final params = PrayerTimeParams(
         latitude: positionNotifier.value!.latitude,
@@ -101,11 +108,15 @@ class HomeWidgetState {
   final String? greogrianDate;
   final String? currentHijri;
   final String? newHijri;
+  final String? nextPrayer;
+  final String? nextPrayerTime;
   HomeWidgetState({
     this.prayers,
     this.greogrianDate,
     this.currentHijri,
     this.newHijri,
+    this.nextPrayer,
+    this.nextPrayerTime,
   });
 
   HomeWidgetState copyWith({
@@ -113,17 +124,21 @@ class HomeWidgetState {
     String? greogrianDate,
     String? currentHijri,
     String? newHijri,
+    String? nextPrayer,
+    String? nextPrayerTime,
   }) {
     return HomeWidgetState(
       prayers: prayers ?? this.prayers,
       greogrianDate: greogrianDate ?? this.greogrianDate,
       currentHijri: currentHijri ?? this.currentHijri,
       newHijri: newHijri ?? this.newHijri,
+      nextPrayer: nextPrayer ?? this.nextPrayer,
+      nextPrayerTime: nextPrayerTime ?? this.nextPrayerTime,
     );
   }
 
   @override
   String toString() {
-    return 'HomeWidgetState(prayers: $prayers, greogrianDate: $greogrianDate, currentHijri: $currentHijri, newHijri: $newHijri)';
+    return 'HomeWidgetState(prayers: $prayers, greogrianDate: $greogrianDate, currentHijri: $currentHijri, newHijri: $newHijri, nextPrayer: $nextPrayer, nextPrayerTime: $nextPrayerTime)';
   }
 }

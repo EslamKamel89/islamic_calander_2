@@ -16,7 +16,9 @@ struct Provider: TimelineProvider {
             data: placeholderJSON ,
             greogrianDate : "" ,
             currentHijri :"" ,
-            newHijri: ""
+            newHijri: "" ,
+            nextPrayer: "Calcuating.." ,
+            nextPrayerTime: "00:00"
         )
     }
 
@@ -26,7 +28,10 @@ struct Provider: TimelineProvider {
           let gerogrianDate = userDefaults?.string(forKey: "gerogrianDate") ?? ""
           let currentHijri = userDefaults?.string(forKey: "currentHijri") ?? ""
           let newHijri = userDefaults?.string(forKey: "newHijri") ?? ""
-        let entry = SimpleEntry(date: Date(), data: data , greogrianDate: gerogrianDate , currentHijri: currentHijri , newHijri: newHijri) ;
+          let nextPrayer = userDefaults?.string(forKey: "nextPrayer") ?? "Calculating..."
+          let nextPrayerTime = userDefaults?.string(forKey: "nextPrayerTime") ?? "00:00"
+        
+        let entry = SimpleEntry(date: Date(), data: data , greogrianDate: gerogrianDate , currentHijri: currentHijri , newHijri: newHijri , nextPrayer:nextPrayer , nextPrayerTime:nextPrayerTime) ;
           completion(entry)
       }
 
@@ -44,6 +49,8 @@ struct SimpleEntry: TimelineEntry {
     let greogrianDate:String
     let currentHijri : String
     let newHijri : String
+    let nextPrayer : String
+    let nextPrayerTime : String
 }
 
 struct PrayerView: View {
@@ -110,20 +117,78 @@ struct IslamicWidgetEntryView : View {
             
 //             Layout based on widget family
             switch family {
+//            case .systemSmall, .systemMedium:
+//               
+//                    HStack(spacing: 8) {
+//                        ForEach(prayers) { prayer in
+//                            PrayerView(
+//                                prayer: prayer,
+//                                imageSize: family == .systemSmall ?
+//                                    CGSize(width: 40, height: 50) : CGSize(width: 50, height: 60)
+//                            )
+//                        }
+//                    }
+//                    .padding()
             case .systemSmall, .systemMedium:
-                // For small and medium sizes, wrap the HStack in a ScrollView for pagination.
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(prayers) { prayer in
-                            PrayerView(
-                                prayer: prayer,
-                                imageSize: family == .systemSmall ?
-                                    CGSize(width: 40, height: 50) : CGSize(width: 50, height: 60)
-                            )
+                let isSmall = family == .systemSmall
+
+                ZStack {
+                    // Background gradient
+                    LinearGradient(
+                        gradient: Gradient(colors: [.black, .blue]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .cornerRadius(16)
+
+                    // Content
+                    if isSmall {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Next Prayer")
+                                .font(.caption)
+                                .foregroundColor(.white)
+
+                            Text(entry.nextPrayer) // Prayer Name
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.cyan)
+
+                            Text(entry.nextPrayerTime) // Time Left
+                                .font(.caption)
+                                .foregroundColor(.gray)
+
+                            Spacer()
                         }
+                        .padding()
+                    } else {
+                        HStack(alignment: .center, spacing: 12) {
+                            Image(systemName: "sun.max.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.yellow)
+
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("Next Prayer")
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+
+                                Text(entry.nextPrayer)
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.cyan)
+
+                                Text(entry.nextPrayerTime)
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                            }
+
+                            Spacer()
+                        }
+                        .padding()
                     }
-                    .padding()
                 }
+
             case .systemLarge:
                 // For large size, display all prayers in a grid layout.
                 let columns = [GridItem(.flexible()),GridItem(.flexible()), GridItem(.flexible())]

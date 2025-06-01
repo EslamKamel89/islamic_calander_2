@@ -8,8 +8,7 @@ T prt<T>(
   T title,
 ) {
   if (kDebugMode) {
-    String message =
-        '${_toYellow("< eslam dev - ${title.toString()} >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ")} ';
+    String message = '${_toYellow("< eslam dev - ${title.toString()} >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ")} ';
     print(message);
   }
   return title;
@@ -26,24 +25,24 @@ T pr<T>(T variable, [String? title]) {
 
 // yellow
 String _toYellow(String text) {
-  // return text;
-  return '\x1B[33m$text\x1B[0m';
+  return text;
+  // return '\x1B[33m$text\x1B[0m';
 }
 
 // red
 String _toRed(String text) {
-  // return text;
-  return '\x1B[31m$text\x1B[0m';
+  return text;
+  // return '\x1B[31m$text\x1B[0m';
 }
 
 // blue
 String _toBlue(String text) {
-  // return text;
-  return '\x1B[34m$text\x1B[0m';
+  return text;
+  // return '\x1B[34m$text\x1B[0m';
 }
 
 //green
 String _toGreen(String text) {
-  // return text;
-  return '\x1B[32m$text\x1B[0m';
+  return text;
+  // return '\x1B[32m$text\x1B[0m';
 }
