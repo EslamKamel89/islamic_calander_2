@@ -26,7 +26,7 @@ class _AddTaskViewState extends State<AddTaskView> {
     if (_formKey.currentState!.validate() && _selectedDate != null) {
       _formKey.currentState!.save();
       final newTask = TaskModel(
-        id: DateTime.now().toString(),
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: _formData['title']!,
         subject: _formData['subject']!,
         content: _formData['content']!,
@@ -45,8 +45,17 @@ class _AddTaskViewState extends State<AddTaskView> {
     );
 
     if (pickedDate != null) {
+      final pickedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now());
       setState(() {
-        _selectedDate = pickedDate;
+        if (pickedTime != null) {
+          _selectedDate = DateTime(
+            pickedDate.year,
+            pickedDate.month,
+            pickedDate.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+        }
         _dateController.text =
             DateFormat('MMM dd, yyyy', isEnglish() ? 'en' : 'ar').format(pickedDate);
       });

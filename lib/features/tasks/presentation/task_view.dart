@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/tasks/cubits/tasks/tasks_cubit.dart';
 import 'package:islamic_calander_2/features/tasks/models/task_model.dart';
+import 'package:islamic_calander_2/features/tasks/presentation/widgets/time_remaining_widget.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class TasksView extends StatefulWidget {
@@ -39,6 +39,8 @@ class _TasksViewState extends State<TasksView> {
   Widget build(BuildContext context) {
     return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
+        final sortedTasks = [...(state.filteredTasks ?? [])];
+        sortedTasks.sort((a, b) => b.date!.compareTo(a.date!));
         return Scaffold(
           appBar: AppBar(
             // backgroundColor: Colors.white.withOpacity(0.3),
@@ -80,12 +82,12 @@ class _TasksViewState extends State<TasksView> {
                 ),
                 const Sizer(),
                 Expanded(
-                  child: state.filteredTasks?.isEmpty == true
+                  child: sortedTasks.isEmpty == true
                       ? Center(child: txt('NO_TASKS_FOUND'.tr()))
                       : ListView.builder(
-                          itemCount: state.filteredTasks?.length ?? 0,
+                          itemCount: sortedTasks.length,
                           itemBuilder: (context, index) {
-                            final task = state.filteredTasks?[index];
+                            final task = sortedTasks[index];
                             return _buildTaskCard(task);
                           },
                         ),
@@ -100,15 +102,21 @@ class _TasksViewState extends State<TasksView> {
 
   Widget _buildTaskCard(TaskModel? task) {
     if (task == null) return const SizedBox();
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: ExpansionTile(
-        title: Text(task.title ?? ''),
-        subtitle: task.date != null
-            ? Text(
-                DateFormat('MMM dd, yyyy', isEnglish() ? 'en' : 'ar').format(task.date!),
-              )
-            : null,
+        title: Row(
+          children: [
+            Text(task.title ?? ''),
+          ],
+        ),
+        // subtitle: task.date != null
+        //     ? Text(
+        //         DateFormat('MMM dd, yyyy', isEnglish() ? 'en' : 'ar').format(task.date!),
+        //       )
+        //     : null,
+        subtitle: task.date == null ? const Text('Error') : TimeRemainingWidget(target: task.date!),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
