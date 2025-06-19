@@ -120,7 +120,7 @@ class _TasksViewState extends State<TasksView> {
             ? const Text('Error')
             : TimeRemainingWidget(
                 target: task.date!,
-                key: Key('TimeRemainingWidget.${task.date}'),
+                key: Key('TimeRemainingWidget.${task.id}'),
               ),
         children: [
           Padding(
