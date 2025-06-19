@@ -65,7 +65,7 @@ class _AddTaskViewState extends State<AddTaskView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ADD_NEW_TASK'.tr())),
+      appBar: AppBar(title: Text('ADD_TASK'.tr())),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

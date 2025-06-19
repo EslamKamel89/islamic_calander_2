@@ -25,9 +25,9 @@ class _TimeRemainingWidgetState extends State<TimeRemainingWidget> {
     _target = widget.target;
     bool triggerTimer = _updateRemaining();
     // Update every minute
-    if (triggerTimer) {
-      _timer = Timer.periodic(const Duration(minutes: 1), (_) => _updateRemaining());
-    }
+    // if (triggerTimer) {
+    //   _timer = Timer.periodic(const Duration(minutes: 1), (_) => _updateRemaining());
+    // }
   }
 
   bool _updateRemaining() {
@@ -102,7 +102,7 @@ class _TimeRemainingWidgetState extends State<TimeRemainingWidget> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    // _timer.cancel();
     super.dispose();
   }
 

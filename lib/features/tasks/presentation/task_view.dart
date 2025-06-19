@@ -116,7 +116,12 @@ class _TasksViewState extends State<TasksView> {
         //         DateFormat('MMM dd, yyyy', isEnglish() ? 'en' : 'ar').format(task.date!),
         //       )
         //     : null,
-        subtitle: task.date == null ? const Text('Error') : TimeRemainingWidget(target: task.date!),
+        subtitle: task.date == null
+            ? const Text('Error')
+            : TimeRemainingWidget(
+                target: task.date!,
+                key: Key('TimeRemainingWidget.${task.date}'),
+              ),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),

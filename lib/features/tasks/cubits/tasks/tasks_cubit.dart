@@ -23,14 +23,14 @@ class TasksCubit extends Cubit<TasksState> {
   }
 
   void filterTasks(String? query) {
-    if (query == null || query == '') {
-      emit(state.copyWith());
-      return;
-    }
+    // if (query == null || query == '') {
+    //   emit(state.copyWith());
+    //   return;
+    // }
     state.filteredTasks = state.tasks?.where((task) {
-      return task.title?.toLowerCase().contains(query) == true ||
-          task.subject?.toLowerCase().contains(query) == true ||
-          task.content?.toLowerCase().contains(query) == true;
+      return task.title?.toLowerCase().contains(query ?? '') == true ||
+          task.subject?.toLowerCase().contains(query ?? '') == true ||
+          task.content?.toLowerCase().contains(query ?? '') == true;
     }).toList();
     emit(state.copyWith());
   }
