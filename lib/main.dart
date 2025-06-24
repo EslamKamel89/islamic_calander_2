@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl_standalone.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
-import 'package:islamic_calander_2/core/heleprs/local_notification.dart';
 import 'package:islamic_calander_2/core/router/app_router.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
@@ -17,13 +16,14 @@ import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_p
 import 'package:islamic_calander_2/features/main_homepage/cubits/moon_image/moon_image_cubit.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
 import 'package:islamic_calander_2/features/tasks/cubits/tasks/tasks_cubit.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServiceLocator();
   await findSystemLocale();
   await EasyLocalization.ensureInitialized();
-  configureLocalTimeZone();
+  tz.initializeTimeZones();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
