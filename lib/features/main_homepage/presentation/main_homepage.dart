@@ -93,6 +93,7 @@ class _MainHomePageState extends State<MainHomePage> {
                             ],
                           ),
                           SizedBox(height: 10.h),
+                          ElevatedButton(onPressed: () {}, child: const Text('Test')),
                           const AllPraysTimeWidget(),
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),

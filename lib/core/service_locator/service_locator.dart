@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/dio_consumer.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
+import 'package:islamic_calander_2/core/heleprs/local_notification.dart';
 import 'package:islamic_calander_2/core/router/app_router.dart';
 import 'package:islamic_calander_2/core/router/middleware.dart';
 import 'package:islamic_calander_2/features/about/controllers/about_controller.dart';
@@ -39,4 +40,5 @@ Future initServiceLocator() async {
   serviceLocator.registerLazySingleton<MoonImageController>(() => MoonImageController());
 
   serviceLocator.registerLazySingleton<AboutController>(() => AboutController());
+  serviceLocator.registerLazySingleton<NotificationService>(() => NotificationService());
 }
