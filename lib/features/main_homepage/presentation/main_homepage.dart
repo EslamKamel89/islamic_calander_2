@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
+import 'package:islamic_calander_2/core/heleprs/local_notification.dart';
 import 'package:islamic_calander_2/core/widgets/setting_drop_down.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/all_prays_time_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
@@ -28,6 +29,7 @@ class _MainHomePageState extends State<MainHomePage> {
   @override
   void initState() {
     init();
+    notificationService.requestPermissions();
     super.initState();
   }
 
@@ -93,7 +95,11 @@ class _MainHomePageState extends State<MainHomePage> {
                             ],
                           ),
                           SizedBox(height: 10.h),
-                          ElevatedButton(onPressed: () {}, child: const Text('Test')),
+                          ElevatedButton(
+                              onPressed: () {
+                                notificationService.showBasicNotification();
+                              },
+                              child: const Text('Test')),
                           const AllPraysTimeWidget(),
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),
