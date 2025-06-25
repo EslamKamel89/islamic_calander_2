@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:timezone/timezone.dart' as tz;
+// import 'package:timezone/data/latest_all.dart' as tz;
 
 final NotificationService notificationService = NotificationService();
 
@@ -158,6 +160,73 @@ class NotificationService {
       'This is a basic notification', // Body
       details,
       payload: 'basic_notification', // Optional data
+    );
+  }
+
+  Future<void> scheduleNotification() async {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    final tz.TZDateTime scheduledTime = now.add(const Duration(seconds: 10));
+
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'prayer_reminder_channel',
+      'Prayers Reminder',
+      channelDescription: 'Reminds you about prayer times',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+    const NotificationDetails details = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      1,
+      'Scheduled Notification',
+      'This will appear in 10 seconds',
+      scheduledTime,
+      details,
+      androidScheduleMode: AndroidScheduleMode.exact,
+      // androidAllowWhileIdle: true,
+      // uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
+  Future<void> schedulePrayerNotification(String prayerName, tz.TZDateTime time) async {
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'prayer_reminder_channel',
+      'Prayer Reminder',
+      channelDescription: 'Reminds you about prayer times',
+      importance: Importance.high,
+      priority: Priority.high,
+      showWhen: false,
+    );
+
+    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    const NotificationDetails details = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      1,
+      '$prayerName Time',
+      'It\'s time for $prayerName.',
+      time,
+      details,
+      androidScheduleMode: AndroidScheduleMode.exact,
+      // : true,
+      // uiLocalNotificationDateInterpretation:
+      //     UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 }

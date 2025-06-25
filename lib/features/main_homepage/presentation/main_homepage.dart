@@ -13,6 +13,7 @@ import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/c
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/next_prayer_widget.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -97,7 +98,9 @@ class _MainHomePageState extends State<MainHomePage> {
                           SizedBox(height: 10.h),
                           ElevatedButton(
                               onPressed: () {
-                                notificationService.showBasicNotification();
+                                // notificationService.showBasicNotification();
+                                notificationService.schedulePrayerNotification('Fajr',
+                                    tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)));
                               },
                               child: const Text('Test')),
                           const AllPraysTimeWidget(),
