@@ -8,6 +8,7 @@ import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
+import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/heleprs/snackbar.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
@@ -17,12 +18,11 @@ import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_mo
 
 class PrayersController {
   ApiConsumer api = serviceLocator();
-  Future<ApiResponseModel<PrayersTimeModel>> prayerTime(
-      PrayerTimeParams params) async {
+  Future<ApiResponseModel<PrayersTimeModel>> prayerTime(PrayerTimeParams params) async {
     final t = prt('prayerTime - PrayersControllers');
     if (params.method == IslamicOrganization.auto) {
-      params.method = (await getPrayerCalcMethodByPosition()) ??
-          IslamicOrganization.muslimWorldLeague;
+      params.method =
+          (await getPrayerCalcMethodByPosition()) ?? IslamicOrganization.muslimWorldLeague;
     }
     try {
       final response = await api.get(
@@ -32,7 +32,8 @@ class PrayersController {
       return pr(
           ApiResponseModel(
             response: ResponseEnum.success,
-            data: PrayersTimeModel.fromJson(response['data']['timings']),
+            data: PrayersTimeModel.fromJson(response['data']['timings'],
+                date: formatDateForApi(params.date ?? DateTime.now())),
           ),
           t);
     } catch (e) {
@@ -44,10 +45,7 @@ class PrayersController {
       if (context != null) {
         showSnackbar('Error', errorMessage, true);
       }
-      return pr(
-          ApiResponseModel(
-              errorMessage: errorMessage, response: ResponseEnum.failure),
-          t);
+      return pr(ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure), t);
     }
   }
 }

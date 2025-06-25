@@ -3,6 +3,7 @@ import 'package:islamic_calander_2/core/heleprs/now.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 
 class PrayersTimeModel {
+  String? date;
   String? fajr;
   String? sunrise;
   String? dhuhr;
@@ -57,8 +58,7 @@ class PrayersTimeModel {
         return NextPrayerModel(nextPrayer: 'Asr', nextPrayerTime: asrTime);
       }
       if (now.isAfter(asrTime!) && now.isBefore(maghribTime!)) {
-        return NextPrayerModel(
-            nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
+        return NextPrayerModel(nextPrayer: 'Maghrib', nextPrayerTime: maghribTime);
       }
       if (now.isAfter(maghribTime!) && now.isBefore(ishaTime!)) {
         return NextPrayerModel(nextPrayer: 'Isha', nextPrayerTime: ishaTime);
@@ -88,6 +88,7 @@ class PrayersTimeModel {
   }
 
   PrayersTimeModel({
+    this.date,
     this.fajr,
     this.sunrise,
     this.dhuhr,
@@ -103,11 +104,12 @@ class PrayersTimeModel {
 
   @override
   String toString() {
-    return 'PrayersTimeModel(fajr: $fajr, sunrise: $sunrise, dhuhr: $dhuhr, asr: $asr, sunset: $sunset, maghrib: $maghrib, isha: $isha, imsak: $imsak, midnight: $midnight, firstthird: $firstthird, lastthird: $lastthird)';
+    return 'PrayersTimeModel(date: $date, fajr: $fajr, sunrise: $sunrise, dhuhr: $dhuhr, asr: $asr, sunset: $sunset, maghrib: $maghrib, isha: $isha, imsak: $imsak, midnight: $midnight, firstthird: $firstthird, lastthird: $lastthird)';
   }
 
-  factory PrayersTimeModel.fromJson(Map<String, dynamic> json) {
+  factory PrayersTimeModel.fromJson(Map<String, dynamic> json, {String? date}) {
     return PrayersTimeModel(
+      date: date,
       fajr: json['Fajr'] as String?,
       sunrise: json['Sunrise'] as String?,
       dhuhr: json['Dhuhr'] as String?,
@@ -146,6 +148,5 @@ class NextPrayerModel {
   });
 
   @override
-  String toString() =>
-      'NextPrayerModel(nextPrayer: $nextPrayer, nextPrayerTime: $nextPrayerTime)';
+  String toString() => 'NextPrayerModel(nextPrayer: $nextPrayer, nextPrayerTime: $nextPrayerTime)';
 }

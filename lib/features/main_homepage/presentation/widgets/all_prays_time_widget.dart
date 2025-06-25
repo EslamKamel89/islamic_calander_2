@@ -11,6 +11,7 @@ import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/heleprs/is_the_same_date.dart';
+import 'package:islamic_calander_2/core/heleprs/local_notification.dart';
 import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_locale.dart';
@@ -121,6 +122,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         date: selectedDate,
       );
       await cubit.getPrayerTime();
+      notificationService.addPrayersNotifications(cubit.params.copyWith(date: DateTime.now()));
       return;
     }
     positionNotifier.addListener(() async {
@@ -134,6 +136,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         date: selectedDate,
       );
       await cubit.getPrayerTime();
+      notificationService.addPrayersNotifications(cubit.params.copyWith(date: DateTime.now()));
     });
   }
 
