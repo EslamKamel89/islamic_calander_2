@@ -47,8 +47,7 @@ class _MainHomePageState extends State<MainHomePage> {
         Container(width: context.width, height: context.height, color: Colors.white),
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
           ),
           width: context.width,
           height: context.height,
@@ -95,14 +94,14 @@ class _MainHomePageState extends State<MainHomePage> {
                             ],
                           ),
                           SizedBox(height: 10.h),
-                          ElevatedButton(
-                              onPressed: () {
-                                // notificationService.showBasicNotification();
-                                // notificationService.schedulePrayerNotification('Fajr',
-                                //     tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)));
-                                notificationService.showAllPendingNotifications();
-                              },
-                              child: const Text('Test')),
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       // notificationService.showBasicNotification();
+                          //       // notificationService.schedulePrayerNotification('Fajr',
+                          //       //     tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)));
+                          //       notificationService.showAllPendingNotifications();
+                          //     },
+                          //     child: const Text('Test')),
                           const AllPraysTimeWidget(),
                           // const PrayerTimes2Widget().animate().fade(duration: animationDuration, begin: 0, end: 1),
                           SizedBox(height: 10.h),
