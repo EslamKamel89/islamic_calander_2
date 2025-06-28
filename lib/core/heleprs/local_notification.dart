@@ -1,12 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
+import 'package:islamic_calander_2/core/api_service/end_points.dart';
+import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
+import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/params.dart';
 import 'package:islamic_calander_2/features/main_homepage/controllers/prayers_controller.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
+import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 final NotificationService notificationService = NotificationService();
@@ -16,6 +24,7 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
   final PrayersController prayersController = serviceLocator<PrayersController>();
   List<PrayersTimeModel> prayers = [];
+  List<WisdomModel> wisdoms = [];
 
   Future initNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -132,7 +141,6 @@ class NotificationService {
     await androidImplementation?.requestNotificationsPermission();
   }
 
-  /// Basic permission request for iOS
   Future<void> _requestIOSPermissions() async {
     final IOSFlutterLocalNotificationsPlugin? iosImplementation = flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
@@ -144,20 +152,30 @@ class NotificationService {
     );
   }
 
-  Future<void> addPrayersNotifications(PrayerTimeParams params) async {
+  Future<void> addNotifications(PrayerTimeParams params) async {
     await _cancelAllNotificatons();
+    final locationName = await getLocalTimezone();
+    final location = tz.getLocation(locationName);
+    // prayers
+    await _fetchPrayers(params);
+    for (var day in prayers) {
+      await _scheduleSingleDayNotifications(day, location);
+    }
+    // wisdoms
+    await _fetchWisdoms();
+    for (var i = 0; i < wisdoms.length; i++) {
+      var wisdom = wisdoms[i];
+      await _scheduleWisdomNotification(wisdom, DateTime.now().add(Duration(days: i)), location);
+    }
+  }
+
+  Future _fetchPrayers(PrayerTimeParams params) async {
     for (var i = 0; i < 5; i++) {
       var res = await prayersController
           .prayerTime(params.copyWith(date: params.date?.add(Duration(days: i))));
       if (res.data != null) {
         prayers.add(res.data!);
       }
-    }
-    final locationName = await getLocalTimezone();
-
-    final location = tz.getLocation(locationName);
-    for (var day in prayers) {
-      await _scheduleSingleDayNotifications(day, location);
     }
   }
 
@@ -220,7 +238,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       notificationId,
       '$prayerName Time',
-      'It\'s time for $prayerName. date: $dateStr , time: $timeStr',
+      'It\'s time for $prayerName.',
       scheduledTime,
       details,
       androidScheduleMode: AndroidScheduleMode.exact,
@@ -238,105 +256,88 @@ class NotificationService {
     List<PendingNotificationRequest> pendingNotifications =
         await flutterLocalNotificationsPlugin.pendingNotificationRequests();
     pr(pendingNotifications.length, '$t - pending notifications number');
-    for (var notif in pendingNotifications) {
-      pr('id: ${notif.id}, title: ${notif.title} , body: ${notif.body}, payload: ${notif.payload}',
+    pr(DateTime.now(), '$t - DateTime.now');
+    for (var i = 0; i < pendingNotifications.length; i++) {
+      var notif = pendingNotifications[i];
+      pr('number: ${i + 1}, id: ${notif.id}, title: ${notif.title} , body: ${notif.body}, payload: ${notif.payload}',
           '$t - prayers');
+    }
+  }
+
+  Future<void> _scheduleWisdomNotification(
+      WisdomModel wisdom, DateTime date, tz.Location loc) async {
+    date = date.copyWith(hour: 7, minute: 0);
+    tz.TZDateTime scheduledTime = tz.TZDateTime.from(date, loc);
+    if (scheduledTime.millisecondsSinceEpoch < tz.TZDateTime.now(loc).millisecondsSinceEpoch) {
+      return;
+    }
+
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'prayer_reminder_channel',
+      'Prayer Reminder',
+      channelDescription: 'Reminds you about prayer times',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    const NotificationDetails details = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    // Use unique ID per notification to avoid conflicts
+    final int notificationId = "wisdom_${date.millisecondsSinceEpoch}".hashCode;
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      notificationId,
+      'حكمة اليوم',
+      wisdom.wisdomAr,
+      scheduledTime,
+      details,
+      androidScheduleMode: AndroidScheduleMode.exact,
+      // androidAllowWhileIdle: true,
+      // uiLocalNotificationDateInterpretation:
+      //     UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
+  Future _fetchWisdoms() async {
+    for (var i = 0; i < 5; i++) {
+      final res = await _fetchWisdom(DateTime.now().add(Duration(days: i)));
+      if (res.data != null) {
+        wisdoms.add(res.data!);
+      }
+    }
+  }
+
+  Future<ApiResponseModel<WisdomModel>> _fetchWisdom(DateTime date) async {
+    final ApiConsumer api = serviceLocator<ApiConsumer>();
+    date = date;
+    try {
+      final response = await api.get(EndPoint.wisdomEndPoint, queryParameter: {
+        'date': formatDateForApi(date),
+      });
+      return pr(
+          ApiResponseModel(
+            response: ResponseEnum.success,
+            data: WisdomModel.fromJson((jsonDecode(response) as List)[0]),
+          ),
+          t);
+    } catch (e) {
+      String errorMessage = e.toString();
+      if (e is DioException) {
+        errorMessage = jsonEncode(e.response?.data ?? 'Unknown error occured');
+      }
+      pr(errorMessage, '$t - Error Message');
+      return ApiResponseModel(errorMessage: errorMessage, response: ResponseEnum.failure);
     }
   }
 }
 
 const t = 'Prayer notification';
-
-
-
-  // Future<void> showBasicNotification() async {
-  //   const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-  //     'channel_id',
-  //     'channel_name',
-  //     channelDescription: 'This is a basic notification channel',
-  //     importance: Importance.high,
-  //     priority: Priority.high,
-  //   );
-
-  //   const DarwinNotificationDetails iosDetails = DarwinNotificationDetails();
-
-  //   const NotificationDetails details = NotificationDetails(
-  //     android: androidDetails,
-  //     iOS: iosDetails,
-  //   );
-
-  //   await flutterLocalNotificationsPlugin.show(
-  //     0, // ID of the notification
-  //     'Hello!', // Title
-  //     'This is a basic notification', // Body
-  //     details,
-  //     payload: 'basic_notification', // Optional data
-  //   );
-  // }
-
-  // Future<void> scheduleNotification() async {
-  //   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-  //   final tz.TZDateTime scheduledTime = now.add(const Duration(seconds: 10));
-
-  //   const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-  //     'prayer_reminder_channel',
-  //     'Prayers Reminder',
-  //     channelDescription: 'Reminds you about prayer times',
-  //     importance: Importance.high,
-  //     priority: Priority.high,
-  //   );
-  //   const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
-  //     presentAlert: true,
-  //     presentBadge: true,
-  //     presentSound: true,
-  //   );
-  //   const NotificationDetails details = NotificationDetails(
-  //     android: androidDetails,
-  //     iOS: iosDetails,
-  //   );
-
-  //   await flutterLocalNotificationsPlugin.zonedSchedule(
-  //     1,
-  //     'Scheduled Notification',
-  //     'This will appear in 10 seconds',
-  //     scheduledTime,
-  //     details,
-  //     androidScheduleMode: AndroidScheduleMode.exact,
-  //     // androidAllowWhileIdle: true,
-  //     // uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-  //   );
-  // }
-
-  // Future<void> schedulePrayerNotification(String prayerName, tz.TZDateTime time) async {
-  //   const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-  //     'prayer_reminder_channel',
-  //     'Prayer Reminder',
-  //     channelDescription: 'Reminds you about prayer times',
-  //     importance: Importance.high,
-  //     priority: Priority.high,
-  //     showWhen: false,
-  //   );
-
-  //   const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
-  //     presentAlert: true,
-  //     presentBadge: true,
-  //     presentSound: true,
-  //   );
-
-  //   const NotificationDetails details = NotificationDetails(
-  //     android: androidDetails,
-  //     iOS: iosDetails,
-  //   );
-
-  //   await flutterLocalNotificationsPlugin.zonedSchedule(
-  //     1,
-  //     '$prayerName Time',
-  //     'It\'s time for $prayerName.',
-  //     time,
-  //     details,
-  //     androidScheduleMode: AndroidScheduleMode.exact,
-  //     // : true,
-  //     // uiLocalNotificationDateInterpretation:
-  //     //     UILocalNotificationDateInterpretation.absoluteTime,
-  //   );
-  // }

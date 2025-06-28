@@ -47,7 +47,8 @@ class _MainHomePageState extends State<MainHomePage> {
         Container(width: context.width, height: context.height, color: Colors.white),
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
+            image: DecorationImage(
+                image: AssetImage(AssetsData.homepageBackground), fit: BoxFit.cover),
           ),
           width: context.width,
           height: context.height,
