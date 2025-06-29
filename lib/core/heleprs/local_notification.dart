@@ -238,7 +238,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       notificationId,
       '$prayerName Time',
-      'It\'s time for $prayerName.',
+      'It\'s time for $prayerName. today: $dateStr, time: $timeStr',
       scheduledTime,
       details,
       androidScheduleMode: AndroidScheduleMode.exact,
