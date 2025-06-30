@@ -122,7 +122,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         date: selectedDate,
       );
       await cubit.getPrayerTime();
-      notificationService.addNotifications(cubit.params.copyWith(date: DateTime.now()));
+      notificationService.addNotifications(params: cubit.params.copyWith(date: DateTime.now()));
       return;
     }
     positionNotifier.addListener(() async {
@@ -136,7 +136,7 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         date: selectedDate,
       );
       await cubit.getPrayerTime();
-      notificationService.addNotifications(cubit.params.copyWith(date: DateTime.now()));
+      notificationService.addNotifications(params: cubit.params.copyWith(date: DateTime.now()));
     });
   }
 

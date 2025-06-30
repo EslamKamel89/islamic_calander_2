@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
@@ -15,6 +18,8 @@ import 'package:islamic_calander_2/features/main_homepage/controllers/params.dar
 import 'package:islamic_calander_2/features/main_homepage/controllers/prayers_controller.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/prayers_time_model.dart';
 import 'package:islamic_calander_2/features/main_homepage/models/wisdom_model.dart';
+import 'package:islamic_calander_2/features/tasks/cubits/tasks/tasks_cubit.dart';
+import 'package:islamic_calander_2/features/tasks/models/task_model.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 final NotificationService notificationService = NotificationService();
@@ -152,12 +157,15 @@ class NotificationService {
     );
   }
 
-  Future<void> addNotifications(PrayerTimeParams params) async {
+  PrayerTimeParams? prayerParams;
+  Future<void> addNotifications({PrayerTimeParams? params}) async {
+    if (params != null) prayerParams = params;
+    params ??= prayerParams;
     await _cancelAllNotificatons();
     final locationName = await getLocalTimezone();
     final location = tz.getLocation(locationName);
     // prayers
-    await _fetchPrayers(params);
+    await _fetchPrayers(params!);
     for (var day in prayers) {
       await _scheduleSingleDayNotifications(day, location);
     }
@@ -166,6 +174,21 @@ class NotificationService {
     for (var i = 0; i < wisdoms.length; i++) {
       var wisdom = wisdoms[i];
       await _scheduleWisdomNotification(wisdom, DateTime.now().add(Duration(days: i)), location);
+    }
+    await _addTasksNotifications(location);
+  }
+
+  Future _addTasksNotifications(tz.Location location) async {
+    BuildContext? context = navigatorKey.currentContext;
+    if (context == null) return;
+    List<TaskModel> tasks = context.read<TasksCubit>().state.tasks ?? [];
+    pr(tasks, '$t - tasks');
+    tasks.sort((a, b) => b.date!.compareTo(a.date!));
+    if (tasks.length > 5) {
+      tasks = tasks.sublist(0, 4);
+    }
+    for (var i = 0; i < tasks.length; i++) {
+      await _scheduleTaskNotification(tasks[i], location);
     }
   }
 
@@ -262,6 +285,47 @@ class NotificationService {
       pr('number: ${i + 1}, id: ${notif.id}, title: ${notif.title} , body: ${notif.body}, payload: ${notif.payload}',
           '$t - prayers');
     }
+  }
+
+  Future<void> _scheduleTaskNotification(TaskModel task, tz.Location loc) async {
+    tz.TZDateTime scheduledTime = tz.TZDateTime.from(task.date ?? DateTime.now(), loc);
+    if (scheduledTime.millisecondsSinceEpoch < tz.TZDateTime.now(loc).millisecondsSinceEpoch) {
+      return;
+    }
+
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'prayer_reminder_channel',
+      'Prayer Reminder',
+      channelDescription: 'Reminds you about prayer times',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    const NotificationDetails details = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    // Use unique ID per notification to avoid conflicts
+    final int notificationId = "task_${task.date?.millisecondsSinceEpoch}".hashCode;
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      notificationId,
+      task.title,
+      task.content,
+      scheduledTime,
+      details,
+      androidScheduleMode: AndroidScheduleMode.exact,
+      // androidAllowWhileIdle: true,
+      // uiLocalNotificationDateInterpretation:
+      //     UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   Future<void> _scheduleWisdomNotification(

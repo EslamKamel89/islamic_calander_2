@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamic_calander_2/core/heleprs/local_notification.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/static_data/shared_prefrences_key.dart';
 import 'package:islamic_calander_2/features/tasks/models/task_model.dart';
@@ -41,6 +42,7 @@ class TasksCubit extends Cubit<TasksState> {
     await sh.setStringList(
         ShPrefKey.tasks, state.tasks?.map((task) => jsonEncode(task.toJson())).toList() ?? []);
     emit(state.copyWith());
+    notificationService.addNotifications();
   }
 
   Future<void> deleteTask(String? id) async {
@@ -50,5 +52,6 @@ class TasksCubit extends Cubit<TasksState> {
     await sh.setStringList(
         ShPrefKey.tasks, state.tasks?.map((task) => jsonEncode(task.toJson())).toList() ?? []);
     emit(state.copyWith());
+    notificationService.addNotifications();
   }
 }

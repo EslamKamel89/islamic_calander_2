@@ -39,5 +39,4 @@ Future initServiceLocator() async {
   serviceLocator.registerLazySingleton<MoonImageController>(() => MoonImageController());
 
   serviceLocator.registerLazySingleton<AboutController>(() => AboutController());
-  // serviceLocator.registerLazySingleton<NotificationService>(() => NotificationService());
 }
