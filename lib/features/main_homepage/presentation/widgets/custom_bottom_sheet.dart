@@ -136,8 +136,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
+import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/grid_item.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -252,6 +254,7 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                     ),
                   ],
                 ),
+                const Sizer(),
                 Row(
                   children: [
                     Expanded(
@@ -281,7 +284,69 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                         },
                       ),
                     ),
-                    const Expanded(child: SizedBox()),
+                    Expanded(
+                      child: GridItem(
+                        title: 'SHARE_APP'.tr(),
+                        image: AssetsData.share,
+                        onTap: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: Container(
+                                      padding:
+                                          const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text('SHARE_APP'.tr(),
+                                              style: const TextStyle(
+                                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                                          Text(
+                                            'SHARE_APP_DESCRIPTION'.tr(),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                            // width: double.infinity,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                  child: Container(
+                                                padding: const EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                    color: context.primaryColor,
+                                                    shape: BoxShape.circle),
+                                                child: Icon(MdiIcons.android,
+                                                    size: 40, color: Colors.white),
+                                              )),
+                                              const Sizer(
+                                                width: 30,
+                                              ),
+                                              InkWell(
+                                                  child: Container(
+                                                padding: const EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                    color: context.primaryColor,
+                                                    shape: BoxShape.circle),
+                                                child: Icon(MdiIcons.appleIos,
+                                                    size: 40, color: Colors.white),
+                                              )),
+                                            ],
+                                          )
+                                        ],
+                                      )),
+                                );
+                              });
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 // Row(
