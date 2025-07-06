@@ -63,6 +63,7 @@ dependencies:
   lottie: 3.2.0
   material_design_icons_flutter: ^7.0.7296
   sensors_plus: ^6.1.1
+  share_plus: ^11.0.0
   shared_preferences: ^2.3.3
   table_calendar: ^3.1.2
   timezone: ^0.10.1
