@@ -143,6 +143,7 @@ import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/grid_item.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainpageBottomSheetWidget extends StatefulWidget {
@@ -318,26 +319,42 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               InkWell(
+                                                  onTap: () {
+                                                    SharePlus.instance.share(
+                                                      ShareParams(
+                                                          text:
+                                                              'https://play.google.com/store/apps/details?id=com.gaztec.islamic_calander'),
+                                                    );
+                                                    Navigator.of(context).pop();
+                                                  },
                                                   child: Container(
-                                                padding: const EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                    color: context.primaryColor,
-                                                    shape: BoxShape.circle),
-                                                child: Icon(MdiIcons.android,
-                                                    size: 40, color: Colors.white),
-                                              )),
+                                                    padding: const EdgeInsets.all(5),
+                                                    decoration: BoxDecoration(
+                                                        color: context.primaryColor,
+                                                        shape: BoxShape.circle),
+                                                    child: Icon(MdiIcons.android,
+                                                        size: 40, color: Colors.white),
+                                                  )),
                                               const Sizer(
                                                 width: 30,
                                               ),
                                               InkWell(
+                                                  onTap: () {
+                                                    SharePlus.instance.share(
+                                                      ShareParams(
+                                                          text:
+                                                              'https://apps.apple.com/us/app/eternal-islamic-calendar/id6738862001'),
+                                                    );
+                                                    Navigator.of(context).pop();
+                                                  },
                                                   child: Container(
-                                                padding: const EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                    color: context.primaryColor,
-                                                    shape: BoxShape.circle),
-                                                child: Icon(MdiIcons.appleIos,
-                                                    size: 40, color: Colors.white),
-                                              )),
+                                                    padding: const EdgeInsets.all(5),
+                                                    decoration: BoxDecoration(
+                                                        color: context.primaryColor,
+                                                        shape: BoxShape.circle),
+                                                    child: Icon(MdiIcons.appleIos,
+                                                        size: 40, color: Colors.white),
+                                                  )),
                                             ],
                                           )
                                         ],
