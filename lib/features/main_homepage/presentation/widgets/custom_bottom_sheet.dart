@@ -141,6 +141,7 @@ import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/grid_item.dart';
+import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/share_app.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -293,72 +294,8 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return Dialog(
-                                  child: Container(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text('SHARE_APP'.tr(),
-                                              style: const TextStyle(
-                                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                                          Text(
-                                            'SHARE_APP_DESCRIPTION'.tr(),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                            // width: double.infinity,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                  onTap: () {
-                                                    SharePlus.instance.share(
-                                                      ShareParams(
-                                                          text:
-                                                              'https://play.google.com/store/apps/details?id=com.gaztec.islamic_calander'),
-                                                    );
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Container(
-                                                    padding: const EdgeInsets.all(5),
-                                                    decoration: BoxDecoration(
-                                                        color: context.primaryColor,
-                                                        shape: BoxShape.circle),
-                                                    child: Icon(MdiIcons.android,
-                                                        size: 40, color: Colors.white),
-                                                  )),
-                                              const Sizer(
-                                                width: 30,
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    SharePlus.instance.share(
-                                                      ShareParams(
-                                                          text:
-                                                              'https://apps.apple.com/us/app/eternal-islamic-calendar/id6738862001'),
-                                                    );
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Container(
-                                                    padding: const EdgeInsets.all(5),
-                                                    decoration: BoxDecoration(
-                                                        color: context.primaryColor,
-                                                        shape: BoxShape.circle),
-                                                    child: Icon(MdiIcons.appleIos,
-                                                        size: 40, color: Colors.white),
-                                                  )),
-                                            ],
-                                          )
-                                        ],
-                                      )),
+                                return const Dialog(
+                                  child: ShareAppWidget(),
                                 );
                               });
                         },
