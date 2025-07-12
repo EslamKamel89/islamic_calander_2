@@ -11,6 +11,7 @@ import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 import 'package:islamic_calander_2/core/heleprs/get_local_timezone.dart';
+import 'package:islamic_calander_2/core/heleprs/lock_screen_widget.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/models/api_response_model.dart';
 import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
@@ -167,6 +168,8 @@ class NotificationService {
     for (var day in prayers) {
       await _scheduleSingleDayNotifications(day, location);
     }
+    // trigger lock screen widget update
+    LockScreenService.sendPrayerJson({'prayers': prayers.map((prayer) => prayer.toJson()).toList()});
     // wisdoms
     await _fetchWisdoms();
     for (var i = 0; i < wisdoms.length; i++) {
