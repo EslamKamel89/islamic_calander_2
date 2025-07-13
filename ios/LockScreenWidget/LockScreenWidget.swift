@@ -195,6 +195,152 @@
 //    SimpleEntry(date: .now, fajrTime: "04:10")
 //}
 
+//----------------------------------------------------------------------------------------------
+
+// this widget dispaly the time in minutes only but it updates fine
+//
+//  LockScreenWidget.swift
+//  LockScreenWidget
+//
+//  Displays the next prayer name and time remaining.
+//
+//import WidgetKit
+//import SwiftUI
+//
+//// MARK: - Model
+//struct PrayerDay: Codable {
+//    let date: String
+//    let Fajr: String
+//    let Sunrise: String
+//    let Dhuhr: String
+//    let Asr: String
+//    let Maghrib: String
+//    let Isha: String
+//}
+//
+//struct SimpleEntry: TimelineEntry {
+//    let date: Date
+//    let prayerName: String
+//    let timeRemaining: String
+//    let warning: Bool
+//}
+//
+//// MARK: - Timeline Provider
+//struct Provider: TimelineProvider {
+//    func placeholder(in context: Context) -> SimpleEntry {
+//        SimpleEntry(date: Date(), prayerName: "--", timeRemaining: "--", warning: false)
+//    }
+//
+//    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+//        let entry = buildEntry()
+//        completion(entry)
+//    }
+//
+//    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+//        let now = Date()
+//        let refreshRateMinutes = 2
+//        var entries: [SimpleEntry] = []
+//
+//        // Build entries every 2 minutes for the next 5 hours (configurable)
+//        for offset in 0..<150 { // 150 x 2min = 5 hours
+//            let nextDate = Calendar.current.date(byAdding: .minute, value: offset * refreshRateMinutes, to: now)!
+//            let entry = buildEntry(at: nextDate)
+//            entries.append(entry)
+//        }
+//
+//        let timeline = Timeline(entries: entries, policy: .atEnd)
+//        completion(timeline)
+//    }
+//
+//    private func buildEntry(at refDate: Date = Date()) -> SimpleEntry {
+//        guard let userDefaults = UserDefaults(suiteName: "group.com.gaztec.lockwidget"),
+//              let jsonString = userDefaults.string(forKey: "prayer_json"),
+//              let data = jsonString.data(using: .utf8) else {
+//            return SimpleEntry(date: refDate, prayerName: "No Data", timeRemaining: "Open app", warning: true)
+//        }
+//
+//        do {
+//            let decoded = try JSONDecoder().decode([String: [PrayerDay]].self, from: data)
+//            let prayers = decoded["prayers"] ?? []
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "dd-MM-yyyy HH:mm"
+//            formatter.locale = Locale(identifier: "en_US_POSIX")
+//
+//            for day in prayers {
+//                let datePrefix = day.date
+//                for (name, time) in [
+//                    ("Fajr", day.Fajr),
+//                    ("Sunrise", day.Sunrise),
+//                    ("Dhuhr", day.Dhuhr),
+//                    ("Asr", day.Asr),
+//                    ("Maghrib", day.Maghrib),
+//                    ("Isha", day.Isha)
+//                ] {
+//                    let cleaned = time.trimmingCharacters(in: .whitespaces)
+//                    let combined = "\(datePrefix) \(cleaned)"
+//                    if let prayerDate = formatter.date(from: combined), prayerDate > refDate {
+//                        let remaining = Int(prayerDate.timeIntervalSince(refDate) / 60)
+//                        let formattedRemaining = "in \(remaining) min"
+//                        return SimpleEntry(date: refDate, prayerName: name, timeRemaining: formattedRemaining, warning: false)
+//                    }
+//                }
+//            }
+//            return SimpleEntry(date: refDate, prayerName: "Outdated", timeRemaining: "Open app", warning: true)
+//        } catch {
+//            return SimpleEntry(date: refDate, prayerName: "Invalid JSON", timeRemaining: "Fix data", warning: true)
+//        }
+//    }
+//}
+//
+//// MARK: - Widget View
+//struct LockScreenWidgetEntryView : View {
+//    var entry: Provider.Entry
+//
+//    var body: some View {
+//        if entry.warning {
+//            Text("🔄 Open app to refresh")
+//                .font(.caption2)
+//                .multilineTextAlignment(.center)
+//        } else {
+//            VStack(spacing: 2) {
+//                Text(entry.prayerName)
+//                    .font(.caption)
+//                    .bold()
+//                Text(entry.timeRemaining)
+//                    .font(.footnote)
+//            }
+//        }
+//    }
+//}
+//
+//// MARK: - Widget Configuration
+//struct LockScreenWidget: Widget {
+//    let kind: String = "LockScreenWidget"
+//
+//    var body: some WidgetConfiguration {
+//        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+//            if #available(iOS 17.0, *) {
+//                LockScreenWidgetEntryView(entry: entry)
+//                    .containerBackground(.fill.tertiary, for: .widget)
+//            } else {
+//                LockScreenWidgetEntryView(entry: entry)
+//                    .padding()
+//                    .background()
+//            }
+//        }
+//        .configurationDisplayName("Next Prayer")
+//        .description("Shows next prayer and countdown")
+//        .supportedFamilies([.accessoryRectangular])
+//    }
+//}
+//
+//// MARK: - Preview
+//#Preview(as: .accessoryRectangular) {
+//    LockScreenWidget()
+//} timeline: {
+//    SimpleEntry(date: .now, prayerName: "Asr", timeRemaining: "in 38 min", warning: false)
+//}
+
 //
 //  LockScreenWidget.swift
 //  LockScreenWidget
@@ -249,6 +395,17 @@ struct Provider: TimelineProvider {
         completion(timeline)
     }
 
+    private func formatMinutesToHoursMinutes(_ totalMinutes: Int) -> String {
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
+
+        switch (hours, minutes) {
+        case (0, let m): return "in \(m) min"
+        case (let h, 0): return "in \(h) hour\(h > 1 ? "s" : "")"
+        default: return "in \(hours)h \(minutes)m"
+        }
+    }
+
     private func buildEntry(at refDate: Date = Date()) -> SimpleEntry {
         guard let userDefaults = UserDefaults(suiteName: "group.com.gaztec.lockwidget"),
               let jsonString = userDefaults.string(forKey: "prayer_json"),
@@ -277,7 +434,7 @@ struct Provider: TimelineProvider {
                     let combined = "\(datePrefix) \(cleaned)"
                     if let prayerDate = formatter.date(from: combined), prayerDate > refDate {
                         let remaining = Int(prayerDate.timeIntervalSince(refDate) / 60)
-                        let formattedRemaining = "in \(remaining) min"
+                        let formattedRemaining = formatMinutesToHoursMinutes(remaining)
                         return SimpleEntry(date: refDate, prayerName: name, timeRemaining: formattedRemaining, warning: false)
                     }
                 }
@@ -294,17 +451,26 @@ struct LockScreenWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        if entry.warning {
-            Text("🔄 Open app to refresh")
-                .font(.caption2)
-                .multilineTextAlignment(.center)
-        } else {
-            VStack(spacing: 2) {
-                Text(entry.prayerName)
-                    .font(.caption)
-                    .bold()
-                Text(entry.timeRemaining)
-                    .font(.footnote)
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.blue.opacity(0.2))
+
+            if entry.warning {
+                Text("🔄 Open app to refresh")
+                    .font(.caption2)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .padding(6)
+            } else {
+                VStack(spacing: 2) {
+                    Text(entry.prayerName)
+                        .font(.caption)
+                        .bold()
+                        .foregroundColor(.primary)
+                    Text(entry.timeRemaining)
+                        .font(.footnote)
+                        .foregroundColor(.primary)
+                }
             }
         }
     }
@@ -335,5 +501,5 @@ struct LockScreenWidget: Widget {
 #Preview(as: .accessoryRectangular) {
     LockScreenWidget()
 } timeline: {
-    SimpleEntry(date: .now, prayerName: "Asr", timeRemaining: "in 38 min", warning: false)
+    SimpleEntry(date: .now, prayerName: "Asr", timeRemaining: "in 1h 30m", warning: false)
 }
