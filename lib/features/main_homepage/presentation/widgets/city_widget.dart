@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
+import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
@@ -125,7 +126,7 @@ class _CityWidgetState extends State<CityWidget> {
   Future _request(Position position) async {
     final t = prt('_fetchLocationData - CityWidget');
     String url =
-        "https://gaztec.org/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+        "${EndPoint.baseUrl}/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
     final api = serviceLocator<ApiConsumer>();
     try {
       setState(() {

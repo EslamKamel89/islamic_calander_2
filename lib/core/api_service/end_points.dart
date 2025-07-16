@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 
 class EndPoint {
-  static const String baseUrl = "https://gaztec.org";
+  // static const String baseUrl = "https://gaztec.org";
+  static const String baseUrl = "https://gaztec.com";
   static const String dateConversionEndPoint = "$baseUrl/moon/getdate.php";
   static const String dateConversionLunarEndPoint = "$baseUrl/moon/getdatelunar.php";
   static const String dateInfoYearEndPoint = "$baseUrl/moon/getyear.php";

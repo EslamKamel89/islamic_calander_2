@@ -136,7 +136,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
@@ -144,7 +143,6 @@ import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/g
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/share_app.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainpageBottomSheetWidget extends StatefulWidget {
@@ -259,15 +257,15 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                 const Sizer(),
                 Row(
                   children: [
-                    Expanded(
-                      child: GridItem(
-                        title: 'WORLD_PRAYERS_2'.tr(),
-                        image: AssetsData.globe,
-                        onTap: () async {
-                          Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
-                        },
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: GridItem(
+                    //     title: 'WORLD_PRAYERS_2'.tr(),
+                    //     image: AssetsData.globe,
+                    //     onTap: () async {
+                    //       Navigator.of(context).pushNamed(AppRoutesNames.worldPrayersView);
+                    //     },
+                    //   ),
+                    // ),
                     Expanded(
                       child: GridItem(
                         title: "TASKS".tr(),
@@ -301,6 +299,9 @@ class _MainpageBottomSheetWidgetState extends State<MainpageBottomSheetWidget> {
                         },
                       ),
                     ),
+                    const Expanded(
+                      child: SizedBox(),
+                    )
                   ],
                 ),
                 // Row(
