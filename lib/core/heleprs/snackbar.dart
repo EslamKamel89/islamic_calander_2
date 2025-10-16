@@ -3,6 +3,7 @@ import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 
 void showSnackbar(String title, String message, bool isError) {
+  if (isError) return;
   if (navigatorKey.currentState != null) {
     final context = navigatorKey.currentState!.context;
     final snackBar = SnackBar(
@@ -38,8 +39,7 @@ void showSnackbar(String title, String message, bool isError) {
           ),
         ],
       ),
-      backgroundColor:
-          isError ? Colors.red.withOpacity(0.8) : Colors.green.withOpacity(0.8),
+      backgroundColor: isError ? Colors.red.withOpacity(0.8) : Colors.green.withOpacity(0.8),
       behavior: SnackBarBehavior.floating,
       elevation: 6.0,
       shape: RoundedRectangleBorder(
