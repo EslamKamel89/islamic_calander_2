@@ -2,6 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_calander_2/core/Errors/failure.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/entities/selected_date_conversion_entity.dart';
 import 'package:islamic_calander_2/features/date_conversion/domain/repo/date_conversion_repo.dart';
@@ -17,7 +18,7 @@ class DateConversionCubit extends Cubit<DateConversionState> {
   void goToYear(String yearStr) {
     int year;
     try {
-      year = int.parse(yearStr);
+      year = intParse(yearStr) ?? 2024;
       year = year < state.firstDay.year ? state.firstDay.year : year;
       year = year > state.lastDay.year ? state.lastDay.year : year;
     } catch (e) {
@@ -33,8 +34,7 @@ class DateConversionCubit extends Cubit<DateConversionState> {
   Future getSelectedDateInfo(DateTime selectedDate) async {
     final t = prt('getSelectedDateInfo - DateConversionCubit');
     emit(state.copyWith(
-        getSelectedDateInfoState: ResponseEnum.loading,
-        selectedGeorgianDate: selectedDate));
+        getSelectedDateInfoState: ResponseEnum.loading, selectedGeorgianDate: selectedDate));
     final result = await dateConversionRepo.getDateConversion(
         selectedDate, state.selectedOption ?? DataProcessingOption.lunar);
     return result.fold(
@@ -55,8 +55,7 @@ class DateConversionCubit extends Cubit<DateConversionState> {
         emit(
           state.copyWith(
             selectedGeorgianDate: selectedDate,
-            selectedDateConversionEntity:
-                model.copyWith(selectedGeorgianDate: selectedDate),
+            selectedDateConversionEntity: model.copyWith(selectedGeorgianDate: selectedDate),
             getSelectedDateInfoState: ResponseEnum.success,
           ),
         );

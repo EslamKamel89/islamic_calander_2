@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
+import 'package:islamic_calander_2/core/heleprs/int_parse.dart';
 import 'package:islamic_calander_2/core/heleprs/print_helper.dart';
 import 'package:islamic_calander_2/core/widgets/default_screen_padding.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
@@ -51,7 +52,8 @@ class _MoonInfoViewState extends State<MoonInfoView> {
           YearSearchWidget(
             handleInputChange: (String year) {
               try {
-                int yearInt = int.parse(year);
+                int? yearInt = intParse(year);
+                if (yearInt == null) return;
                 int maxYear = context.read<DateConversionCubit>().state.lastDay.year;
                 int minYear = context.read<DateConversionCubit>().state.firstDay.year;
                 pr(minYear, 'minYear');
