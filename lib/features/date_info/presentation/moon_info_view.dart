@@ -14,6 +14,7 @@ import 'package:islamic_calander_2/features/date_info/presentation/cubits/moon_p
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/moon_phase_item_card.dart';
 import 'package:islamic_calander_2/features/date_info/presentation/widgets/moon_phases_dropdown_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:islamic_calander_2/main.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class MoonInfoView extends StatefulWidget {
@@ -23,8 +24,14 @@ class MoonInfoView extends StatefulWidget {
   State<MoonInfoView> createState() => _MoonInfoViewState();
 }
 
-class _MoonInfoViewState extends State<MoonInfoView> {
+class _MoonInfoViewState extends State<MoonInfoView> with RouteAware {
   late MoonPhaseCubit controller;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +41,14 @@ class _MoonInfoViewState extends State<MoonInfoView> {
   @override
   void dispose() {
     controller.state.moonPhasesInfo = [];
+    routeObserver.unsubscribe(this);
     super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    bottomNavigationBarIndex = 2;
+    setState(() {});
   }
 
   @override
@@ -43,7 +57,9 @@ class _MoonInfoViewState extends State<MoonInfoView> {
       appBar: AppBar(title: txt("MOON_PHASE".tr(), e: St.bold20)),
       resizeToAvoidBottomInset: false,
       // drawer: const DefaultDrawer(),
-      bottomNavigationBar: const CustomBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavBar(
+        key: Key(bottomNavigationBarIndex.toString()),
+      ),
       body: DefaultScreenPadding(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

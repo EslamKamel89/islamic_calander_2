@@ -8,6 +8,7 @@ import 'package:islamic_calander_2/features/date_conversion/presentation/views/w
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/table_widget.dart';
 import 'package:islamic_calander_2/features/date_conversion/presentation/views/widgets/year_search_widget.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:islamic_calander_2/main.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 
 class DateConversionView extends StatefulWidget {
@@ -16,12 +17,30 @@ class DateConversionView extends StatefulWidget {
   State<DateConversionView> createState() => _DateConversionViewState();
 }
 
-class _DateConversionViewState extends State<DateConversionView> {
+class _DateConversionViewState extends State<DateConversionView> with RouteAware {
   late DateConversionCubit controller;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
   @override
   void initState() {
     super.initState();
     controller = context.read<DateConversionCubit>();
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    bottomNavigationBarIndex = 1;
+    setState(() {});
   }
 
   @override
@@ -34,7 +53,9 @@ class _DateConversionViewState extends State<DateConversionView> {
         appBar: AppBar(title: txt('DATE_CONVERSION'.tr(), e: St.bold20)),
         resizeToAvoidBottomInset: false,
         // drawer: const DefaultDrawer(),
-        bottomNavigationBar: const CustomBottomNavBar(),
+        bottomNavigationBar: CustomBottomNavBar(
+          key: Key(bottomNavigationBarIndex.toString()),
+        ),
         body: Scrollbar(
           thickness: 10,
           child: SingleChildScrollView(

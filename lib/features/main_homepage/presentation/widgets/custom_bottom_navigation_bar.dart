@@ -12,18 +12,19 @@ class CustomBottomNavBar extends StatefulWidget {
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
 }
 
-int _selectedIndex = 0;
+int bottomNavigationBarIndex = 0;
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   void _onItemTapped(int index) {
     if (index != 3) {
       setState(() {
-        _selectedIndex = index;
+        bottomNavigationBarIndex = index;
       });
     }
     final route = _getRouteNameForIndex(index);
     if (route != "MORE") {
-      Navigator.of(context).pushNamedAndRemoveUntil(_getRouteNameForIndex(index), (_) => false);
+      // Navigator.of(context).pushNamedAndRemoveUntil(_getRouteNameForIndex(index), (_) => false);
+      Navigator.of(context).pushNamed(_getRouteNameForIndex(index));
     } else {
       showCustomBottomSheet();
     }
@@ -52,7 +53,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             ...List.generate(
               4,
               (index) {
-                final isActive = _selectedIndex == index;
+                final isActive = bottomNavigationBarIndex == index;
                 return GestureDetector(
                   onTap: () {
                     _onItemTapped(index);

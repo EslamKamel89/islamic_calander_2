@@ -12,6 +12,7 @@ import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/c
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/custom_bottom_sheet.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/islamic_wisdom_card.dart';
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/next_prayer_widget.dart';
+import 'package:islamic_calander_2/main.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -21,11 +22,18 @@ class MainHomePage extends StatefulWidget {
   State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _MainHomePageState extends State<MainHomePage> {
+class _MainHomePageState extends State<MainHomePage> with RouteAware {
   final animationDuration = const Duration(seconds: 1);
   final longAnimationDuration = const Duration(seconds: 3);
   final shortAnimationDuration = const Duration(milliseconds: 500);
   bool bottomSheetOpen = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
   @override
   void initState() {
     init();
@@ -33,9 +41,20 @@ class _MainHomePageState extends State<MainHomePage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
   Future init() async {
     // await positionFetchedTrigger();
     // await checkPermissionsLoop();
+  }
+  @override
+  void didPopNext() {
+    bottomNavigationBarIndex = 0;
+    setState(() {});
   }
 
   @override
@@ -62,7 +81,9 @@ class _MainHomePageState extends State<MainHomePage> {
             //   actions: const [SettingsDropdown()],
             // ),
             // drawer: const DefaultDrawer(opacity: 0.7),
-            bottomNavigationBar: const CustomBottomNavBar(),
+            bottomNavigationBar: CustomBottomNavBar(
+              key: Key(bottomNavigationBarIndex.toString()),
+            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
