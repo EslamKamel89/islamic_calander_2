@@ -14,6 +14,7 @@ import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/i
 import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/next_prayer_widget.dart';
 import 'package:islamic_calander_2/main.dart';
 import 'package:islamic_calander_2/utils/assets/assets.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -36,6 +37,7 @@ class _MainHomePageState extends State<MainHomePage> with RouteAware {
 
   @override
   void initState() {
+    WakelockPlus.enable();
     init();
     notificationService.requestPermissions();
     super.initState();
