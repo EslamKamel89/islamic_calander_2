@@ -26,7 +26,8 @@ import 'package:timezone/timezone.dart' as tz;
 final NotificationService notificationService = NotificationService();
 
 class NotificationService {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   final PrayersController prayersController = serviceLocator<PrayersController>();
   List<PrayersTimeModel> prayers = [];
   List<WisdomModel> wisdoms = [];
@@ -140,14 +141,15 @@ class NotificationService {
 
   Future<void> _requestAndroidPermission() async {
     final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+        flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
     await androidImplementation?.requestNotificationsPermission();
   }
 
   Future<void> _requestIOSPermissions() async {
-    final IOSFlutterLocalNotificationsPlugin? iosImplementation =
-        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+    final IOSFlutterLocalNotificationsPlugin? iosImplementation = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
 
     await iosImplementation?.requestPermissions(
       alert: true,
@@ -169,7 +171,8 @@ class NotificationService {
       await _scheduleSingleDayNotifications(day, location);
     }
     // trigger lock screen widget update
-    LockScreenService.sendPrayerJson({'prayers': prayers.map((prayer) => prayer.toJson()).toList()});
+    LockScreenService.sendPrayerJson(
+        {'prayers': prayers.map((prayer) => prayer.toJson()).toList()});
     // wisdoms
     await _fetchWisdoms();
     for (var i = 0; i < wisdoms.length; i++) {
@@ -194,10 +197,12 @@ class NotificationService {
   }
 
   Future _fetchPrayers(PrayerTimeParams params) async {
-    for (var i = 0; i < 5; i++) {
-      var res = await prayersController.prayerTime(params.copyWith(date: params.date?.add(Duration(days: i))));
+    for (var i = 0; i < 12; i++) {
+      await Future.delayed(const Duration(seconds: 1));
+      var res = await prayersController
+          .prayerTime(params.copyWith(date: params.date?.add(Duration(days: i))));
       if (res.data != null) {
-        // pr(res.data, 'data recieved from the from api');
+        pr(res.data, 'data recieved from the from api');
         prayers.add(res.data!);
       }
     }
@@ -227,7 +232,8 @@ class NotificationService {
     await _schedulePrayerNotification("Isha", day.isha!, baseDateStr, location);
   }
 
-  Future<void> _schedulePrayerNotification(String prayerName, String timeStr, String dateStr, tz.Location loc) async {
+  Future<void> _schedulePrayerNotification(
+      String prayerName, String timeStr, String dateStr, tz.Location loc) async {
     tz.TZDateTime scheduledTime = _parseToTZDateTime(dateStr, timeStr, loc);
     if (scheduledTime.millisecondsSinceEpoch < tz.TZDateTime.now(loc).millisecondsSinceEpoch) {
       return;
@@ -328,7 +334,8 @@ class NotificationService {
     );
   }
 
-  Future<void> _scheduleWisdomNotification(WisdomModel wisdom, DateTime date, tz.Location loc) async {
+  Future<void> _scheduleWisdomNotification(
+      WisdomModel wisdom, DateTime date, tz.Location loc) async {
     date = date.copyWith(hour: 7, minute: 0);
     tz.TZDateTime scheduledTime = tz.TZDateTime.from(date, loc);
     if (scheduledTime.millisecondsSinceEpoch < tz.TZDateTime.now(loc).millisecondsSinceEpoch) {
