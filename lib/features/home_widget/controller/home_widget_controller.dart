@@ -17,7 +17,7 @@ class HomeWidgetController {
   static const String iosWidgetName = 'IslamicWidget';
 
   static void syncHomeWidgetState(HomeWidgetState state) {
-    return;
+    // return;
     HomeWidget.setAppGroupId(appGroupId);
     pr(state, t);
     HomeWidget.saveWidgetData(
