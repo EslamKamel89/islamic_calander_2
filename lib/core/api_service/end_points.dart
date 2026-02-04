@@ -4,14 +4,20 @@ import 'package:islamic_calander_2/core/heleprs/format_date.dart';
 
 class EndPoint {
   // static const String baseUrl = "https://gaztec.org";
-  static const String baseUrl = "https://gaztec.com";
-  static const String dateConversionEndPoint = "$baseUrl/moon/getdate.php";
-  static const String dateConversionLunarEndPoint = "$baseUrl/moon/getdatelunar.php";
-  static const String dateInfoYearEndPoint = "$baseUrl/moon/getyear.php";
-  static const String dateInfoMonthEndPoint = "$baseUrl/moon/getmonth.php";
-  static const String getMoonPhaseEndPoint = "$baseUrl/moon/getphase.php";
-  static const String getEclipseEndPoint = "$baseUrl/moon/getecllipse.php";
-  static const String wisdomEndPoint = "$baseUrl/moon/wisdoms.php";
+  static const String mainDomain = 'https://gaztec.com/moon';
+  static const String backupDomain = 'https://moon.safqauae.com';
+  static String domain = mainDomain;
+  static String get baseUrl {
+    return domain;
+  }
+
+  static String dateConversionEndPoint = "$baseUrl/getdate.php";
+  static String dateConversionLunarEndPoint = "$baseUrl/getdatelunar.php";
+  static String dateInfoYearEndPoint = "$baseUrl/getyear.php";
+  static String dateInfoMonthEndPoint = "$baseUrl/getmonth.php";
+  static String getMoonPhaseEndPoint = "$baseUrl/getphase.php";
+  static String getEclipseEndPoint = "$baseUrl/getecllipse.php";
+  static String wisdomEndPoint = "$baseUrl/wisdoms.php";
   // https://api.aladhan.com/v1/timings/01-01-2025?latitude=51.5194682&longitude=-0.1360365&method=3&shafaq=general&tune=5%2C3%2C5%2C7%2C9%2C-1%2C0%2C8%2C-6&timezonestring=UTC&calendarMethod=UAQ
   static String prayerTimesEndPoint(DateTime date) =>
       'https://api.aladhan.com/v1/timings/${formatDateForApi(date)}';
@@ -23,7 +29,7 @@ class EndPoint {
         'Authorization':
             'Basic ${base64Encode(utf8.encode('$applicationID:$applicationSecretKey'))}'
       };
-  static const String about = "$baseUrl/moon/api/about.php";
+  static String about = "$baseUrl/api/about.php";
   // {
   //   'Authorization':;
   //       'Basic NjE5OWM1MmItYTIxMi00ZjFhLWJlMDEtYWVlZTUzZWJkMDRhOmU4NDQ1MTY4ZjkxOWRmZWUxNGJiMjAxZDU0YmZhNzc2NTJjZGIwMWYwNThkNDI3ZGMzNjkyODBkNGIwYmRjZmYyZDI1MWM4NzJiM2M0OTFjMjFmNWNlZTA4MzZkNDAzNWNmNjAxMDMyMzk2OTA4MDNlNWRjNjkxY2E2NTQzMjJjZDk4ZTk4MTNmNTdjOWE1YTRlMDc5ZDljM2YyZmU5ZWI5OGJkYzRiNDJkZjMzNzg2ODMxZjllMjFjNWExZDY2YTU3ZTc2OGIyNTZhNDhkODI2Yzc0ODM3ZjNiYTJjM2My'
