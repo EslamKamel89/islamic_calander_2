@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:home_widget/home_widget.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/heleprs/determine_position.dart';
@@ -17,6 +19,8 @@ class HomeWidgetController {
   static const String iosWidgetName = 'IslamicWidget';
 
   static void syncHomeWidgetState(HomeWidgetState state) {
+    if (Platform.isAndroid) return;
+
     // return;
     HomeWidget.setAppGroupId(appGroupId);
     pr(state, t);
@@ -46,6 +50,8 @@ class HomeWidgetController {
   }
 
   static void updateHomeWidgetPrayersTime(PrayersTimeModel? model) {
+    if (Platform.isAndroid) return;
+
     if (model == null) return;
     homeWidgetState = homeWidgetState.copyWith(
         prayers:
@@ -54,11 +60,15 @@ class HomeWidgetController {
   }
 
   static void updateNextPrayer(String? nextPrayer, String? timeLeft) {
+    if (Platform.isAndroid) return;
+
     homeWidgetState = homeWidgetState.copyWith(nextPrayer: nextPrayer, nextPrayerTime: timeLeft);
     syncHomeWidgetState(homeWidgetState);
   }
 
   static void updateHomeWidgetHijriDate(String? currnentHijri, String? newHijri) {
+    if (Platform.isAndroid) return;
+
     homeWidgetState = homeWidgetState.copyWith(
       greogrianDate: formateDateEgnlish(DateTime.now()),
       currentHijri: currnentHijri,
@@ -68,6 +78,8 @@ class HomeWidgetController {
   }
 
   static void getPrayerTimes() {
+    if (Platform.isAndroid) return;
+
     positionNotifier.addListener(() async {
       // pr('listener in HomeWidgetController is called because position is changed: ${positionNotifier.value}');
       if (positionNotifier.value == null) return;
