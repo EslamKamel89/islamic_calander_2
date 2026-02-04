@@ -22,6 +22,9 @@ class AboutController {
       pr(response.runtimeType, '$t - response runtime type');
 
       // pr(response['about'], '$t - response[about]');
+      final mode = (jsonDecode(response) as Map<String, dynamic>)['about']['mode'];
+      pr(mode, 'mode -----------');
+      pr(mode.runtimeType, 'mode -----------');
       final AboutModel model = AboutModel.fromJson(jsonDecode(response)['about']);
       return pr(
           ApiResponseModel(
