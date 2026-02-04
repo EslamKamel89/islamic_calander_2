@@ -125,8 +125,7 @@ class _CityWidgetState extends State<CityWidget> {
 
   Future _request(Position position) async {
     final t = prt('_fetchLocationData - CityWidget');
-    String url =
-        "${EndPoint.baseUrl}/moon/json.php?lat=${position.latitude}&lon=${position.longitude}";
+    String url = "${EndPoint.baseUrl}/json.php?lat=${position.latitude}&lon=${position.longitude}";
     final api = serviceLocator<ApiConsumer>();
     try {
       setState(() {
