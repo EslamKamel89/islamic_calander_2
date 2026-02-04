@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:islamic_calander_2/core/api_service/end_points.dart';
+import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/globals/globals_var.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
+import 'package:islamic_calander_2/core/service_locator/service_locator.dart';
 import 'package:islamic_calander_2/core/themes/themedata.dart';
+import 'package:islamic_calander_2/features/about/controllers/about_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,9 +24,22 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // HomeWidgetController.getPrayerTimes();
     cachePrayerMehtod();
-    Future.delayed(const Duration(milliseconds: 3900), () {
-      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
-    });
+    _checkDomain();
+  }
+
+  Future _checkDomain() async {
+    final controller = serviceLocator<AboutController>();
+    final res = await controller.fetch();
+    if (res.response == ResponseEnum.success) {
+      if (res.data?.mode == '1') {
+        EndPoint.domain = EndPoint.backupDomain;
+      } else {
+        EndPoint.domain = EndPoint.mainDomain;
+      }
+    } else {
+      EndPoint.domain = EndPoint.backupDomain;
+    }
+    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutesNames.mainHomepage, (_) => false);
   }
 
   @override
