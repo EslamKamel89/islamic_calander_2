@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamic_calander_2/core/globals/calc_method_settings.dart';
 import 'package:islamic_calander_2/core/heleprs/prayer_name_tr.dart';
 import 'package:islamic_calander_2/features/home_widget/controller/home_widget_controller.dart';
 import 'package:islamic_calander_2/features/main_homepage/cubits/update_next_prayer_api/update_next_prayer_api_cubit.dart';
@@ -17,6 +18,22 @@ class NextPrayerWidget extends StatefulWidget {
 
 class _NextPrayerWidgetState extends State<NextPrayerWidget> {
   @override
+  void initState() {
+    selectedPrayersNotifier.addListener(calcMethodChangedListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    selectedPrayersNotifier.removeListener(calcMethodChangedListener);
+    super.dispose();
+  }
+
+  void calcMethodChangedListener() {
+    context.read<UpdateNextPrayerApiCubit>().state.prayerTimeModel = null;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateNextPrayerApiCubit, UpdateNextPrayerApiState>(
       builder: (context, state) {
@@ -26,7 +43,8 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget> {
         //       .animate(onPlay: (controller) => controller.repeat)
         //       .fade(duration: 500.ms, begin: 0, end: 0.5);
         // }
-        HomeWidgetController.updateNextPrayer(state.nextPrayer, _formateTimeRemaining(state.timeRemaining));
+        HomeWidgetController.updateNextPrayer(
+            state.nextPrayer, _formateTimeRemaining(state.timeRemaining));
         return PrayerCard(
           prayerName: state.nextPrayer != null ? prayerNameTr(state.nextPrayer!) : 'CALC'.tr(),
           timeRemaining: state.timeRemaining ?? const Duration(seconds: 0),

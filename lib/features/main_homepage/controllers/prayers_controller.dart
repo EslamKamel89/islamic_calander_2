@@ -23,6 +23,8 @@ class PrayersController {
     if (params.method == IslamicOrganization.auto) {
       params.method =
           (await getPrayerCalcMethodByPosition()) ?? IslamicOrganization.muslimWorldLeague;
+    } else {
+      params.method = selectedPrayersMethod;
     }
     try {
       final response = await api.get(

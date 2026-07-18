@@ -89,6 +89,10 @@ class _MainHomePageState extends State<MainHomePage> with RouteAware {
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Text(
+                  //   customNow().toIso8601String().split('T')[1],
+                  //   style: const TextStyle(fontSize: 20),
+                  // ),
                   SizedBox(
                     // color: Colors.red,
                     width: double.infinity,
