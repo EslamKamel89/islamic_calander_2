@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:islamic_calander_2/core/api_service/api_consumer.dart';
 import 'package:islamic_calander_2/core/api_service/end_points.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
@@ -21,7 +22,6 @@ import 'package:islamic_calander_2/features/main_homepage/models/temperature_mod
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
 import 'package:lottie/lottie.dart' as Lot;
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CurrentTemperatureWidget extends StatefulWidget {
   const CurrentTemperatureWidget({super.key});

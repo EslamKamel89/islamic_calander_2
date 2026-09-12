@@ -2,7 +2,7 @@ name: islamic_calander_2
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.52+52
+version: 1.0.53+53
 
 environment:
   sdk: ^3.5.4
@@ -54,14 +54,14 @@ dependencies:
   geolocator: ^13.0.2
   get_it: ^8.0.2
   getwidget: ^5.0.0
-  google_fonts: ^6.2.1
+  google_fonts: ^8.2.1
   hijri: ^3.0.0
   home_widget: ^0.7.0+1
   intl: null
   lat_lng_to_timezone: ^0.2.0
   latlong2: ^0.9.1
   lottie: 3.2.0
-  material_design_icons_flutter: ^7.0.7296
+  flutter_material_design_icons: ^3.1.0+7447
   sensors_plus: ^6.1.1
   share_plus: ^11.0.0
   shared_preferences: ^2.3.3

@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/moon_phase_enums.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/heleprs/is_ltr.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MoonPhasesDropdownWidget extends StatefulWidget {
   const MoonPhasesDropdownWidget({
@@ -37,7 +37,9 @@ class MoonPhasesDropdownWidgetState extends State<MoonPhasesDropdownWidget> {
                     Icon(monthDrawerItem.icon, color: context.secondaryHeaderColor, size: 20.w),
                     const Sizer(),
                     Text(
-                      isEnglish() ? monthDrawerItem.moon.toFullString() : monthDrawerItem.moon.toArabic(),
+                      isEnglish()
+                          ? monthDrawerItem.moon.toFullString()
+                          : monthDrawerItem.moon.toArabic(),
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,

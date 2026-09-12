@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/widgets/sizer.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareAppWidget extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/enums/response_state.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
@@ -17,7 +18,6 @@ import 'package:islamic_calander_2/features/main_homepage/presentation/widgets/a
 import 'package:islamic_calander_2/utils/assets/assets.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart' as Lot;
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class WorldPrayersView extends StatefulWidget {
   const WorldPrayersView({super.key});

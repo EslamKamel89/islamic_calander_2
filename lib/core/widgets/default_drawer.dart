@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_calander_2/core/extensions/context-extensions.dart';
 import 'package:islamic_calander_2/core/router/app_routes_names.dart';
 import 'package:islamic_calander_2/core/themes/themedata.dart';
 import 'package:islamic_calander_2/utils/styles/styles.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DefaultDrawer extends StatelessWidget {
   const DefaultDrawer({super.key, this.opacity = 1});
@@ -29,8 +29,8 @@ class DefaultDrawer extends StatelessWidget {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: txt('New Islamic Calendar', e: St.bold16),
-              accountEmail: const Text(
-                  "The best use of time is to spend it\nin the remembrance of Allah."),
+              accountEmail:
+                  const Text("The best use of time is to spend it\nin the remembrance of Allah."),
               currentAccountPicture: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
                 child: Icon(
@@ -112,9 +112,7 @@ class DefaultDrawer extends StatelessWidget {
   }
 
   Widget _createDrawerItem(BuildContext context,
-      {required IconData icon,
-      required String text,
-      GestureTapCallback? onTap}) {
+      {required IconData icon, required String text, GestureTapCallback? onTap}) {
     return ListTile(
       title: Text(text, style: const TextStyle(color: Colors.white)),
       leading: Icon(icon, color: context.secondaryHeaderColor),
