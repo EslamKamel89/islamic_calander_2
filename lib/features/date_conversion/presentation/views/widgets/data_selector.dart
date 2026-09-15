@@ -26,68 +26,67 @@ class DataSelectorState extends State<DataSelector> {
         children: [
           Text(
             'SELECT_DATA_TYPE'.tr(),
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.primaryColor),
+            style:
+                TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: context.primaryColor),
           ),
           const SizedBox(height: 15.0),
-          Row(
+          Column(
             children: [
-              Expanded(
-                child: RadioListTile<DataProcessingOption>(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'LUNAR'.tr(),
-                        style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.lunar
-                              ? context.primaryColor
-                              : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.lunar ? FontWeight.bold : null,
-                        ),
+              RadioListTile<DataProcessingOption>(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'LUNAR'.tr(),
+                      style: TextStyle(
+                        color: controller.state.selectedOption == DataProcessingOption.lunar
+                            ? context.primaryColor
+                            : null,
+                        fontWeight: controller.state.selectedOption == DataProcessingOption.lunar
+                            ? FontWeight.bold
+                            : null,
                       ),
-                    ],
-                  ),
-                  value: DataProcessingOption.lunar,
-                  selectedTileColor: context.secondaryHeaderColor,
-                  activeColor: context.secondaryHeaderColor,
-                  groupValue: controller.state.selectedOption,
-                  onChanged: (DataProcessingOption? value) {
-                    setState(() {
-                      controller.state.selectedOption = value!;
-                    });
-                    // pr(controller.state.selectedOption, 'DataProcessingOption - after');
-                  },
+                    ),
+                  ],
                 ),
+                value: DataProcessingOption.lunar,
+                selectedTileColor: context.secondaryHeaderColor,
+                activeColor: context.secondaryHeaderColor,
+                groupValue: controller.state.selectedOption,
+                onChanged: (DataProcessingOption? value) {
+                  setState(() {
+                    controller.state.selectedOption = value!;
+                  });
+                  // pr(controller.state.selectedOption, 'DataProcessingOption - after');
+                },
               ),
-              Expanded(
-                child: RadioListTile<DataProcessingOption>(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'REGULAR'.tr(),
-                        style: TextStyle(
-                          color: controller.state.selectedOption == DataProcessingOption.regular
-                              ? context.primaryColor
-                              : null,
-                          fontWeight:
-                              controller.state.selectedOption == DataProcessingOption.regular ? FontWeight.bold : null,
-                        ),
+              RadioListTile<DataProcessingOption>(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'REGULAR'.tr(),
+                      style: TextStyle(
+                        color: controller.state.selectedOption == DataProcessingOption.regular
+                            ? context.primaryColor
+                            : null,
+                        fontWeight: controller.state.selectedOption == DataProcessingOption.regular
+                            ? FontWeight.bold
+                            : null,
                       ),
-                    ],
-                  ),
-                  value: DataProcessingOption.regular,
-                  selectedTileColor: context.secondaryHeaderColor,
-                  activeColor: context.secondaryHeaderColor,
-                  groupValue: controller.state.selectedOption,
-                  onChanged: (DataProcessingOption? value) {
-                    setState(() {
-                      controller.state.selectedOption = value!;
-                    });
-                    // pr(controller.state.selectedOption, 'DataProcessingOption - before');
-                  },
+                    ),
+                  ],
                 ),
+                value: DataProcessingOption.regular,
+                selectedTileColor: context.secondaryHeaderColor,
+                activeColor: context.secondaryHeaderColor,
+                groupValue: controller.state.selectedOption,
+                onChanged: (DataProcessingOption? value) {
+                  setState(() {
+                    controller.state.selectedOption = value!;
+                  });
+                  // pr(controller.state.selectedOption, 'DataProcessingOption - before');
+                },
               ),
             ],
           ),
