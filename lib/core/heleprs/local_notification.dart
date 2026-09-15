@@ -198,7 +198,6 @@ class NotificationService {
 
   Future _fetchPrayers(PrayerTimeParams params) async {
     for (var i = 0; i < 12; i++) {
-      await Future.delayed(const Duration(seconds: 1));
       var res = await prayersController
           .prayerTime(params.copyWith(date: params.date?.add(Duration(days: i))));
       if (res.data != null) {

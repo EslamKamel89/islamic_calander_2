@@ -57,14 +57,19 @@ class AppPrayersTimeBuilder extends StatefulWidget {
   State<AppPrayersTimeBuilder> createState() => _AppPrayersTimeBuilderState();
 }
 
-class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
+class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder>
+    with WidgetsBindingObserver {
   DateTime selectedDate = DateTime.now();
-  ApiResponseModel<ApiLocale?> newHijriDate = ApiResponseModel(response: ResponseEnum.initial);
+  ApiResponseModel<ApiLocale?> newHijriDate =
+      ApiResponseModel(response: ResponseEnum.initial);
   late PrayerTimesApiCubit cubit;
   late MoonImageCubit moonImageCubit;
   @override
   void initState() {
+    super.initState();
     cubit = context.read<PrayerTimesApiCubit>();
+    WidgetsBinding.instance.addObserver(this);
+    positionNotifier.addListener(_positionChanged);
     moonImageCubit = context.read<MoonImageCubit>();
     _getPrayerTime();
     _getNewHijri();
@@ -72,34 +77,38 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
     /// i used this function to determine the prayer time calculation method based on position if there are no cached calculation method
     positionNotifier.addListener(checkUserCountry);
-    super.initState();
   }
 
   void _selectedPrayerMethodListener() {
     cubit.params = cubit.params.copyWith(method: selectedPrayersNotifier.value);
     if (mounted) {
       cubit.getPrayerTime();
+      _refreshHomeWidget();
     }
   }
 
   Future _getNewHijri() async {
     setState(() {
-      newHijriDate = newHijriDate.copyWith(response: ResponseEnum.loading, errorMessage: null);
+      newHijriDate = newHijriDate.copyWith(
+          response: ResponseEnum.loading, errorMessage: null);
     });
     DateConversionRepo repo = serviceLocator();
-    final response = await repo.getDateConversion(selectedDate,
-        context.read<DateConversionCubit>().state.selectedOption ?? DataProcessingOption.regular);
+    final response = await repo.getDateConversion(
+        selectedDate,
+        context.read<DateConversionCubit>().state.selectedOption ??
+            DataProcessingOption.regular);
     response.fold((_) {
       setState(() {
-        newHijriDate =
-            newHijriDate.copyWith(response: ResponseEnum.failure, errorMessage: 'Error Occured');
+        newHijriDate = newHijriDate.copyWith(
+            response: ResponseEnum.failure, errorMessage: 'Error Occured');
       });
     }, (model) {
       if (mounted) {
         setState(() {
           newHijriDate = ApiResponseModel(
             response: ResponseEnum.success,
-            data: ApiLocale(ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
+            data: ApiLocale(
+                ar: model.newHijriUpdatedAr, en: model.newHijriUpdated),
           );
         });
         if (isSameDate(selectedDate, DateTime.now())) {
@@ -111,7 +120,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
   }
 
   Future _getPrayerTime() async {
-    final positionInMemory = serviceLocator<GeoPosition>().getPositionInMemory();
+    final positionInMemory =
+        serviceLocator<GeoPosition>().getPositionInMemory();
     if (positionInMemory != null) {
       pr('calling cubit.getPrayerTime() in  AppPrayersTimeBuilder widget directly because positionInMemory is not null: ${positionNotifier.value}');
       cubit.params = cubit.params.copyWith(
@@ -121,23 +131,39 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
         date: selectedDate,
       );
+      _refreshHomeWidget();
       await cubit.getPrayerTime();
-      notificationService.addNotifications(params: cubit.params.copyWith(date: DateTime.now()));
+      if (!mounted) return;
+      notificationService.addNotifications(
+          params: cubit.params.copyWith(date: DateTime.now()));
       return;
     }
-    positionNotifier.addListener(() async {
-      pr('listener in AppPrayersTimeBuilder widget is called because position is changed: ${positionNotifier.value}');
-      if (positionNotifier.value == null) return;
-      cubit.params = cubit.params.copyWith(
-        latitude: positionNotifier.value!.latitude,
-        longitude: positionNotifier.value!.longitude,
+  }
+
+  void _refreshHomeWidget() {
+    HomeWidgetController.updateHomeWidgetState(
+        params: cubit.params.copyWith(date: DateTime.now()));
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _refreshHomeWidget();
+  }
+
+  Future<void> _positionChanged() async {
+    final position = positionNotifier.value;
+    if (!mounted || position == null) return;
+    cubit.params = cubit.params.copyWith(
+        latitude: position.latitude,
+        longitude: position.longitude,
         method: selectedPrayersNotifier.value,
         latitudeAdjustmentMethod: LatitudeAdjustmentMethod.angleBased,
-        date: selectedDate,
-      );
-      await cubit.getPrayerTime();
-      notificationService.addNotifications(params: cubit.params.copyWith(date: DateTime.now()));
-    });
+        date: selectedDate);
+    _refreshHomeWidget();
+    await cubit.getPrayerTime();
+    if (!mounted) return;
+    notificationService.addNotifications(
+        params: cubit.params.copyWith(date: DateTime.now()));
   }
 
   Future _handleDateChange() async {
@@ -146,8 +172,10 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
     if ([position, position?.latitude, position?.longitude].contains(null)) {
       return;
     }
-    cubit.params = cubit.params
-        .copyWith(date: selectedDate, latitude: position!.latitude, longitude: position.longitude);
+    cubit.params = cubit.params.copyWith(
+        date: selectedDate,
+        latitude: position!.latitude,
+        longitude: position.longitude);
     cubit.getPrayerTime();
     moonImageCubit.dateTime = selectedDate;
     moonImageCubit.moonImage();
@@ -156,6 +184,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    positionNotifier.removeListener(_positionChanged);
     positionNotifier.removeListener(checkUserCountry);
     selectedPrayersNotifier.removeListener(_selectedPrayerMethodListener);
     super.dispose();
@@ -176,7 +206,8 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                   children: [
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.subtract(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.subtract(const Duration(days: 1));
                           // selectedDate = DateTime(620);
                           await _handleDateChange();
                         },
@@ -196,17 +227,20 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
                                   .animate(onPlay: (c) => c.repeat())
                                   .fade(duration: 1000.ms, begin: 0.2, end: 0.7)
                                   .then()
-                                  .fade(duration: 1000.ms, begin: 0.7, end: 0.2),
+                                  .fade(
+                                      duration: 1000.ms, begin: 0.7, end: 0.2),
                         ],
                       );
                     }),
                     InkWell(
                         onTap: () async {
-                          selectedDate = selectedDate.add(const Duration(days: 1));
+                          selectedDate =
+                              selectedDate.add(const Duration(days: 1));
                           // selectedDate = DateTime(625);
                           await _handleDateChange();
                         },
-                        child: Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
+                        child:
+                            Icon(Icons.arrow_forward_ios_rounded, size: 30.w)),
                   ],
                 ),
               ),
@@ -214,14 +248,15 @@ class _AppPrayersTimeBuilderState extends State<AppPrayersTimeBuilder> {
               Material(
                 borderRadius: BorderRadius.circular(15.w),
                 elevation: 2,
-                shadowColor: Colors.grey.withOpacity(0.3),
+                shadowColor: Colors.grey.withValues(alpha: 0.3),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white,
                   ),
-                  child:
-                      PrayersWidget(state.data).animate().fade(duration: 1000.ms, begin: 0, end: 1),
+                  child: PrayersWidget(state.data)
+                      .animate()
+                      .fade(duration: 1000.ms, begin: 0, end: 1),
                 ),
               ),
             ],
@@ -298,7 +333,10 @@ class PrayersWidget extends StatelessWidget {
 
 class PrayTimeWidget extends StatelessWidget {
   const PrayTimeWidget(
-      {super.key, required this.pray, required this.imagePath, required this.time});
+      {super.key,
+      required this.pray,
+      required this.imagePath,
+      required this.time});
   final String pray;
   final String? time;
   final String imagePath;
