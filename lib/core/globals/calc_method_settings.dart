@@ -41,77 +41,24 @@ Future<void> checkUserCountry() async {
     sp.setInt(ShPrefKey.calcPrayerTimeSetting, calcMethod?.value ?? 3);
     selectedPrayersNotifier.value =
         calcMethod ?? IslamicOrganization.muslimWorldLeague;
-    // List<Placemark> placemarks = await placemarkFromCoordinates(
-    //     positionNotifier.value!.latitude, positionNotifier.value!.longitude);
-    // if (placemarks.isEmpty) return;
-    // pr(placemarks, '$t - placemarks');
-    // String? country = placemarks.first.country;
-    // if (country == null) return;
-    // pr(country, '$t - country');
-    // final userCountry = country.toLowerCase();
-    // final monitoredCountries = [
-    //   'united states of america',
-    //   'united states',
-    //   'united arab emirates',
-    //   'egypt',
-    //   // 'saudi arabia',
-    //   'kuwait',
-    //   'qatar',
-    //   'france',
-    //   'morocco',
-    // ];
-    // if (!monitoredCountries.contains(userCountry)) return;
-    // pr('country found', t);
-    // switch (userCountry) {
-    //   case 'united states of america':
-    //     sp.setInt(ShPrefKey.calcPrayerTimeSetting,
-    //         IslamicOrganization.islamicSocietyNorthAmerica.value);
-    //     selectedPrayersNotifier.value =
-    //         IslamicOrganization.islamicSocietyNorthAmerica;
-    //     break;
-    //   case 'united states':
-    //     sp.setInt(ShPrefKey.calcPrayerTimeSetting,
-    //         IslamicOrganization.islamicSocietyNorthAmerica.value);
-    //     selectedPrayersNotifier.value =
-    //         IslamicOrganization.islamicSocietyNorthAmerica;
-    //     break;
-    //   case 'united arab emirates':
-    //     sp.setInt(
-    //         ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.dubai.value);
-    //     selectedPrayersNotifier.value = pr(IslamicOrganization.dubai, t);
-
-    //     break;
-    //   case 'egypt':
-    //     sp.setInt(ShPrefKey.calcPrayerTimeSetting,
-    //         IslamicOrganization.egyptianGeneralAuthority.value);
-    //     selectedPrayersNotifier.value =
-    //         IslamicOrganization.egyptianGeneralAuthority;
-    //     break;
-    //   case 'kuwait':
-    //     sp.setInt(
-    //         ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.kuwait.value);
-    //     selectedPrayersNotifier.value = IslamicOrganization.kuwait;
-    //     break;
-    //   case 'qatar':
-    //     sp.setInt(
-    //         ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.qatar.value);
-    //     selectedPrayersNotifier.value = IslamicOrganization.qatar;
-    //     break;
-    //   case 'france':
-    //     sp.setInt(ShPrefKey.calcPrayerTimeSetting,
-    //         IslamicOrganization.unionOrganizationIslamicDeFrance.value);
-    //     selectedPrayersNotifier.value =
-    //         IslamicOrganization.unionOrganizationIslamicDeFrance;
-    //     break;
-    //   case 'morocco':
-    //     sp.setInt(
-    //         ShPrefKey.calcPrayerTimeSetting, IslamicOrganization.morocco.value);
-    //     selectedPrayersNotifier.value = IslamicOrganization.morocco;
-    //     break;
-    // }
   } catch (e) {
     pr("Error occurred during geocoding: $e", 'checkUserCountry');
   }
+}
+
+/// Returns JSON-compatible enum names keyed by uppercase ISO country codes.
+/// For example: {"US": "islamicSocietyNorthAmerica"}.
+/// Replace the fixed data with a backend request and decoding here when ready.
+Future<Map<String, String>> fetchPrayerCalculationMethodsByCountry() async {
+  return const {
+    'US': 'islamicSocietyNorthAmerica',
+    'AE': 'dubai',
+    'EG': 'egyptianGeneralAuthority',
+    'KW': 'kuwait',
+    'QA': 'qatar',
+    'FR': 'unionOrganizationIslamicDeFrance',
+    'MA': 'morocco',
+  };
 }
 
 Future<IslamicOrganization?> getPrayerCalcMethodByPosition() async {
@@ -123,49 +70,12 @@ Future<IslamicOrganization?> getPrayerCalcMethodByPosition() async {
         positionNotifier.value!.latitude, positionNotifier.value!.longitude);
     if (placemarks.isEmpty) return null;
     pr(placemarks, '$t - placemarks');
-    String? country = placemarks.first.country;
-    if (country == null) return null;
-    pr(country, '$t - country');
-    final userCountry = country.toLowerCase();
-    final monitoredCountries = [
-      'united states of america',
-      'united states',
-      'united arab emirates',
-      'egypt',
-      'kuwait',
-      'qatar',
-      'france',
-      'morocco',
-    ];
-    if (!monitoredCountries.contains(userCountry)) return null;
-    pr('country found', t);
-    IslamicOrganization? result;
-    switch (userCountry) {
-      case 'united states of america':
-        result = IslamicOrganization.islamicSocietyNorthAmerica;
-        break;
-      case 'united states':
-        result = IslamicOrganization.islamicSocietyNorthAmerica;
-        break;
-      case 'united arab emirates':
-        result = IslamicOrganization.dubai;
-        break;
-      case 'egypt':
-        result = IslamicOrganization.egyptianGeneralAuthority;
-        break;
-      case 'kuwait':
-        result = IslamicOrganization.kuwait;
-        break;
-      case 'qatar':
-        result = IslamicOrganization.qatar;
-        break;
-      case 'france':
-        result = IslamicOrganization.unionOrganizationIslamicDeFrance;
-        break;
-      case 'morocco':
-        result = IslamicOrganization.morocco;
-        break;
-    }
+    final countryCode = placemarks.first.isoCountryCode?.trim().toUpperCase();
+    if (countryCode == null || countryCode.isEmpty) return null;
+    pr(countryCode, '$t - countryCode');
+    final methodsByCountry = await fetchPrayerCalculationMethodsByCountry();
+    final methodName = methodsByCountry[countryCode];
+    final result = IslamicOrganization.values.asNameMap()[methodName];
     return pr(result, '$t - result');
   } catch (e) {
     pr("Error occurred during geocoding: $e", t);
