@@ -42,8 +42,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         // versionCode = flutter.versionCode
         // versionName = flutter.versionName
-         versionCode = 52
-        versionName = "1.0.52"
+         versionCode = 56
+        versionName = "1.0.56"
     }
     
     signingConfigs {
