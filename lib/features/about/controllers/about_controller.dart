@@ -18,20 +18,15 @@ class AboutController {
       final response = await api.get(
         EndPoint.about,
       );
-      pr(response, '$t - response');
-      pr(response.runtimeType, '$t - response runtime type');
+      pr(response, '$t - response-raw');
 
-      // pr(response['about'], '$t - response[about]');
-      final mode = (jsonDecode(response) as Map<String, dynamic>)['about']['mode'];
-      pr(mode, 'mode -----------');
-      pr(mode.runtimeType, 'mode -----------');
       final AboutModel model = AboutModel.fromJson(jsonDecode(response)['about']);
       return pr(
           ApiResponseModel(
             response: ResponseEnum.success,
             data: model,
           ),
-          t);
+          '$t - response-parsed');
     } catch (e) {
       String errorMessage = e.toString();
       if (e is DioException) {
