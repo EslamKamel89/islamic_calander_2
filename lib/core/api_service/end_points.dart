@@ -18,6 +18,7 @@ class EndPoint {
   static String getMoonPhaseEndPoint = "$baseUrl/getphase.php";
   static String getEclipseEndPoint = "$baseUrl/getecllipse.php";
   static String wisdomEndPoint = "$baseUrl/wisdoms.php";
+  static String prayerCalculationMethod = "$baseUrl/calc.php";
   // https://api.aladhan.com/v1/timings/01-01-2025?latitude=51.5194682&longitude=-0.1360365&method=3&shafaq=general&tune=5%2C3%2C5%2C7%2C9%2C-1%2C0%2C8%2C-6&timezonestring=UTC&calendarMethod=UAQ
   static String prayerTimesEndPoint(DateTime date) =>
       'https://api.aladhan.com/v1/timings/${formatDateForApi(date)}';
